@@ -1,0 +1,7 @@
+export const ADD_CATEGORY = "ADD_CATEGORY";
+export const DELETE_CATEGORY = "DELETE_CATEGORY";
+export const ADD_NESTED_CATEGORY = "ADD_NESTED_CATEGORY";
+export const EDIT_CATEGORY = "EDIT_CATEGORY";
+export const ADD_TASK = "ADD_TASK";
+export const MOVE_TASK = "MOVE_TASK";
+export const CHANGE_SHOW = "CHANGE_SHOW";
