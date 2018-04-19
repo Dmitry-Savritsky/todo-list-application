@@ -12,7 +12,8 @@ export default class App extends React.Component {
         return (
             <div>
                 <CategoryAdder addCategory={this.props.addCategory} />
-                <CategoryList categories={this.props.categories} />
+                <CategoryList categories={this.props.categories}
+                    deleteCategory={this.props.deleteCategory} />
             </div>
         );
     }
@@ -20,6 +21,8 @@ export default class App extends React.Component {
 
 App.propTypes = {
     addCategory: PropTypes.func.isRequired,
+    deleteCategory: PropTypes.func.isRequired,
+
     categories: PropTypes.arrayOf(PropTypes.shape({
         title: PropTypes.string.isRequired,
         id: PropTypes.string.isRequired,

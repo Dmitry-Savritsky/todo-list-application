@@ -61,6 +61,14 @@ export default function categories(state = initialState, action) {
                     }
                 ]
             }
+
+        case ACTIONS.DELETE_CATEGORY:
+            return {
+                ...state,
+                categories: [
+                    ...state.categories.filter(element => element.id !== action.id),
+                ],
+            };
         default:
             return state;
     }

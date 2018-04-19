@@ -7,7 +7,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  addCategory: (id, title) => dispatch(ACTIONS.addCategory(id, title))
+  addCategory: (id, title) => dispatch(ACTIONS.addCategory(id, title)),
+  deleteCategory: (id) => dispatch(ACTIONS.deleteCategory(id)),
 });
 
 export default connect(

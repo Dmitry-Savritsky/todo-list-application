@@ -9,7 +9,7 @@ export default class CategoryList extends React.Component {
     }
 
     render() {
-        const categoriesList = createCategoryList(this.props.categories);
+        const categoriesList = createCategoryList(this.props.categories, this.props.deleteCategory);
 
         return (
             <ListGroup>
@@ -19,11 +19,13 @@ export default class CategoryList extends React.Component {
     }
 }
 
-function createCategoryList(categories) {
+function createCategoryList(categories, deleteCategoryHandler) {
     const list = categories.map(
         element =>
             <ListGroupItem key={element.id}>
-                <Category title={element.title} id={element.id} />
+                <Category title={element.title}
+                    id={element.id}
+                    deleteCategory={deleteCategoryHandler} />
             </ListGroupItem>
     );
 
@@ -41,5 +43,6 @@ CategoryList.propTypes = {
             description: PropTypes.string
         })),
         nestedCategories: PropTypes.array,
-    }))
+    })),
+    deleteCategory: PropTypes.func.isRequired,
 }
