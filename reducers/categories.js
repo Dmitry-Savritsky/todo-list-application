@@ -22,6 +22,25 @@ const initialState = {
                         description: "description 2"
                     }],
                     nestedCategories: []
+                },
+                {
+                    title: "Category 1_2",
+                    id: "catID1_2",
+                    tasks: [{
+                    }],
+                    nestedCategories: [
+                        {
+                            title: "Category 3_1",
+                            id: "catID3_1",
+                            tasks: [{
+                                name: "task 3",
+                                id: "id3",
+                                checked: false,
+                                description: "description 3"
+                            }],
+                            nestedCategories: []
+                        },
+                    ]
                 }
             ]
         },

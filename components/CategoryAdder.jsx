@@ -20,7 +20,7 @@ export default class CategoryAdder extends React.Component {
         const id = uuidv1();
 
         this.props.addCategory(id, this.state.title);
-        this.setState({title: " "});
+        this.setState({ title: " " });
     }
 
     handleNameChange(event) {
@@ -30,7 +30,7 @@ export default class CategoryAdder extends React.Component {
     render() {
 
         return (
-            <Form horizontal onSubmit={this.addCategoryHandler}>
+            <Form inline onSubmit={this.addCategoryHandler}>
                 <FormGroup>
                     <FormControl type="text" value={this.state.title} placeholder="Enter category title" onChange={this.handleNameChange} />
                 </FormGroup>

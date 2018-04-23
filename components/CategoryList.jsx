@@ -12,6 +12,7 @@ export default class CategoryList extends React.Component {
         const categoriesList = createCategoryList(this.props.categories, this.props.deleteCategory);
 
         return (
+
             <ListGroup>
                 {categoriesList}
             </ListGroup>
@@ -20,13 +21,28 @@ export default class CategoryList extends React.Component {
 }
 
 function createCategoryList(categories, deleteCategoryHandler) {
+
     const list = categories.map(
-        element =>
-            <ListGroupItem key={element.id}>
-                <Category title={element.title}
-                    id={element.id}
-                    deleteCategory={deleteCategoryHandler} />
-            </ListGroupItem>
+        function (element) {
+            let nested;
+            if (element.nestedCategories.length > 0) {
+                nested = element.nestedCategories;
+            }
+            else nested = false;
+            
+            return (
+                <ListGroupItem key={element.id}>
+                    <Category title={element.title}
+                        id={element.id}
+                        deleteCategory={deleteCategoryHandler} />
+
+                    {nested && <ListGroup>
+                        {createCategoryList(nested, deleteCategoryHandler)}
+                    </ListGroup>
+                    }
+                </ListGroupItem>
+            );
+        }
     );
 
     return list;
