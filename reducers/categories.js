@@ -82,13 +82,56 @@ export default function categories(state = initialState, action) {
             }
 
         case ACTIONS.DELETE_CATEGORY:
-            return {
-                ...state,
-                categories: [
-                    ...state.categories.filter(element => element.id !== action.id),
-                ],
-            };
+            {
+                return {
+                    ...state,
+                    categories: [
+                        ...deleteCategory(state.categories, action.id)
+                    ],
+                };
+            }
         default:
             return state;
     }
+}
+
+function deleteCategory(category, id) {
+
+    let flag = false;
+    let filtered;
+    let result;
+
+    filtered = category.filter(element => {
+        if (element.id == id) flag = true;
+        return element.id != id;
+    });
+
+    result = filtered;
+
+    if (!flag) {
+        result = filtered.map(element => {
+            element.nestedCategories = deleteStep(element.nestedCategories, id);
+            return element;
+        });
+    }
+
+    return result;
+}
+
+function deleteStep(category, id) {
+    let stepResult = category;
+    let flag = false;
+
+    stepResult = category.filter(element => {
+        if (element.id == id) flag = true;
+        return element.id != id;
+    });
+
+    if (!flag) {
+        stepResult = stepResult.map(element => {
+            element.nestedCategories = deleteStep(element.nestedCategories, id);
+            return element;
+        });
+    }
+    return stepResult;
 }
