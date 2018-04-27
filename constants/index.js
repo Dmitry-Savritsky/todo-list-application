@@ -5,3 +5,5 @@ export const EDIT_CATEGORY = "EDIT_CATEGORY";
 export const ADD_TASK = "ADD_TASK";
 export const MOVE_TASK = "MOVE_TASK";
 export const CHANGE_SHOW = "CHANGE_SHOW";
+export const OPEN_NESTED_ADD_WINDOW = "OPEN_NESTED_ADD_WINDOW";
+export const CLOSE_NESTED_ADD_WINDOW = "CLOSE_NESTED_ADD_WINDOW";

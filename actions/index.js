@@ -1,5 +1,6 @@
 import * as ACTIONS from '../constants/index';
 
+//state
 export function addCategory(id, title) {
     return {
         type: ACTIONS.ADD_CATEGORY,
@@ -51,9 +52,24 @@ export function moveTask(id, categoryId) {
     }
 }
 
-export function changeShow(showState){
+export function changeShow(showState) {
     return {
         type: ACTIONS.CHANGE_SHOW,
         showState
+    }
+}
+
+//windows
+
+export function openNestedAddWindow(parentId) {
+    return {
+        type: ACTIONS.OPEN_NESTED_ADD_WINDOW,
+        parentId,
+    }
+}
+
+export function closeNestedAddWindow() {
+    return {
+        type: ACTIONS.CLOSE_NESTED_ADD_WINDOW
     }
 }

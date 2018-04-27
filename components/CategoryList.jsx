@@ -9,7 +9,7 @@ export default class CategoryList extends React.Component {
     }
 
     render() {
-        const categoriesList = createCategoryList(this.props.categories, this.props.deleteCategory);
+        const categoriesList = createCategoryList(this.props.categories, this.props.deleteCategory, this.props.openNestedAddWindow);
 
         return (
 
@@ -20,7 +20,7 @@ export default class CategoryList extends React.Component {
     }
 }
 
-function createCategoryList(categories, deleteCategoryHandler) {
+function createCategoryList(categories, deleteCategoryHandler, openNestedAddWindow) {
 
     const list = categories.map(
         function (element) {
@@ -29,15 +29,16 @@ function createCategoryList(categories, deleteCategoryHandler) {
                 nested = element.nestedCategories;
             }
             else nested = false;
-            
+
             return (
                 <ListGroupItem key={element.id}>
                     <Category title={element.title}
                         id={element.id}
-                        deleteCategory={deleteCategoryHandler} />
+                        deleteCategory={deleteCategoryHandler}
+                        openNestedAddWindow={openNestedAddWindow} />
 
                     {nested && <ListGroup>
-                        {createCategoryList(nested, deleteCategoryHandler)}
+                        {createCategoryList(nested, deleteCategoryHandler, openNestedAddWindow)}
                     </ListGroup>
                     }
                 </ListGroupItem>
@@ -61,4 +62,5 @@ CategoryList.propTypes = {
         nestedCategories: PropTypes.array,
     })),
     deleteCategory: PropTypes.func.isRequired,
+    openNestedAddWindow: PropTypes.func.isRequired,
 }
