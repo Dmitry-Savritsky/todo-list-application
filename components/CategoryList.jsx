@@ -9,7 +9,8 @@ export default class CategoryList extends React.Component {
     }
 
     render() {
-        const categoriesList = createCategoryList(this.props.categories, this.props.deleteCategory, this.props.openNestedAddWindow);
+        const categoriesList = createCategoryList(this.props.categories, this.props.deleteCategory,
+            this.props.openNestedAddWindow, this.props.openCategoryEditWindow);
 
         return (
 
@@ -20,7 +21,7 @@ export default class CategoryList extends React.Component {
     }
 }
 
-function createCategoryList(categories, deleteCategoryHandler, openNestedAddWindow) {
+function createCategoryList(categories, deleteCategoryHandler, openNestedAddWindow, openCategoryEditWindow) {
 
     const list = categories.map(
         function (element) {
@@ -35,10 +36,11 @@ function createCategoryList(categories, deleteCategoryHandler, openNestedAddWind
                     <Category title={element.title}
                         id={element.id}
                         deleteCategory={deleteCategoryHandler}
-                        openNestedAddWindow={openNestedAddWindow} />
+                        openNestedAddWindow={openNestedAddWindow}
+                        openCategoryEditWindow={openCategoryEditWindow} />
 
                     {nested && <ListGroup>
-                        {createCategoryList(nested, deleteCategoryHandler, openNestedAddWindow)}
+                        {createCategoryList(nested, deleteCategoryHandler, openNestedAddWindow, openCategoryEditWindow)}
                     </ListGroup>
                     }
                 </ListGroupItem>
@@ -63,4 +65,5 @@ CategoryList.propTypes = {
     })),
     deleteCategory: PropTypes.func.isRequired,
     openNestedAddWindow: PropTypes.func.isRequired,
+    openCategoryEditWindow: PropTypes.func.isRequired,
 }
