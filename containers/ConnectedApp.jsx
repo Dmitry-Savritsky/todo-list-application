@@ -8,11 +8,13 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  addCategory: (id, title) => dispatch(ACTIONS.addCategory(id, title)),
+  addCategory: (id, parentId, title) => dispatch(ACTIONS.addCategory(id, parentId, title)),
   deleteCategory: (id) => dispatch(ACTIONS.deleteCategory(id)),
-  addNestedCategory: (id, parentId, title) => dispatch(ACTIONS.addNestedCategory(id, parentId, title)),
   closeNestedAddWindow: () => dispatch(ACTIONS.closeNestedAddWindow()),
   openNestedAddWindow: (parentId) => dispatch(ACTIONS.openNestedAddWindow(parentId)),
+  closeCategoryEditWindow: () => dispatch(ACTIONS.closeCategoryEditWindow()),
+  openCategoryEditWindow: (editId, title) => dispatch(ACTIONS.openCategoryEditWindow(editId, title)),
+  editCategory: (id, title) => dispatch(ACTIONS.editCategory(id, title)),
 });
 
 export default connect(

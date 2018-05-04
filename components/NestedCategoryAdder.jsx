@@ -22,7 +22,7 @@ export default class NestedCategoryAdder extends React.Component {
         const id = uuidv1();
 
         //generate action for adding a category
-        this.props.addNestedCategory(id, this.props.nestedParentId, this.state.title);
+        this.props.addCategory(id, this.props.nestedParentId, this.state.title);
 
         this.setState({ title: " " });
         this.props.closeWindow();
@@ -62,7 +62,7 @@ export default class NestedCategoryAdder extends React.Component {
 }
 
 NestedCategoryAdder.propTypes = {
-    addNestedCategory: PropTypes.func.isRequired,
+    addCategory: PropTypes.func.isRequired,
     showWindow: PropTypes.bool.isRequired,
     closeWindow: PropTypes.func.isRequired,
     nestedParentId: PropTypes.string.isRequired,

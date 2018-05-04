@@ -19,7 +19,7 @@ export default class CategoryAdder extends React.Component {
         const uuidv1 = require('uuid/v1');
         const id = uuidv1();
 
-        this.props.addCategory(id, this.state.title);
+        this.props.addCategory(id, null, this.state.title);
         this.setState({ title: " " });
     }
 
