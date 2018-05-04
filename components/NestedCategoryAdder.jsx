@@ -1,5 +1,8 @@
 import React from 'react';
-import { Button, Form, FormGroup, FormControl, Modal } from 'react-bootstrap';
+import { Form, FormGroup, FormControl } from 'react-bootstrap';
+import Dialog from 'material-ui/Dialog'
+import RaisedButton from 'material-ui/RaisedButton'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import PropTypes from 'prop-types';
 
 export default class NestedCategoryAdder extends React.Component {
@@ -39,24 +42,26 @@ export default class NestedCategoryAdder extends React.Component {
 
     render() {
 
-        return (
-            <Modal show={this.props.showWindow} onHide={this.onClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Add nested category</Modal.Title>
-                </Modal.Header>
+        const actions = [
+            <RaisedButton key="1" label="Add" primary={true} onClick={this.addCategoryHandler} />,
+            <RaisedButton key="2" label="Cancel" primary={true} onClick={this.onClose} />
+        ];
 
-                <Modal.Body>
+        return (
+            <MuiThemeProvider>
+                <Dialog
+                    title="Add nested category"
+                    actions={actions}
+                    modal={true}
+                    open={this.props.showWindow}>
+
                     <Form inline onSubmit={this.addCategoryHandler}>
                         <FormGroup>
                             <FormControl type="text" value={this.state.title} placeholder="Enter category title" onChange={this.handleNameChange} />
                         </FormGroup>
-                        <FormGroup>
-                            <Button bsStyle="primary" type="submit">Add</Button>
-                        </FormGroup>
                     </Form>
-                </Modal.Body>
-
-            </Modal>
+                </Dialog>
+            </MuiThemeProvider>
         );
     }
 }

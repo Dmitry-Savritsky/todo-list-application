@@ -7,6 +7,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 
 import PropTypes from 'prop-types';
 import _ from 'lodash'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 export default class CategoryEditor extends React.Component {
     constructor(props) {
@@ -60,18 +61,20 @@ export default class CategoryEditor extends React.Component {
         ];
 
         return (
-            <Dialog
-                title="Edit category title"
-                actions={actions}
-                modal={true}
-                open={this.props.showWindow}>
+            <MuiThemeProvider>
+                <Dialog
+                    title="Edit category title"
+                    actions={actions}
+                    modal={true}
+                    open={this.props.showWindow}>
 
-                <Form inline onSubmit={this.editCategoryHandler}>
-                    <FormGroup>
-                        <FormControl type="text" value={this.state.title} placeholder="Enter category title" onChange={this.handleNameChange} />
-                    </FormGroup>
-                </Form>
-            </Dialog>
+                    <Form inline onSubmit={this.editCategoryHandler}>
+                        <FormGroup>
+                            <FormControl type="text" value={this.state.title} placeholder="Enter category title" onChange={this.handleNameChange} />
+                        </FormGroup>
+                    </Form>
+                </Dialog>
+            </MuiThemeProvider>
         );
     }
 }

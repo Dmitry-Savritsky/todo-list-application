@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import CategoryAdder from './CategoryAdder.jsx';
 import CategoryList from './CategoryList.jsx';
 import NestedCategoryAdder from './NestedCategoryAdder.jsx';
@@ -14,14 +13,13 @@ export default class App extends React.Component {
 
     render() {
         return (
-            <MuiThemeProvider>
+            <div>
                 <CategoryEditor
                     showWindow={this.props.gui.isEditCategoryOpened}
                     closeWindow={this.props.closeCategoryEditWindow}
                     editCategory={this.props.editCategory}
                     editId={this.props.gui.editId}
-                    editTitle={this.props.gui.editTitle}
-                />
+                    editTitle={this.props.gui.editTitle} />
 
                 <NestedCategoryAdder
                     addCategory={this.props.addCategory}
@@ -37,7 +35,7 @@ export default class App extends React.Component {
                     openNestedAddWindow={this.props.openNestedAddWindow}
                     openCategoryEditWindow={this.props.openCategoryEditWindow} />
 
-            </MuiThemeProvider>
+            </div>
         );
     }
 }

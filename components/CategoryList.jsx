@@ -1,6 +1,7 @@
 import React from 'react';
 import List from 'material-ui/List/List'
 import ListItem from 'material-ui/List/ListItem'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import PropTypes from 'prop-types';
 import Category from './Category.jsx';
@@ -17,16 +18,19 @@ export default class CategoryList extends React.Component {
 
         return (
 
-            <List>
-                {categoriesList}
-            </List>
+            <MuiThemeProvider>
+                <List>
+                    {categoriesList}
+                </List>
+            </MuiThemeProvider>
         );
     }
 }
 
 function createCategoryList(categories, deleteCategoryHandler, openNestedAddWindow, openCategoryEditWindow) {
 
-    if (categories == null) return false;
+    if (categories == null) return [];
+
     const list = categories.map(
         function (element) {
             let nested;

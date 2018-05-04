@@ -1,5 +1,7 @@
 import React from 'react';
-import { Button, Form, FormGroup, FormControl } from 'react-bootstrap';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { Form, FormGroup, FormControl } from 'react-bootstrap';
+import RaisedButton from 'material-ui/RaisedButton'
 import PropTypes from 'prop-types';
 
 export default class CategoryAdder extends React.Component {
@@ -30,12 +32,14 @@ export default class CategoryAdder extends React.Component {
     render() {
 
         return (
-            <Form inline onSubmit={this.addCategoryHandler}>
+            <Form inline>
                 <FormGroup>
                     <FormControl type="text" value={this.state.title} placeholder="Enter category title" onChange={this.handleNameChange} />
                 </FormGroup>
                 <FormGroup>
-                    <Button bsStyle="primary" type="submit">Add</Button>
+                    <MuiThemeProvider>
+                        <RaisedButton label="Add" primary={true} onClick={this.addCategoryHandler} />
+                    </MuiThemeProvider>
                 </FormGroup>
             </Form>
         );
