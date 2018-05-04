@@ -71,31 +71,24 @@ export default function categories(state = initialState, action) {
             return {
                 ...state,
                 categories: [
-                    {
-                        title: action.title,
-                        id: action.id,
-                        tasks: [],
-                        nestedCategories: [],
-                    },
-                    ...state.categories,
+                    ...addCategory(state.categories, action.id, action.parentId, action.title)
                 ]
             }
 
-        case ACTIONS.DELETE_CATEGORY:
-            {
-                return {
-                    ...state,
-                    categories: [
-                        ...deleteCategory(state.categories, action.id)
-                    ],
-                };
-            }
-
-        case ACTIONS.ADD_NESTED_CATEGORY: {
+        case ACTIONS.DELETE_CATEGORY: {
             return {
                 ...state,
                 categories: [
-                    ...addNestedCategory(state.categories, action.id, action.parentId, action.title)
+                    ...deleteCategory(state.categories, action.id)
+                ],
+            };
+        }
+
+        case ACTIONS.EDIT_CATEGORY: {
+            return {
+                ...state,
+                categories: [
+                    ...editCategory(state.categories, action.id, action.title)
                 ],
             };
         }
@@ -105,17 +98,52 @@ export default function categories(state = initialState, action) {
     }
 }
 
-//TODO
-function addNestedCategory(categories, id, parentId, title) {
+function editCategory(categories, id, title) {
+    let result;
+    let completed = false;
+
+    let mapped = categories.map(element => {
+        if (element.id == id) {
+            element.title = title;
+            completed = true;
+        }
+        return element;
+    });
+
+    if (completed) return mapped;
+
+    else {
+        result = mapped.map(element => {
+            element.nestedCategories = editCategory(element.nestedCategories, id, title);
+            return element;
+        });
+
+        return result;
+    }
+
+}
+
+function addCategory(categories, id, parentId, title) {
 
     let result;
     let completed = false;
+
     let item = {
         title: title,
         id: id,
         tasks: [],
         nestedCategories: [],
     };
+
+    if (parentId == null) {
+
+        result = [
+            item,
+            ...categories,
+        ]
+
+        return result;
+    }
 
     let mapped = categories.map(element => {
         if (element.id == parentId) {
@@ -129,42 +157,12 @@ function addNestedCategory(categories, id, parentId, title) {
     });
 
     if (completed) return mapped;
+
     else {
         result = mapped.map(element => {
-            element.nestedCategories = addNestedStep(element.nestedCategories, parentId, item);
+            element.nestedCategories = addCategory(element.nestedCategories, id, parentId, title);
             return element;
         });
-
-        completed = true;
-
-        return result;
-    }
-
-}
-
-function addNestedStep(category, parentId, item) {
-    let completed = false;
-    let result;
-
-    let mapped = category.map(element => {
-        if (element.id == parentId) {
-            element.nestedCategories = [
-                item,
-                ...element.nestedCategories
-            ]
-            completed = true;
-        }
-        return element;
-    });
-
-    if (completed) return mapped;
-    else {
-        result = mapped.map(element => {
-            element.nestedCategories = addNestedStep(element.nestedCategories, parentId, item);
-            return element;
-        });
-
-        completed = true;
 
         return result;
     }
@@ -186,28 +184,10 @@ function deleteCategory(category, id) {
 
     if (!completed) {
         result = filtered.map(element => {
-            element.nestedCategories = deleteStep(element.nestedCategories, id);
+            element.nestedCategories = deleteCategory(element.nestedCategories, id);
             return element;
         });
     }
 
     return result;
-}
-
-function deleteStep(category, id) {
-    let stepResult = category;
-    let completed = false;
-
-    stepResult = category.filter(element => {
-        if (element.id == id) completed = true;
-        return element.id != id;
-    });
-
-    if (!completed) {
-        stepResult = stepResult.map(element => {
-            element.nestedCategories = deleteStep(element.nestedCategories, id);
-            return element;
-        });
-    }
-    return stepResult;
 }
