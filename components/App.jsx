@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import CategoryAdder from './CategoryAdder.jsx';
 import CategoryList from './CategoryList.jsx';
-import NestedCategoryAdder from './NestedCategoryAdder.jsx'
+import NestedCategoryAdder from './NestedCategoryAdder.jsx';
+import CategoryEditor from './CategoryEditor.jsx';
+
 
 export default class App extends React.Component {
     constructor(props) {
@@ -11,18 +14,30 @@ export default class App extends React.Component {
 
     render() {
         return (
-            <div>
-                <NestedCategoryAdder addNestedCategory={this.props.addNestedCategory}
+            <MuiThemeProvider>
+                <CategoryEditor
+                    showWindow={this.props.gui.isEditCategoryOpened}
+                    closeWindow={this.props.closeCategoryEditWindow}
+                    editCategory={this.props.editCategory}
+                    editId={this.props.gui.editId}
+                    editTitle={this.props.gui.editTitle}
+                />
+
+                <NestedCategoryAdder
+                    addCategory={this.props.addCategory}
                     showWindow={this.props.gui.isNestedAddOpened}
                     closeWindow={this.props.closeNestedAddWindow}
                     nestedParentId={this.props.gui.nestedParentId} />
 
                 <CategoryAdder addCategory={this.props.addCategory} />
 
-                <CategoryList categories={this.props.categories}
+                <CategoryList
+                    categories={this.props.categories}
                     deleteCategory={this.props.deleteCategory}
-                    openNestedAddWindow={this.props.openNestedAddWindow} />
-            </div>
+                    openNestedAddWindow={this.props.openNestedAddWindow}
+                    openCategoryEditWindow={this.props.openCategoryEditWindow} />
+
+            </MuiThemeProvider>
         );
     }
 }
@@ -30,10 +45,13 @@ export default class App extends React.Component {
 App.propTypes = {
     addCategory: PropTypes.func.isRequired,
     deleteCategory: PropTypes.func.isRequired,
-    addNestedCategory: PropTypes.func.isRequired,
+    editCategory: PropTypes.func.isRequired,
 
     openNestedAddWindow: PropTypes.func.isRequired,
     closeNestedAddWindow: PropTypes.func.isRequired,
+
+    openCategoryEditWindow: PropTypes.func.isRequired,
+    closeCategoryEditWindow: PropTypes.func.isRequired,
 
     categories: PropTypes.arrayOf(PropTypes.shape({
         title: PropTypes.string.isRequired,
@@ -49,6 +67,9 @@ App.propTypes = {
 
     gui: PropTypes.shape({
         isNestedAddOpened: PropTypes.bool.isRequired,
+        isEditCategoryOpened: PropTypes.bool.isRequired,
         nestedParentId: PropTypes.string.isRequired,
+        editId: PropTypes.string.isRequired,
+        editTitle: PropTypes.string.isRequired,
     }),
 }

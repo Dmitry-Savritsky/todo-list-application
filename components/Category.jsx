@@ -1,12 +1,19 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import ImageEdit from 'material-ui/svg-icons/image/edit';
+import ContentAddCircleOutline from 'material-ui/svg-icons/content/add-circle-outline'
+import ActionDelete from 'material-ui/svg-icons/action/delete'
 
 export default class Category extends React.Component {
     constructor(props) {
         super(props);
         this.deleteCategory = this.deleteCategory.bind(this);
         this.openWindow = this.openWindow.bind(this);
+        this.editCategory = this.editCategory.bind(this);
+    }
+
+    editCategory() {
+        this.props.openCategoryEditWindow(this.props.id, this.props.title);
     }
 
     deleteCategory() {
@@ -22,9 +29,9 @@ export default class Category extends React.Component {
         return (
             <div>
                 <div>{this.props.title}</div>
-                <Button bsStyle="primary" >Edit category name</Button>
-                <Button bsStyle="danger" onClick={this.deleteCategory}>Delete category</Button>
-                <Button bsStyle="primary" onClick={this.openWindow}>Add nested category</Button>
+                <ImageEdit onClick={this.editCategory} />
+                <ActionDelete onClick={this.deleteCategory} />
+                <ContentAddCircleOutline onClick={this.openWindow} />
             </div>
         );
     }
@@ -35,4 +42,5 @@ Category.propTypes = {
     id: PropTypes.string.isRequired,
     deleteCategory: PropTypes.func.isRequired,
     openNestedAddWindow: PropTypes.func.isRequired,
+    openCategoryEditWindow: PropTypes.func.isRequired,
 }
