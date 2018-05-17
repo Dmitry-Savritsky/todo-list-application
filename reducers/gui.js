@@ -6,6 +6,7 @@ const initialState = {
     editId: " ",
     editTitle: " ",
     nestedParentId: " ",
+    chosenCategoryId: " ",
 }
 
 export default function gui(state = initialState, action) {
@@ -39,6 +40,13 @@ export default function gui(state = initialState, action) {
             return {
                 ...state,
                 isEditCategoryOpened: false,
+            }
+        }
+
+        case ACTIONS.CHOOSE_CATEGORY: {
+            return {
+                ...state,
+                chosenCategoryId: action.id,
             }
         }
 

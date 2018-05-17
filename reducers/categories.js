@@ -5,39 +5,19 @@ const initialState = {
         {
             title: "Category 1",
             id: "catID1",
-            tasks: [{
-                name: "task 1",
-                id: "id1",
-                checked: false,
-                description: "description 1"
-            }],
             nestedCategories: [
                 {
                     title: "Category 1_1",
                     id: "catID1_1",
-                    tasks: [{
-                        name: "task 2",
-                        id: "id2",
-                        checked: false,
-                        description: "description 2"
-                    }],
                     nestedCategories: []
                 },
                 {
                     title: "Category 1_2",
                     id: "catID1_2",
-                    tasks: [{
-                    }],
                     nestedCategories: [
                         {
                             title: "Category 3_1",
                             id: "catID3_1",
-                            tasks: [{
-                                name: "task 3",
-                                id: "id3",
-                                checked: false,
-                                description: "description 3"
-                            }],
                             nestedCategories: []
                         },
                     ]
@@ -63,6 +43,30 @@ const initialState = {
             nestedCategories: [],
         },
     ],
+
+    tasks: [{
+        parentId: "catID1",
+        id: "id1",
+        name: "task 1",
+        checked: false,
+        description: "description 1"
+    },
+    {
+        parentId: "catID1_1",
+        id: "id2",
+        name: "task 2",
+        checked: false,
+        description: "description 2"
+    },
+    {
+        parentId: "catID1_1",
+        id: "id3",
+        name: "task 4",
+        checked: false,
+        description: "description 2"
+    },
+
+    ],
 };
 
 export default function categories(state = initialState, action) {
@@ -71,7 +75,7 @@ export default function categories(state = initialState, action) {
             return {
                 ...state,
                 categories: [
-                    ...addCategory(state.categories, action.id, action.parentId, action.title)
+                    ...applyAddCategory(state.categories, action.id, action.parentId, action.title)
                 ]
             }
 
@@ -79,7 +83,7 @@ export default function categories(state = initialState, action) {
             return {
                 ...state,
                 categories: [
-                    ...deleteCategory(state.categories, action.id)
+                    ...applyDeleteCategory(state.categories, action.id)
                 ],
             };
         }
@@ -88,7 +92,7 @@ export default function categories(state = initialState, action) {
             return {
                 ...state,
                 categories: [
-                    ...editCategory(state.categories, action.id, action.title)
+                    ...applyEditCategory(state.categories, action.id, action.title)
                 ],
             };
         }
@@ -98,7 +102,7 @@ export default function categories(state = initialState, action) {
     }
 }
 
-function editCategory(categories, id, title) {
+function applyEditCategory(categories, id, title) {
     let result;
     let completed = false;
 
@@ -114,7 +118,7 @@ function editCategory(categories, id, title) {
 
     else {
         result = mapped.map(element => {
-            element.nestedCategories = editCategory(element.nestedCategories, id, title);
+            element.nestedCategories = applyEditCategory(element.nestedCategories, id, title);
             return element;
         });
 
@@ -123,7 +127,7 @@ function editCategory(categories, id, title) {
 
 }
 
-function addCategory(categories, id, parentId, title) {
+function applyAddCategory(categories, id, parentId, title) {
 
     let result;
     let completed = false;
@@ -160,7 +164,7 @@ function addCategory(categories, id, parentId, title) {
 
     else {
         result = mapped.map(element => {
-            element.nestedCategories = addCategory(element.nestedCategories, id, parentId, title);
+            element.nestedCategories = applyAddCategory(element.nestedCategories, id, parentId, title);
             return element;
         });
 
@@ -169,7 +173,7 @@ function addCategory(categories, id, parentId, title) {
 
 }
 
-function deleteCategory(category, id) {
+function applyDeleteCategory(category, id) {
 
     let completed = false;
     let filtered;
@@ -184,7 +188,7 @@ function deleteCategory(category, id) {
 
     if (!completed) {
         result = filtered.map(element => {
-            element.nestedCategories = deleteCategory(element.nestedCategories, id);
+            element.nestedCategories = applyDeleteCategory(element.nestedCategories, id);
             return element;
         });
     }
