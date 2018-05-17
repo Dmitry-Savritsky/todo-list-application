@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ImageEdit from 'material-ui/svg-icons/image/edit';
-import ContentAddCircleOutline from 'material-ui/svg-icons/content/add-circle-outline'
-import ActionDelete from 'material-ui/svg-icons/action/delete'
+import ContentAddCircleOutline from 'material-ui/svg-icons/content/add-circle-outline';
+import ActionDelete from 'material-ui/svg-icons/action/delete';
+import Styles from './Category.css';
 
 export default class Category extends React.Component {
     constructor(props) {
@@ -17,7 +18,7 @@ export default class Category extends React.Component {
     }
 
     deleteCategory() {
-        this.props.deleteCategory(this.props.id);
+        this.props.deleteCategoryHandler(this.props.id);
     }
 
     openWindow() {
@@ -26,9 +27,15 @@ export default class Category extends React.Component {
 
     render() {
 
+        let style;
+        if (this.props.isSelected) style = Styles.selected;
+        else style = Styles.notSelected;
+
         return (
             <div>
-                <div>{this.props.title}</div>
+                <div className={style}>
+                    {this.props.title}
+                </div>
                 <ImageEdit onClick={this.editCategory} />
                 <ActionDelete onClick={this.deleteCategory} />
                 <ContentAddCircleOutline onClick={this.openWindow} />
@@ -40,7 +47,8 @@ export default class Category extends React.Component {
 Category.propTypes = {
     title: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
-    deleteCategory: PropTypes.func.isRequired,
+    deleteCategoryHandler: PropTypes.func.isRequired,
     openNestedAddWindow: PropTypes.func.isRequired,
     openCategoryEditWindow: PropTypes.func.isRequired,
+    isSelected: PropTypes.bool.isRequired,
 }
