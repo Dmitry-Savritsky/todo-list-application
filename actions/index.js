@@ -1,7 +1,7 @@
 import * as ACTIONS from '../constants/index';
 
 //state
-export function addCategory(id, parentId, title) {
+export function doAddCategory(id, parentId, title) {
     return {
         type: ACTIONS.ADD_CATEGORY,
         id,
@@ -10,14 +10,14 @@ export function addCategory(id, parentId, title) {
     };
 }
 
-export function deleteCategory(id) {
+export function doDeleteCategory(id) {
     return {
         type: ACTIONS.DELETE_CATEGORY,
         id
     };
 }
 
-export function editCategory(id, title) {
+export function doEditCategory(id, title) {
     return {
         type: ACTIONS.EDIT_CATEGORY,
         id,
@@ -25,7 +25,7 @@ export function editCategory(id, title) {
     }
 }
 
-export function addTask(id, categoryId, name, decription, checked) {
+export function doAddTask(id, categoryId, name, decription, checked) {
     return {
         type: ACTIONS.ADD_TASK,
         id,
@@ -36,7 +36,7 @@ export function addTask(id, categoryId, name, decription, checked) {
     }
 }
 
-export function moveTask(id, categoryId) {
+export function doMoveTask(id, categoryId) {
     return {
         type: ACTIONS.MOVE_TASK,
         id,
@@ -44,23 +44,16 @@ export function moveTask(id, categoryId) {
     }
 }
 
-export function changeShow(showState) {
-    return {
-        type: ACTIONS.CHANGE_SHOW,
-        showState
-    }
-}
-
 //NestedCategoryAdder
 
-export function openNestedAddWindow(parentId) {
+export function doOpenNestedAddWindow(parentId) {
     return {
         type: ACTIONS.OPEN_NESTED_ADD_WINDOW,
         parentId,
     }
 }
 
-export function closeNestedAddWindow() {
+export function doCloseNestedAddWindow() {
     return {
         type: ACTIONS.CLOSE_NESTED_ADD_WINDOW
     }
@@ -68,7 +61,7 @@ export function closeNestedAddWindow() {
 
 //CategoryEditor
 
-export function openCategoryEditWindow(editId, title) {
+export function doOpenCategoryEditWindow(editId, title) {
     return {
         type: ACTIONS.OPEN_CATEGORY_EDIT_WINDOW,
         editId,
@@ -76,8 +69,20 @@ export function openCategoryEditWindow(editId, title) {
     }
 }
 
-export function closeCategoryEditWindow() {
+export function doCloseCategoryEditWindow() {
     return {
         type: ACTIONS.CLOSE_CATEGORY_EDIT_WINDOW,
     }
 }
+
+
+export function doChooseCategory(id) {
+    return {
+        type: ACTIONS.CHOOSE_CATEGORY,
+        id,
+    }
+}
+
+//Tasks
+
+//export function doChangeTaskList

@@ -4,17 +4,19 @@ import App from '../components/App.jsx';
 
 const mapStateToProps = state => ({
   categories: state.categories.categories,
+  tasks: state.categories.tasks,
   gui: state.gui
 });
 
 const mapDispatchToProps = dispatch => ({
-  addCategory: (id, parentId, title) => dispatch(ACTIONS.addCategory(id, parentId, title)),
-  deleteCategory: (id) => dispatch(ACTIONS.deleteCategory(id)),
-  closeNestedAddWindow: () => dispatch(ACTIONS.closeNestedAddWindow()),
-  openNestedAddWindow: (parentId) => dispatch(ACTIONS.openNestedAddWindow(parentId)),
-  closeCategoryEditWindow: () => dispatch(ACTIONS.closeCategoryEditWindow()),
-  openCategoryEditWindow: (editId, title) => dispatch(ACTIONS.openCategoryEditWindow(editId, title)),
-  editCategory: (id, title) => dispatch(ACTIONS.editCategory(id, title)),
+  addCategory: (id, parentId, title) => dispatch(ACTIONS.doAddCategory(id, parentId, title)),
+  deleteCategory: (id) => dispatch(ACTIONS.doDeleteCategory(id)),
+  closeNestedAddWindow: () => dispatch(ACTIONS.doCloseNestedAddWindow()),
+  openNestedAddWindow: (parentId) => dispatch(ACTIONS.doOpenNestedAddWindow(parentId)),
+  closeCategoryEditWindow: () => dispatch(ACTIONS.doCloseCategoryEditWindow()),
+  openCategoryEditWindow: (editId, title) => dispatch(ACTIONS.doOpenCategoryEditWindow(editId, title)),
+  editCategory: (id, title) => dispatch(ACTIONS.doEditCategory(id, title)),
+  chooseCategory: (id) => dispatch(ACTIONS.doChooseCategory(id)),
 });
 
 export default connect(
