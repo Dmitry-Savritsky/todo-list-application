@@ -2,19 +2,61 @@ import React from 'react';
 import List from 'material-ui/List/List'
 import ListItem from 'material-ui/List/ListItem'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import _ from 'lodash'
 
 import PropTypes from 'prop-types';
-import Category from './Category.jsx';
+import Category from './Category/Category.jsx';
 
 export default class CategoryList extends React.Component {
     constructor(props) {
         super(props);
+
+        this.createCategoryList = this.createCategoryList.bind(this);
+    }
+
+    createCategoryList(category) {
+        if (category == null) return [];
+
+        const list = category.map(
+
+            (element) => {
+                let nested;
+
+                if (element.nestedCategories.length > 0) {
+                    nested = element.nestedCategories;
+                }
+                else nested = null;
+
+                let nestedItems = this.createCategoryList(nested);
+
+                let isSelected = _.isEqual(element.id, this.props.chosenCategoryId);
+
+                return (
+
+                    <ListItem
+                        key={element.id}
+                        nestedItems={nestedItems}
+                        initiallyOpen={true}
+                        onClick={() => this.props.chooseCategoryHandler(element.id)}
+                    >
+
+                        <Category title={element.title}
+                            id={element.id}
+                            deleteCategoryHandler={this.props.deleteCategoryHandler}
+                            openNestedAddWindow={this.props.openNestedAddWindow}
+                            openCategoryEditWindow={this.props.openCategoryEditWindow}
+                            isSelected={isSelected} />
+                    </ListItem>
+                );
+            }
+        );
+
+        return list;
     }
 
     render() {
 
-        const categoriesList = createCategoryList(this.props.categories, this.props.deleteCategory,
-            this.props.openNestedAddWindow, this.props.openCategoryEditWindow);
+        const categoriesList = this.createCategoryList(this.props.categories);
 
         return (
 
@@ -27,54 +69,16 @@ export default class CategoryList extends React.Component {
     }
 }
 
-function createCategoryList(categories, deleteCategoryHandler, openNestedAddWindow, openCategoryEditWindow) {
-
-    if (categories == null) return [];
-
-    const list = categories.map(
-        function (element) {
-            let nested;
-
-            if (element.nestedCategories.length > 0) {
-                nested = element.nestedCategories;
-            }
-            else nested = null;
-
-            let nestedItems = createCategoryList(nested, deleteCategoryHandler, openNestedAddWindow, openCategoryEditWindow);
-
-            return (
-
-                <ListItem
-                    key={element.id}
-                    nestedItems={nestedItems}
-                    initiallyOpen={true}>
-
-                    <Category title={element.title}
-                        id={element.id}
-                        deleteCategory={deleteCategoryHandler}
-                        openNestedAddWindow={openNestedAddWindow}
-                        openCategoryEditWindow={openCategoryEditWindow} />
-                </ListItem>
-            );
-        }
-    );
-
-    return list;
-}
-
 CategoryList.propTypes = {
     categories: PropTypes.arrayOf(PropTypes.shape({
         title: PropTypes.string.isRequired,
         id: PropTypes.string.isRequired,
-        tasks: PropTypes.arrayOf(PropTypes.shape({
-            name: PropTypes.string,
-            id: PropTypes.string,
-            checked: PropTypes.bool,
-            description: PropTypes.string
-        })),
         nestedCategories: PropTypes.array,
     })),
-    deleteCategory: PropTypes.func.isRequired,
+    chosenCategoryId: PropTypes.string.isRequired,
+    deleteCategoryHandler: PropTypes.func.isRequired,
+    chooseCategoryHandler: PropTypes.func.isRequired,
     openNestedAddWindow: PropTypes.func.isRequired,
     openCategoryEditWindow: PropTypes.func.isRequired,
 }
+

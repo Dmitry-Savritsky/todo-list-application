@@ -4,6 +4,7 @@ import CategoryAdder from './CategoryAdder.jsx';
 import CategoryList from './CategoryList.jsx';
 import NestedCategoryAdder from './NestedCategoryAdder.jsx';
 import CategoryEditor from './CategoryEditor.jsx';
+import TaskList from './TaskList.jsx';
 
 
 export default class App extends React.Component {
@@ -31,10 +32,14 @@ export default class App extends React.Component {
 
                 <CategoryList
                     categories={this.props.categories}
-                    deleteCategory={this.props.deleteCategory}
+                    deleteCategoryHandler={this.props.deleteCategory}
+                    chooseCategoryHandler={this.props.chooseCategory}
+                    chosenCategoryId={this.props.gui.chosenCategoryId}
                     openNestedAddWindow={this.props.openNestedAddWindow}
                     openCategoryEditWindow={this.props.openCategoryEditWindow} />
 
+                <TaskList categoryId={this.props.gui.chosenCategoryId}
+                    tasks={this.props.tasks} />
             </div>
         );
     }
@@ -44,6 +49,7 @@ App.propTypes = {
     addCategory: PropTypes.func.isRequired,
     deleteCategory: PropTypes.func.isRequired,
     editCategory: PropTypes.func.isRequired,
+    chooseCategory: PropTypes.func.isRequired,
 
     openNestedAddWindow: PropTypes.func.isRequired,
     closeNestedAddWindow: PropTypes.func.isRequired,
@@ -54,13 +60,15 @@ App.propTypes = {
     categories: PropTypes.arrayOf(PropTypes.shape({
         title: PropTypes.string.isRequired,
         id: PropTypes.string.isRequired,
-        tasks: PropTypes.arrayOf(PropTypes.shape({
-            name: PropTypes.string,
-            id: PropTypes.string,
-            checked: PropTypes.bool,
-            description: PropTypes.string
-        })),
         nestedCategories: PropTypes.array,
+    })),
+
+    tasks: PropTypes.arrayOf(PropTypes.shape({
+        parentId: PropTypes.string,
+        name: PropTypes.string,
+        id: PropTypes.string,
+        checked: PropTypes.bool,
+        description: PropTypes.string
     })),
 
     gui: PropTypes.shape({
@@ -69,5 +77,6 @@ App.propTypes = {
         nestedParentId: PropTypes.string.isRequired,
         editId: PropTypes.string.isRequired,
         editTitle: PropTypes.string.isRequired,
+        chosenCategoryId: PropTypes.string.isRequired,
     }),
 }
