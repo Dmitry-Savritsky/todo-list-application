@@ -5,7 +5,8 @@ import App from '../components/App.jsx';
 const mapStateToProps = state => ({
   categories: state.categories.categories,
   tasks: state.categories.tasks,
-  gui: state.gui
+  gui: state.gui,
+  progressValue: 50,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -17,6 +18,7 @@ const mapDispatchToProps = dispatch => ({
   openCategoryEditWindow: (editId, title) => dispatch(ACTIONS.doOpenCategoryEditWindow(editId, title)),
   editCategory: (id, title) => dispatch(ACTIONS.doEditCategory(id, title)),
   chooseCategory: (id) => dispatch(ACTIONS.doChooseCategory(id)),
+  addTask: (id, parentId, title, description, checked) => dispatch(ACTIONS.doAddTask(id, parentId, title, description, checked)),
 });
 
 export default connect(
