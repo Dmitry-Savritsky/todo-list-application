@@ -25,13 +25,13 @@ export function doEditCategory(id, title) {
     }
 }
 
-export function doAddTask(id, categoryId, name, decription, checked) {
+export function doAddTask(id, parentId, name, description, checked) {
     return {
         type: ACTIONS.ADD_TASK,
         id,
-        categoryId,
+        parentId,
         name,
-        decription,
+        description,
         checked
     }
 }

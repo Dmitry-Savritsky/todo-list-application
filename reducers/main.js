@@ -69,7 +69,7 @@ const initialState = {
     ],
 };
 
-export default function categories(state = initialState, action) {
+export default function main(state = initialState, action) {
     switch (action.type) {
         case ACTIONS.ADD_CATEGORY:
             return {
@@ -97,9 +97,35 @@ export default function categories(state = initialState, action) {
             };
         }
 
+        case ACTIONS.ADD_TASK: {
+            return {
+                ...state,
+                tasks: [
+                    ...applyAddTask(state.tasks, action.id, action.parentId, action.name, action.description, action.checked)
+                ],
+            };
+        }
+
         default:
             return state;
     }
+}
+
+function applyAddTask(tasks, id, parentId, name, description, checked) {
+    let item = {
+        parentId,
+        id,
+        name,
+        description,
+        checked
+    };
+
+    let result = [
+        item,
+        ...tasks,
+    ];
+
+    return result;
 }
 
 function applyEditCategory(categories, id, title) {
@@ -144,7 +170,7 @@ function applyAddCategory(categories, id, parentId, title) {
         result = [
             item,
             ...categories,
-        ]
+        ];
 
         return result;
     }

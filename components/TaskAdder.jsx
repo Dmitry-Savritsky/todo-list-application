@@ -24,7 +24,7 @@ export default class TaskAdder extends React.Component {
         let desc = " ";
         let checked = false;
 
-        this.props.addTask(id, null, this.state.title, desc, checked);
+        this.props.addTask(id, this.props.parentId, this.state.title, desc, checked);
 
         this.setState({ title: " " });
     }
@@ -51,5 +51,6 @@ export default class TaskAdder extends React.Component {
 }
 
 TaskAdder.propTypes = {
-    addTask: PropTypes.func.isRequired
+    addTask: PropTypes.func.isRequired,
+    parentId: PropTypes.string.isRequired,
 }

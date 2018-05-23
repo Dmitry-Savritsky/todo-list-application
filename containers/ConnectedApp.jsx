@@ -3,8 +3,8 @@ import * as ACTIONS from '../actions';
 import App from '../components/App.jsx';
 
 const mapStateToProps = state => ({
-  categories: state.categories.categories,
-  tasks: state.categories.tasks,
+  categories: state.main.categories,
+  tasks: state.main.tasks,
   gui: state.gui,
   progressValue: 50,
 });
