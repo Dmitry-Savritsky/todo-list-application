@@ -1,15 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
-import Checkbox from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import CategoryAdder from './CategoryAdder.jsx';
 import CategoryList from './CategoryList.jsx';
 import NestedCategoryAdder from './NestedCategoryAdder.jsx';
 import CategoryEditor from './CategoryEditor.jsx';
 import TaskList from './TaskList.jsx';
 import TaskAdder from './TaskAdder.jsx';
+import Header from './Header.jsx'
 
 export default class App extends React.Component {
     constructor(props) {
@@ -21,27 +19,8 @@ export default class App extends React.Component {
             <div>
                 <Grid container spacing={24} justify='space-around' alignItems='flex-start'>
 
-                    <Grid item xs={6}>
-                        <h1>To-Do List</h1>
-                    </Grid>
-
-                    <Grid item xs={6}>
-                        <FormControlLabel
-                            control={
-                                <Checkbox
-                                    checked={true}
-                                    value="checkedA"
-                                />
-                            }
-                            label="Show done"
-                        />
-
-                        <TextField
-                            id="search"
-                            label="Search"
-                            type="search"
-                            margin="normal"
-                        />
+                    <Grid item xs={12}>
+                        <Header />
                     </Grid>
 
                     <Grid item xs={6}>
@@ -57,7 +36,8 @@ export default class App extends React.Component {
                     </Grid>
 
                     <Grid item xs={6}>
-                        <TaskAdder addTask={this.props.addTask} />
+                        <TaskAdder addTask={this.props.addTask}
+                            parentId={this.props.gui.chosenCategoryId} />
 
                         <TaskList categoryId={this.props.gui.chosenCategoryId}
                             tasks={this.props.tasks} />
@@ -105,11 +85,11 @@ App.propTypes = {
     })),
 
     tasks: PropTypes.arrayOf(PropTypes.shape({
-        parentId: PropTypes.string,
-        name: PropTypes.string,
-        id: PropTypes.string,
-        checked: PropTypes.bool,
-        description: PropTypes.string
+        parentId: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        id: PropTypes.string.isRequired,
+        checked: PropTypes.bool.isRequired,
+        description: PropTypes.string.isRequired,
     })),
 
     gui: PropTypes.shape({

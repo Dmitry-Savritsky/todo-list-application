@@ -5,6 +5,7 @@ import LinearProgress from 'material-ui/LinearProgress';
 import TextField from '@material-ui/core/TextField';
 import Checkbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 
 export default class Header extends React.Component {
@@ -33,14 +34,18 @@ export default class Header extends React.Component {
 
     render() {
         return (
-            <div>
+            <Grid container justify='space-around' alignItems='flex-start'>
                 <Grid item xs={6}>
                     <h1>To-Do List</h1>
                 </Grid>
                 <Grid item xs={6}>
-                    <Checkbox
-                        checked={this.state.isChecked}
-                        onChange={this.handleCheckboxChange}
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                checked={true}
+                                value="checkedA"
+                            />
+                        }
                         label="Show done"
                     />
                     <TextField
@@ -58,7 +63,7 @@ export default class Header extends React.Component {
                         <LinearProgress value={this.props.progressValue} />
                     </MuiThemeProvider>
                 </Grid>
-            </div>
+            </Grid>
         )
     }
 }
