@@ -36,11 +36,22 @@ export function doAddTask(id, parentId, name, description, checked) {
     }
 }
 
-export function doMoveTask(id, categoryId) {
+export function doEditTask(id, parentId ,name,checked,description) {
     return {
-        type: ACTIONS.MOVE_TASK,
+        type: ACTIONS.EDIT_TASK,
         id,
-        categoryId
+        parentId,
+        name,
+        checked,
+        description,
+    }
+}
+
+export function doChangeCheckedTask(id,checked){
+    return {
+        type: ACTIONS.doChangeCheckedTask,
+        id,
+        checked
     }
 }
 
