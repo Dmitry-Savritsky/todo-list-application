@@ -4,9 +4,9 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import LinearProgress from 'material-ui/LinearProgress';
 import TextField from '@material-ui/core/TextField';
 import Checkbox from '@material-ui/core/Checkbox';
+import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-
 
 export default class Header extends React.Component {
     constructor(props) {
@@ -22,7 +22,7 @@ export default class Header extends React.Component {
 
     handleCheckboxChange(event) {
         this.setState({
-            isChecked: event.target.value,
+            isChecked: event.target.checked,
         })
     }
 
@@ -36,14 +36,15 @@ export default class Header extends React.Component {
         return (
             <Grid container justify='space-around' alignItems='flex-start'>
                 <Grid item xs={6}>
-                    <h1>To-Do List</h1>
+                    <Typography variant={"display4"}> To-Do List</Typography>
                 </Grid>
                 <Grid item xs={6}>
                     <FormControlLabel
                         control={
                             <Checkbox
-                                checked={true}
+                                checked={this.state.isChecked}
                                 value="checkedA"
+                                onChange={this.handleCheckboxChange}
                             />
                         }
                         label="Show done"
@@ -60,7 +61,7 @@ export default class Header extends React.Component {
 
                 <Grid item xs={12}>
                     <MuiThemeProvider>
-                        <LinearProgress value={this.props.progressValue} />
+                        <LinearProgress mode="determinate" value={this.props.progressValue} />
                     </MuiThemeProvider>
                 </Grid>
             </Grid>
