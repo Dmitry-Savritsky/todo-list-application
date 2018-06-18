@@ -55,7 +55,7 @@ const initialState = {
         parentId: "catID1_1",
         id: "id2",
         name: "task 2",
-        checked: false,
+        checked: true,
         description: "description 2"
     },
     {
@@ -106,9 +106,48 @@ export default function main(state = initialState, action) {
             };
         }
 
+        case ACTIONS.EDIT_TASK: {
+            return {
+                ...state,
+                tasks: [
+                    ...applyEditTask(state.tasks, action.id, action.parentId, action.name, action.checked, action.description)
+                ],
+            }
+        }
+
+        case ACTIONS.CHANGE_CHECKED_TASK: {
+            return {
+                ...state,
+                tasks: [
+                    ...changeCheckedTask(state.tasks, action.id, action.checked)
+                ],
+            }
+        }
+
         default:
             return state;
     }
+}
+
+function applyEditTask(tasks, id, parentId, name, checked, description) {
+    let result = tasks.map(task => {
+        if (task.id == id) {
+            task.parentId = parentId;
+            task.name = name;
+            task.checked = checked;
+            task.description = description;
+        }
+    });
+    return result;
+}
+
+function changeCheckedTask(tasks, id, checked) {
+    let result = tasks.map(task => {
+        if (task.id == id) {
+            task.checked = checked;
+        }
+    });
+    return result;
 }
 
 function applyAddTask(tasks, id, parentId, name, description, checked) {
