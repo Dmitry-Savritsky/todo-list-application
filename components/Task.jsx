@@ -1,26 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ImageEdit from 'material-ui/svg-icons/image/edit';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { Grid } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 export default class Task extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
+        this.state = { 
             isChecked: false,
         }
 
         this.onCheck = this.onCheck.bind(this);
-        this.editTask = this.editTask.bind(this);
         this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
     }
 
     onCheck() {
 
-    }
-
-    editTask() {
-        //this.props.openCategoryEditWindow(this.props.id, this.props.title);
     }
 
     handleCheckboxChange(event) {
@@ -34,14 +33,32 @@ export default class Task extends React.Component {
     render() {
 
         return (
-            <div>
-                <input
-                    type="checkbox"
-                    checked={this.state.isChecked}
-                    onChange={this.handleCheckboxChange} />
-                <div>{this.props.title}</div>
-                <ImageEdit onClick={this.editTask} />
-            </div>
+            <Grid container alignItems="center" direction="row" justify="flex-start">
+
+                <Grid item>
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                checked={this.state.isChecked}
+                                value="checkedA"
+                                onChange={this.handleCheckboxChange}
+                            />
+                        }
+                    />
+                </Grid>
+
+                <Grid item >
+                    <h3>{this.props.title}</h3>
+                </Grid>
+
+                <Grid item >
+                    <Link to={'/task/' + this.props.id}>
+                        < ImageEdit />
+                    </Link>
+                </Grid>
+
+            </Grid>
+
         );
     }
 }

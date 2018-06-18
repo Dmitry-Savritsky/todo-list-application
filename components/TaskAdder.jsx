@@ -1,6 +1,6 @@
 import React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import { Form, FormGroup, FormControl } from 'react-bootstrap';
+import { Form, FormControl } from 'react-bootstrap';
 import RaisedButton from 'material-ui/RaisedButton'
 import PropTypes from 'prop-types';
 
@@ -24,7 +24,7 @@ export default class TaskAdder extends React.Component {
         let desc = " ";
         let checked = false;
 
-        this.props.addTask(id, this.props.parentId, this.state.title, desc, checked);
+        this.props.addTaskHandler(id, this.props.parentId, this.state.title, desc, checked);
 
         this.setState({ title: " " });
     }
@@ -37,20 +37,17 @@ export default class TaskAdder extends React.Component {
 
         return (
             <Form inline>
-                <FormGroup>
-                    <FormControl type="text" value={this.state.title} placeholder="Enter task title" onChange={this.handleNameChange} />
-                </FormGroup>
-                <FormGroup>
-                    <MuiThemeProvider>
-                        <RaisedButton label="Add" primary={true} onClick={this.addTaskHandler} />
-                    </MuiThemeProvider>
-                </FormGroup>
+                <FormControl type="text" value={this.state.title} placeholder="Enter task title" onChange={this.handleNameChange} />
+
+                <MuiThemeProvider>
+                    <RaisedButton label="Add" primary={true} onClick={this.addTaskHandler} />
+                </MuiThemeProvider>
             </Form>
         );
     }
 }
 
 TaskAdder.propTypes = {
-    addTask: PropTypes.func.isRequired,
+    addTaskHandler: PropTypes.func.isRequired,
     parentId: PropTypes.string.isRequired,
 }
