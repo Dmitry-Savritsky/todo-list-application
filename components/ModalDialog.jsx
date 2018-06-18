@@ -4,32 +4,49 @@ import Dialog from 'material-ui/Dialog'
 import RaisedButton from 'material-ui/RaisedButton'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import PropTypes from 'prop-types';
+import _ from 'lodash'
 
-export default class NestedCategoryAdder extends React.Component {
+export default class ModalDialog extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            title: " ",
+            title: "",
         };
 
         this.handleNameChange = this.handleNameChange.bind(this);
-        this.addCategoryHandler = this.addCategoryHandler.bind(this);
+        this.actionHandler = this.actionHandler.bind(this);
         this.onClose = this.onClose.bind(this);
     }
 
-    addCategoryHandler(event) {
+    actionHandler(event) {
         event.preventDefault();
         //generate id for the new nested category
-        const uuidv1 = require('uuid/v1');
-        const id = uuidv1();
 
-        //generate action for adding a category
-        this.props.addCategory(id, this.props.nestedParentId, this.state.title);
+        if (this.props.isEditor) {
+            this.props.actionHandler(this.props.editId, this.state.title);
+        }
+        else {
+            const uuidv1 = require('uuid/v1');
+            const id = uuidv1();
+
+            this.props.actionHandler(id, this.props.nestedParentId, this.state.title);
+        }
 
         this.setState({ title: " " });
         this.props.closeWindow();
     }
+
+    UNSAFE_componentWillReceiveProps(newProps) {
+
+        if (!_.isEqual(this.props, newProps) && this.props.isEditor) {
+
+            this.setState({
+                title: newProps.editTitle,
+            });
+        }
+    }
+
     //on closing
     onClose() {
         this.setState({ title: " " });
@@ -41,16 +58,27 @@ export default class NestedCategoryAdder extends React.Component {
     }
 
     render() {
+        let windowTitle;
+        let buttonLabel;
+
+        if (this.props.isEditor) {
+            windowTitle = "Edit category title";
+            buttonLabel = "Edit";
+        }
+        else {
+            windowTitle = "Add nested category";
+            buttonLabel = "Add";
+        }
 
         const actions = [
-            <RaisedButton key="1" label="Add" primary={true} onClick={this.addCategoryHandler} />,
+            <RaisedButton key="1" label={buttonLabel} primary={true} onClick={this.actionHandler} />,
             <RaisedButton key="2" label="Cancel" primary={true} onClick={this.onClose} />
         ];
 
         return (
             <MuiThemeProvider>
                 <Dialog
-                    title="Add nested category"
+                    title={windowTitle}
                     actions={actions}
                     modal={true}
                     open={this.props.showWindow}>
@@ -66,9 +94,13 @@ export default class NestedCategoryAdder extends React.Component {
     }
 }
 
-NestedCategoryAdder.propTypes = {
-    addCategory: PropTypes.func.isRequired,
+ModalDialog.propTypes = {
+    isEditor: PropTypes.bool.isRequired, // switches from adder(false) to editor(true) 
+    actionHandler: PropTypes.func.isRequired,
     showWindow: PropTypes.bool.isRequired,
     closeWindow: PropTypes.func.isRequired,
-    nestedParentId: PropTypes.string.isRequired,
+
+    editTitle: PropTypes.string,
+    nestedParentId: PropTypes.string,
+    editId: PropTypes.string,
 }
