@@ -1,8 +1,12 @@
 .selected{
     font-style: italic;
     text-decoration: underline;
+    display: inline;
+    background-color: blue;
 }
 
 .notSelected{
     font-style: italic;
+    display: inline;
+    background-color: white;
 }

@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Grid from '@material-ui/core/Grid';
 import ImageEdit from 'material-ui/svg-icons/image/edit';
 import ContentAddCircleOutline from 'material-ui/svg-icons/content/add-circle-outline';
 import ActionDelete from 'material-ui/svg-icons/action/delete';
-import Styles from './Category.css';
+import styles from './Category.css';
 
 export default class Category extends React.Component {
     constructor(props) {
@@ -28,18 +29,20 @@ export default class Category extends React.Component {
     render() {
 
         let style;
-        if (this.props.isSelected) style = Styles.selected;
-        else style = Styles.notSelected;
+        if (this.props.isSelected) style = styles.selected;
+        else style = styles.notSelected;
 
         return (
-            <div>
-                <div className={style}>
+            <Grid container alignItems="center">
+
+                <h4 className={style}>
                     {this.props.title}
-                </div>
+                </h4>
                 <ImageEdit onClick={this.editCategory} />
+
                 <ActionDelete onClick={this.deleteCategory} />
                 <ContentAddCircleOutline onClick={this.openWindow} />
-            </div>
+            </Grid>
         );
     }
 }
