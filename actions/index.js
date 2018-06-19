@@ -49,7 +49,7 @@ export function doEditTask(id, parentId ,name,checked,description) {
 
 export function doChangeCheckedTask(id,checked){
     return {
-        type: ACTIONS.doChangeCheckedTask,
+        type: ACTIONS.CHANGE_CHECKED_TASK,
         id,
         checked
     }

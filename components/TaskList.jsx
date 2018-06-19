@@ -24,8 +24,8 @@ export default class TaskList extends React.Component {
 
                             <Task title={element.name}
                                 id={element.id}
-                                onCheckedHandler={this.props.onCheckedHandler}
-                                onEditHandler={this.props.onEditHandler} />
+                                isChecked={element.checked}
+                                onCheckHandler={this.props.onCheckHandler} />
                         </ListItem>
                     );
                 else return null;
@@ -60,6 +60,5 @@ TaskList.propTypes = {
         description: PropTypes.string.isRequired,
     })),
 
-    onCheckedHandler: PropTypes.func,
-    onEditHandler: PropTypes.func,
+    onCheckHandler: PropTypes.func.isRequired,
 }

@@ -119,7 +119,7 @@ export default function main(state = initialState, action) {
             return {
                 ...state,
                 tasks: [
-                    ...changeCheckedTask(state.tasks, action.id, action.checked)
+                    ...applyChangeCheckedTask(state.tasks, action.id, action.checked)
                 ],
             }
         }
@@ -137,15 +137,17 @@ function applyEditTask(tasks, id, parentId, name, checked, description) {
             task.checked = checked;
             task.description = description;
         }
+        return task;
     });
     return result;
 }
 
-function changeCheckedTask(tasks, id, checked) {
+function applyChangeCheckedTask(tasks, id, checked) {
     let result = tasks.map(task => {
         if (task.id == id) {
-            task.checked = checked;
+            task.checked = !checked;
         }
+        return task;
     });
     return result;
 }

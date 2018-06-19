@@ -9,22 +9,24 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import TextField from '@material-ui/core/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import * as ACTIONS from '../actions';
 import TaskMoveCategoryList from '../components/TaskMoveCategoryList.jsx';
 
 class TaskEditPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            parentId: this.props.task.parentId,
+            name: this.props.task.name,
             isChecked: this.props.task.checked,
             description: this.props.task.description,
-            name: this.props.task.name,
-            parentId: this.props.task.parentId,
         }
 
         this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
         this.handleNameChange = this.handleNameChange.bind(this);
         this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
         this.moveToCategoryHandler = this.moveToCategoryHandler.bind(this);
+        this.saveChangesHandler = this.saveChangesHandler.bind(this);
     }
 
     handleCheckboxChange(event) {
@@ -46,7 +48,8 @@ class TaskEditPage extends React.Component {
     }
 
     saveChangesHandler() {
-
+        this.props.saveChangesHandler(this.props.task.id, this.state.parentId,
+            this.state.name, this.state.isChecked, this.state.description);
     }
 
     cancelHandler() {
@@ -145,14 +148,25 @@ const mapStateToProps = (state, ownProps) => ({
     categories: state.main.categories,
 });
 
-export default connect(mapStateToProps)(TaskEditPage);
+const mapDispatchToProps = dispatch => ({
+    saveChangesHandler: (id, parentId, name, isChecked, description) => dispatch(ACTIONS.doEditTask(id, parentId, name, isChecked, description)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(TaskEditPage);
 
 TaskEditPage.propTypes = {
-    task: PropTypes.object.isRequired,
+    task: PropTypes.shape({
+        parentId: PropTypes.string.isRequired,
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        checked: PropTypes.bool.isRequired,
+        description: PropTypes.string.isRequired,
+    }),
     categories: PropTypes.arrayOf(PropTypes.shape({
         title: PropTypes.string.isRequired,
         id: PropTypes.string.isRequired,
         nestedCategories: PropTypes.array,
     })),
     match: PropTypes.any,
+    saveChangesHandler: PropTypes.func.isRequired,
 }

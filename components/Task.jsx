@@ -10,8 +10,8 @@ export default class Task extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = { 
-            isChecked: false,
+        this.state = {
+            isChecked: this.props.isChecked,
         }
 
         this.onCheck = this.onCheck.bind(this);
@@ -19,7 +19,7 @@ export default class Task extends React.Component {
     }
 
     onCheck() {
-
+        this.props.onCheckHandler(this.props.id, this.state.isChecked);
     }
 
     handleCheckboxChange(event) {
@@ -27,7 +27,7 @@ export default class Task extends React.Component {
             isChecked: event.target.checked,
         });
 
-        //this.props.onCheckHandler(this.props.id, this.state.isChecked);
+        this.onCheck();
     }
 
     render() {
@@ -66,6 +66,6 @@ export default class Task extends React.Component {
 Task.propTypes = {
     title: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
-    onCheckHandler: PropTypes.func,
-    onEditHandler: PropTypes.func,
+    isChecked: PropTypes.bool.isRequired,
+    onCheckHandler: PropTypes.func.isRequired,
 }
