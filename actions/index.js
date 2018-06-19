@@ -36,7 +36,7 @@ export function doAddTask(id, parentId, name, description, checked) {
     }
 }
 
-export function doEditTask(id, parentId ,name,checked,description) {
+export function doEditTask(id, parentId, name, checked, description) {
     return {
         type: ACTIONS.EDIT_TASK,
         id,
@@ -47,7 +47,7 @@ export function doEditTask(id, parentId ,name,checked,description) {
     }
 }
 
-export function doChangeCheckedTask(id,checked){
+export function doChangeCheckedTask(id, checked) {
     return {
         type: ACTIONS.CHANGE_CHECKED_TASK,
         id,
@@ -83,6 +83,20 @@ export function doOpenCategoryEditWindow(editId, title) {
 export function doCloseCategoryEditWindow() {
     return {
         type: ACTIONS.CLOSE_CATEGORY_EDIT_WINDOW,
+    }
+}
+
+export function doOpenConfirmDeleteWindow(deleteId, deleteCategoryTitle) {
+    return {
+        type: ACTIONS.OPEN_CONFIRM_DELETE_WINDOW,
+        deleteCategoryTitle,
+        deleteId,
+    }
+}
+
+export function doCloseConfirmDeleteWindow() {
+    return {
+        type: ACTIONS.CLOSE_CONFIRM_DELETE_WINDOW,
     }
 }
 

@@ -19,7 +19,7 @@ export default class Category extends React.Component {
     }
 
     deleteCategory() {
-        this.props.deleteCategoryHandler(this.props.id);
+        this.props.openConfirmDeleteWindow(this.props.id,this.props.title);
     }
 
     openWindow() {
@@ -50,8 +50,8 @@ export default class Category extends React.Component {
 Category.propTypes = {
     title: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
-    deleteCategoryHandler: PropTypes.func.isRequired,
     openNestedAddWindow: PropTypes.func.isRequired,
     openCategoryEditWindow: PropTypes.func.isRequired,
+    openConfirmDeleteWindow: PropTypes.func.isRequired,
     isSelected: PropTypes.bool.isRequired,
 }

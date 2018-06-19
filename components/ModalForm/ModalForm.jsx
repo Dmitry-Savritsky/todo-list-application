@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ModalDialog from '../ModalDialog.jsx';
+import ConfirmDeleteDialog from '../ConfirmDeleteDialog.jsx';
 
 export default class ModalForm extends React.Component {
     constructor(props) {
@@ -27,6 +28,13 @@ export default class ModalForm extends React.Component {
                     closeWindow={this.props.closeNestedAddWindow}
                     nestedParentId={this.props.gui.nestedParentId} />
 
+                <ConfirmDeleteDialog
+                    actionHandler={this.props.deleteCategoryHandler}
+                    showWindow={this.props.gui.isConfirmDeleteOpened}
+                    closeWindow={this.props.closeConfirmDeleteWindow}
+                    deleteId={this.props.gui.deleteId}
+                    deleteCategoryTitle={this.props.gui.deleteCategoryTitle} />
+
             </div>
         );
     }
@@ -35,17 +43,22 @@ export default class ModalForm extends React.Component {
 ModalForm.propTypes = {
     addCategoryHandler: PropTypes.func.isRequired,
     editCategoryHandler: PropTypes.func.isRequired,
+    deleteCategoryHandler: PropTypes.func.isRequired,
 
     closeNestedAddWindow: PropTypes.func.isRequired,
     closeCategoryEditWindow: PropTypes.func.isRequired,
+    closeConfirmDeleteWindow: PropTypes.func.isRequired,
 
     gui: PropTypes.shape({
         isNestedAddOpened: PropTypes.bool.isRequired,
         isEditCategoryOpened: PropTypes.bool.isRequired,
+        isConfirmDeleteOpened: PropTypes.bool.isRequired,
         nestedParentId: PropTypes.string.isRequired,
         editId: PropTypes.string.isRequired,
         editTitle: PropTypes.string.isRequired,
         chosenCategoryId: PropTypes.string.isRequired,
+        deleteId: PropTypes.string.isRequired,
+        deleteCategoryTitle: PropTypes.string.isRequired,
     }),
 
 }

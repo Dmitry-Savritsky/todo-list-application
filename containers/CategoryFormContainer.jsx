@@ -9,10 +9,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     addCategoryHandler: (id, parentId, title) => dispatch(ACTIONS.doAddCategory(id, parentId, title)),
-    deleteCategoryHandler: (id) => dispatch(ACTIONS.doDeleteCategory(id)),
     chooseCategoryHandler: (id) => dispatch(ACTIONS.doChooseCategory(id)),
     openNestedAddWindow: (parentId) => dispatch(ACTIONS.doOpenNestedAddWindow(parentId)),
     openCategoryEditWindow: (editId, title) => dispatch(ACTIONS.doOpenCategoryEditWindow(editId, title)),
+    openConfirmDeleteWindow: (deleteId, deleteTitle) => dispatch(ACTIONS.doOpenConfirmDeleteWindow(deleteId, deleteTitle)),
     editCategory: (id, title) => dispatch(ACTIONS.doEditCategory(id, title)),
 });
 

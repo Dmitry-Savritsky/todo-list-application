@@ -42,9 +42,9 @@ export default class CategoryList extends React.Component {
 
                         <Category title={element.title}
                             id={element.id}
-                            deleteCategoryHandler={this.props.deleteCategoryHandler}
                             openNestedAddWindow={this.props.openNestedAddWindow}
                             openCategoryEditWindow={this.props.openCategoryEditWindow}
+                            openConfirmDeleteWindow={this.props.openConfirmDeleteWindow}
                             isSelected={isSelected} />
                     </ListItem>
                 );
@@ -76,9 +76,9 @@ CategoryList.propTypes = {
         nestedCategories: PropTypes.array,
     })),
     chosenCategoryId: PropTypes.string.isRequired,
-    deleteCategoryHandler: PropTypes.func.isRequired,
     chooseCategoryHandler: PropTypes.func.isRequired,
     openNestedAddWindow: PropTypes.func.isRequired,
     openCategoryEditWindow: PropTypes.func.isRequired,
+    openConfirmDeleteWindow: PropTypes.func.isRequired,
 }
 

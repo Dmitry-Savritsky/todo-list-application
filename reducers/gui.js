@@ -3,10 +3,13 @@ import * as ACTIONS from '../constants/index';
 const initialState = {
     isNestedAddOpened: false,
     isEditCategoryOpened: false,
+    isConfirmDeleteOpened: false,
     editId: " ",
     editTitle: " ",
     nestedParentId: " ",
     chosenCategoryId: " ",
+    deleteId: " ",
+    deleteCategoryTitle: " ",
 }
 
 export default function gui(state = initialState, action) {
@@ -40,6 +43,22 @@ export default function gui(state = initialState, action) {
             return {
                 ...state,
                 isEditCategoryOpened: false,
+            }
+        }
+
+        case ACTIONS.OPEN_CONFIRM_DELETE_WINDOW: {
+            return {
+                ...state,
+                isConfirmDeleteOpened: true,
+                deleteCategoryTitle: action.deleteCategoryTitle,
+                deleteId: action.deleteId,
+            }
+        }
+
+        case ACTIONS.CLOSE_CONFIRM_DELETE_WINDOW: {
+            return {
+                ...state,
+                isConfirmDeleteOpened: false,
             }
         }
 
