@@ -74,5 +74,5 @@ TaskMoveCategoryList.propTypes = {
         nestedCategories: PropTypes.array,
     })),
     parentCategoryId: PropTypes.string.isRequired,
-    moveToCategoryHandler: PropTypes.func,
+    moveToCategoryHandler: PropTypes.func.isRequired,
 }

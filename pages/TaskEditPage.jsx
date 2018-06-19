@@ -24,6 +24,7 @@ class TaskEditPage extends React.Component {
         this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
         this.handleNameChange = this.handleNameChange.bind(this);
         this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
+        this.moveToCategoryHandler = this.moveToCategoryHandler.bind(this);
     }
 
     handleCheckboxChange(event) {
@@ -52,6 +53,12 @@ class TaskEditPage extends React.Component {
 
     }
 
+    moveToCategoryHandler(id) {
+        this.setState({
+            parentId: id,
+        });
+    }
+
     render() {
         return (
             <Grid container>
@@ -65,7 +72,8 @@ class TaskEditPage extends React.Component {
                     <Grid item xs={3}>
                         <TaskMoveCategoryList
                             categories={this.props.categories}
-                            parentCategoryId={this.props.parentCategoryId} />
+                            parentCategoryId={this.state.parentId}
+                            moveToCategoryHandler={this.moveToCategoryHandler} />
                     </Grid>
 
                     <Grid item xs={9}>
@@ -80,7 +88,7 @@ class TaskEditPage extends React.Component {
                                     <RaisedButton label="Cancel" primary={true} onClick={this.cancelHandler} />
                                 </MuiThemeProvider>
                             </Grid>
-                        
+
                         </Grid>
 
                         <Grid container justify="flex-start" direction="column" spacing={16}>
@@ -135,15 +143,9 @@ class TaskEditPage extends React.Component {
 const mapStateToProps = (state, ownProps) => ({
     task: state.main.tasks.find(task => task.id === ownProps.match.params.id),
     categories: state.main.categories,
-    parentCategoryId: findParentId(state.main.tasks, ownProps.match.params.id),
 });
 
 export default connect(mapStateToProps)(TaskEditPage);
-
-function findParentId(tasks, id) {
-    let task = tasks.find(item => item.id == id);
-    return task.parentId;
-}
 
 TaskEditPage.propTypes = {
     task: PropTypes.object.isRequired,
@@ -152,6 +154,5 @@ TaskEditPage.propTypes = {
         id: PropTypes.string.isRequired,
         nestedCategories: PropTypes.array,
     })),
-    parentCategoryId: PropTypes.string.isRequired,
     match: PropTypes.any,
 }

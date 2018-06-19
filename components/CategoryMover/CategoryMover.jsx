@@ -11,7 +11,7 @@ export default class CategoryMover extends React.Component {
     }
 
     moveToCategory() {
-        this.props.moveToCategoryHandler(this.id);
+        this.props.moveToCategoryHandler(this.props.id);
     }
 
     render() {
@@ -27,7 +27,7 @@ export default class CategoryMover extends React.Component {
                     {this.props.title}
                 </h4>
 
-                {!this.props.isSelected && <Reply onClick={this.moveToCategoryHandler} />}
+                {!this.props.isSelected && <Reply onClick={this.moveToCategory} />}
 
             </Grid>
         );
@@ -37,6 +37,6 @@ export default class CategoryMover extends React.Component {
 CategoryMover.propTypes = {
     title: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
-    moveToCategoryHandler: PropTypes.func,
-    isSelected: PropTypes.bool,
+    moveToCategoryHandler: PropTypes.func.isRequired,
+    isSelected: PropTypes.bool.isRequired,
 }
