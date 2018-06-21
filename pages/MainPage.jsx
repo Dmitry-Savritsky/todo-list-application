@@ -1,13 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import ModalFormContainer from '../containers/ModalFormContainer.jsx';
 import CategoryFormContainer from '../containers/CategoryFormContainer.jsx';
 import TaskFormContainer from '../containers/TaskFormContainer.jsx';
-import Header from '../components/Header.jsx';
+import HeaderForm from '../components/HeaderForm.jsx';
 
-class MainPage extends React.Component {
+export default class MainPage extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -18,7 +16,7 @@ class MainPage extends React.Component {
                 <Grid container spacing={24} justify='space-around' alignItems='flex-start'>
 
                     <Grid item xs={12}>
-                        <Header progressValue={this.props.progressValue} />
+                        <HeaderForm />
                     </Grid>
 
                     <Grid item xs={6}>
@@ -36,15 +34,4 @@ class MainPage extends React.Component {
             </div>
         );
     }
-}
-
-const mapStateToProps = (state) => ({
-    progressValue: 50,
-    category: state.main.categories,
-});
-
-export default connect(mapStateToProps)(MainPage);
-
-MainPage.propTypes = {
-    progressValue: PropTypes.number.isRequired,
 }

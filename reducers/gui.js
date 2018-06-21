@@ -10,6 +10,8 @@ const initialState = {
     chosenCategoryId: " ",
     deleteId: " ",
     deleteCategoryTitle: " ",
+    searchFilter: "",
+    showDone: false,
 }
 
 export default function gui(state = initialState, action) {
@@ -66,6 +68,20 @@ export default function gui(state = initialState, action) {
             return {
                 ...state,
                 chosenCategoryId: action.id,
+            }
+        }
+
+        case ACTIONS.CHANGE_SHOW_DONE_FILTER: {
+            return {
+                ...state,
+                showDone: action.value,
+            }
+        }
+
+        case ACTIONS.CHANGE_SEARCH_FILTER: {
+            return {
+                ...state,
+                searchFilter: action.filter,
             }
         }
 

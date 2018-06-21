@@ -67,6 +67,8 @@ const initialState = {
         description: "description 4"
     },
     ],
+
+    progressValue: 0,
 };
 
 export default function main(state = initialState, action) {

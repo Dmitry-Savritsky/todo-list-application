@@ -18,6 +18,8 @@ export default class TaskForm extends React.Component {
                 <TaskList categoryId={this.props.gui.chosenCategoryId}
                     tasks={this.props.tasks}
                     onCheckHandler={this.props.changeCheckedTaskHandler}
+                    searchFilter={this.props.gui.searchFilter}
+                    showDone={this.props.gui.showDone}
                 />
             </div>
         );
@@ -31,10 +33,15 @@ TaskForm.propTypes = {
     gui: PropTypes.shape({
         isNestedAddOpened: PropTypes.bool.isRequired,
         isEditCategoryOpened: PropTypes.bool.isRequired,
+        isConfirmDeleteOpened: PropTypes.bool.isRequired,
         nestedParentId: PropTypes.string.isRequired,
         editId: PropTypes.string.isRequired,
         editTitle: PropTypes.string.isRequired,
         chosenCategoryId: PropTypes.string.isRequired,
+        deleteId: PropTypes.string.isRequired,
+        deleteCategoryTitle: PropTypes.string.isRequired,
+        searchFilter: PropTypes.string.isRequired,
+        showDone: PropTypes.bool.isRequired,
     }),
 
     tasks: PropTypes.arrayOf(PropTypes.shape({

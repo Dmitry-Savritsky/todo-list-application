@@ -9,7 +9,7 @@ export default class CategoryAdder extends React.Component {
         super(props);
 
         this.state = {
-            title: " ",
+            title: "",
         };
 
         this.handleNameChange = this.handleNameChange.bind(this);
@@ -22,7 +22,7 @@ export default class CategoryAdder extends React.Component {
         const id = uuidv1();
 
         this.props.addCategoryHandler(id, null, this.state.title);
-        this.setState({ title: " " });
+        this.setState({ title: "" });
     }
 
     handleNameChange(event) {

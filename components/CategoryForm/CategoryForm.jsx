@@ -33,6 +33,7 @@ CategoryForm.propTypes = {
     openCategoryEditWindow: PropTypes.func.isRequired,
     openNestedAddWindow: PropTypes.func.isRequired,
     openConfirmDeleteWindow: PropTypes.func.isRequired,
+    
     categories: PropTypes.arrayOf(PropTypes.shape({
         title: PropTypes.string.isRequired,
         id: PropTypes.string.isRequired,

@@ -108,6 +108,20 @@ export function doChooseCategory(id) {
     }
 }
 
+export function doChangeSearchFilter(filter) {
+    return {
+        type: ACTIONS.CHANGE_SEARCH_FILTER,
+        filter,
+    }
+}
+
+export function doChangeShowDoneFilter(value) {
+    return {
+        type: ACTIONS.CHANGE_SHOW_DONE_FILTER,
+        value,
+    }
+}
+
 //Tasks
 
 //export function doChangeTaskList

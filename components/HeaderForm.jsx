@@ -7,14 +7,16 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { connect } from 'react-redux';
+import * as ACTIONS from '../actions';
 
-export default class Header extends React.Component {
+class HeaderForm extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
             isChecked: false,
-            searchValue: " ",
+            searchValue: "",
         }
         this.handleSearchChange = this.handleSearchChange.bind(this);
         this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
@@ -23,13 +25,15 @@ export default class Header extends React.Component {
     handleCheckboxChange(event) {
         this.setState({
             isChecked: event.target.checked,
-        })
+        });
+        this.props.changeDoneHandler(event.target.checked);
     }
 
     handleSearchChange(event) {
         this.setState({
             searchValue: event.target.value,
         });
+        this.props.searchFilterHandler(event.target.value);
     }
 
     render() {
@@ -69,8 +73,20 @@ export default class Header extends React.Component {
     }
 }
 
-Header.propTypes = {
-    searchHandler: PropTypes.func,
-    checkboxHandler: PropTypes.func,
-    progressValue: PropTypes.number,
+const mapStateToProps = (state) => ({
+    progressValue: state.main.progressValue,
+});
+
+const mapDispatchToProps = dispatch => ({
+    searchFilterHandler: (filter) => dispatch(ACTIONS.doChangeSearchFilter(filter)),
+    changeDoneHandler: (value) => dispatch(ACTIONS.doChangeShowDoneFilter(value)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(HeaderForm);
+
+HeaderForm.propTypes = {
+    searchFilterHandler: PropTypes.func.isRequired,
+    changeDoneHandler: PropTypes.func.isRequired,
+    progressValue: PropTypes.number.isRequired,
 }
+

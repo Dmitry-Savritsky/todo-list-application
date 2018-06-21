@@ -48,7 +48,7 @@ ModalForm.propTypes = {
     closeNestedAddWindow: PropTypes.func.isRequired,
     closeCategoryEditWindow: PropTypes.func.isRequired,
     closeConfirmDeleteWindow: PropTypes.func.isRequired,
-
+    
     gui: PropTypes.shape({
         isNestedAddOpened: PropTypes.bool.isRequired,
         isEditCategoryOpened: PropTypes.bool.isRequired,
@@ -59,6 +59,8 @@ ModalForm.propTypes = {
         chosenCategoryId: PropTypes.string.isRequired,
         deleteId: PropTypes.string.isRequired,
         deleteCategoryTitle: PropTypes.string.isRequired,
+        searchFilter: PropTypes.string.isRequired,
+        showDone: PropTypes.bool.isRequired,
     }),
 
 }

@@ -9,7 +9,7 @@ export default class TaskAdder extends React.Component {
         super(props);
 
         this.state = {
-            title: " ",
+            title: "",
         };
 
         this.handleNameChange = this.handleNameChange.bind(this);
@@ -26,7 +26,7 @@ export default class TaskAdder extends React.Component {
 
         this.props.addTaskHandler(id, this.props.parentId, this.state.title, desc, checked);
 
-        this.setState({ title: " " });
+        this.setState({ title: "" });
     }
 
     handleNameChange(event) {

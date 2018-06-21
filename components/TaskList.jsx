@@ -18,17 +18,19 @@ export default class TaskList extends React.Component {
         const list = this.props.tasks.map(
             (element) => {
                 if (_.isEqual(this.props.categoryId, element.parentId))
-                    return (
-                        <ListItem
-                            key={element.id}>
+                    if (!this.props.showDone || (this.props.showDone && element.checked))
+                        if (element.name.startsWith(this.props.searchFilter) || this.props.searchFilter=="")
+                            return (
+                                <ListItem
+                                    key={element.id}>
 
-                            <Task title={element.name}
-                                id={element.id}
-                                isChecked={element.checked}
-                                onCheckHandler={this.props.onCheckHandler} />
-                        </ListItem>
-                    );
-                else return null;
+                                    <Task title={element.name}
+                                        id={element.id}
+                                        isChecked={element.checked}
+                                        onCheckHandler={this.props.onCheckHandler} />
+                                </ListItem>
+                            );
+                        else return null;
             }
         );
 
@@ -59,6 +61,7 @@ TaskList.propTypes = {
         checked: PropTypes.bool.isRequired,
         description: PropTypes.string.isRequired,
     })),
-
     onCheckHandler: PropTypes.func.isRequired,
+    searchFilter: PropTypes.string.isRequired,
+    showDone: PropTypes.bool.isRequired,
 }
