@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import ModalFormContainer from '../containers/ModalFormContainer.jsx';
 import CategoryFormContainer from '../containers/CategoryFormContainer.jsx';
 import TaskFormContainer from '../containers/TaskFormContainer.jsx';
-import HeaderForm from '../components/HeaderForm.jsx';
+import HeaderFormContainer from '../containers/HeaderFormContainer.jsx';
 
 export default class MainPage extends React.Component {
     constructor(props) {
@@ -16,7 +16,7 @@ export default class MainPage extends React.Component {
                 <Grid container spacing={24} justify='space-around' alignItems='flex-start'>
 
                     <Grid item xs={12}>
-                        <HeaderForm />
+                        <HeaderFormContainer />
                     </Grid>
 
                     <Grid item xs={6}>

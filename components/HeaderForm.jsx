@@ -7,10 +7,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { connect } from 'react-redux';
-import * as ACTIONS from '../actions';
 
-class HeaderForm extends React.Component {
+export default class HeaderForm extends React.Component {
     constructor(props) {
         super(props);
 
@@ -72,17 +70,6 @@ class HeaderForm extends React.Component {
         )
     }
 }
-
-const mapStateToProps = (state) => ({
-    progressValue: state.main.progressValue,
-});
-
-const mapDispatchToProps = dispatch => ({
-    searchFilterHandler: (filter) => dispatch(ACTIONS.doChangeSearchFilter(filter)),
-    changeDoneHandler: (value) => dispatch(ACTIONS.doChangeShowDoneFilter(value)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(HeaderForm);
 
 HeaderForm.propTypes = {
     searchFilterHandler: PropTypes.func.isRequired,
