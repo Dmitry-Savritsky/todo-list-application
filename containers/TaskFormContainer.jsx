@@ -5,6 +5,7 @@ import TaskForm from '../components/TaskForm/TaskForm.jsx';
 const mapStateToProps = state => ({
     tasks: state.main.tasks,
     gui: state.gui,
+    chosenCategoryId: state.main.chosenCategoryId,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -56,7 +56,6 @@ ModalForm.propTypes = {
         nestedParentId: PropTypes.string.isRequired,
         editId: PropTypes.string.isRequired,
         editTitle: PropTypes.string.isRequired,
-        chosenCategoryId: PropTypes.string.isRequired,
         deleteId: PropTypes.string.isRequired,
         deleteCategoryTitle: PropTypes.string.isRequired,
         searchFilter: PropTypes.string.isRequired,

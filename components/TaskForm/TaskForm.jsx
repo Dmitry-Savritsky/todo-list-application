@@ -13,9 +13,9 @@ export default class TaskForm extends React.Component {
         return (
             <div>
                 <TaskAdder addTaskHandler={this.props.addTaskHandler}
-                    parentId={this.props.gui.chosenCategoryId} />
+                    parentId={this.props.chosenCategoryId} />
 
-                <TaskList categoryId={this.props.gui.chosenCategoryId}
+                <TaskList categoryId={this.props.chosenCategoryId}
                     tasks={this.props.tasks}
                     onCheckHandler={this.props.changeCheckedTaskHandler}
                     searchFilter={this.props.gui.searchFilter}
@@ -29,6 +29,7 @@ export default class TaskForm extends React.Component {
 TaskForm.propTypes = {
     addTaskHandler: PropTypes.func.isRequired,
     changeCheckedTaskHandler: PropTypes.func.isRequired,
+    chosenCategoryId: PropTypes.string.isRequired,
 
     gui: PropTypes.shape({
         isNestedAddOpened: PropTypes.bool.isRequired,
@@ -37,7 +38,6 @@ TaskForm.propTypes = {
         nestedParentId: PropTypes.string.isRequired,
         editId: PropTypes.string.isRequired,
         editTitle: PropTypes.string.isRequired,
-        chosenCategoryId: PropTypes.string.isRequired,
         deleteId: PropTypes.string.isRequired,
         deleteCategoryTitle: PropTypes.string.isRequired,
         searchFilter: PropTypes.string.isRequired,

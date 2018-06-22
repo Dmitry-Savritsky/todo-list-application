@@ -4,7 +4,7 @@ import CategoryForm from '../components/CategoryForm/CategoryForm.jsx';
 
 const mapStateToProps = state => ({
     categories: state.main.categories,
-    chosenCategoryId: state.gui.chosenCategoryId,
+    chosenCategoryId: state.main.chosenCategoryId,
 });
 
 const mapDispatchToProps = dispatch => ({

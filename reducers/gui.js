@@ -7,7 +7,6 @@ const initialState = {
     editId: " ",
     editTitle: " ",
     nestedParentId: " ",
-    chosenCategoryId: " ",
     deleteId: " ",
     deleteCategoryTitle: " ",
     searchFilter: "",
@@ -61,13 +60,6 @@ export default function gui(state = initialState, action) {
             return {
                 ...state,
                 isConfirmDeleteOpened: false,
-            }
-        }
-
-        case ACTIONS.CHOOSE_CATEGORY: {
-            return {
-                ...state,
-                chosenCategoryId: action.id,
             }
         }
 
