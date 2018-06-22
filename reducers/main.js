@@ -68,17 +68,28 @@ const initialState = {
     },
     ],
 
-    progressValue: 0,
+    chosenCategoryId: " ",
+    chosenCategoryProgress: 0,
 };
 
 export default function main(state = initialState, action) {
     switch (action.type) {
+
+        case ACTIONS.CHOOSE_CATEGORY: {
+            return {
+                ...state,
+                chosenCategoryId: action.id,
+                chosenCategoryProgress: recalcCategoryProgress(state.tasks, action.id),
+            }
+        }
+
         case ACTIONS.ADD_CATEGORY:
             return {
                 ...state,
                 categories: [
                     ...applyAddCategory(state.categories, action.id, action.parentId, action.title)
-                ]
+                ],
+                chosenCategoryProgress: recalcCategoryProgress(state.tasks, state.chosenCategoryId),
             }
 
         case ACTIONS.DELETE_CATEGORY: {
@@ -93,7 +104,8 @@ export default function main(state = initialState, action) {
                 ],
                 tasks: [
                     ...tasks,
-                ]
+                ],
+                chosenCategoryProgress: recalcCategoryProgress(state.tasks, state.chosenCategoryId),
             };
         }
 
@@ -103,15 +115,21 @@ export default function main(state = initialState, action) {
                 categories: [
                     ...applyEditCategory(state.categories, action.id, action.title)
                 ],
+                chosenCategoryProgress: recalcCategoryProgress(state.tasks, state.chosenCategoryId),
             };
         }
 
         case ACTIONS.ADD_TASK: {
+
+            let tempTasks = applyAddTask(state.tasks, action.id, action.parentId, action.name, action.description, action.checked);
+            let tempProgress = recalcCategoryProgress(tempTasks, state.chosenCategoryId);
+            
             return {
                 ...state,
                 tasks: [
-                    ...applyAddTask(state.tasks, action.id, action.parentId, action.name, action.description, action.checked)
+                    ...tempTasks,
                 ],
+                chosenCategoryProgress: tempProgress,
             };
         }
 
@@ -121,7 +139,8 @@ export default function main(state = initialState, action) {
                 tasks: [
                     ...applyEditTask(state.tasks, action.id, action.parentId, action.name, action.checked, action.description)
                 ],
-            }
+                chosenCategoryProgress: recalcCategoryProgress(state.tasks, state.chosenCategoryId),
+            };
         }
 
         case ACTIONS.CHANGE_CHECKED_TASK: {
@@ -130,7 +149,8 @@ export default function main(state = initialState, action) {
                 tasks: [
                     ...applyChangeCheckedTask(state.tasks, action.id, action.checked)
                 ],
-            }
+                chosenCategoryProgress: recalcCategoryProgress(state.tasks, state.chosenCategoryId),
+            };
         }
 
         default:
@@ -306,4 +326,20 @@ function deleteTasks(tasks, idArray) {
         }
         return true;
     });
+}
+
+function recalcCategoryProgress(tasks, id) {
+
+    let overallCount = 0;
+    let completedCount = 0;
+
+    tasks.forEach(element => {
+        if (element.parentId == id) {
+            overallCount += 1;
+            if (element.checked) completedCount += 1;
+        }
+    });
+
+    if (overallCount > 0) return (completedCount / overallCount) * 100;
+    else return 100;
 }
