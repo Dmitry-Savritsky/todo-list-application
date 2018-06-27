@@ -1,13 +1,20 @@
 import React from 'react';
 import List from 'material-ui/List/List'
-import ListItem from 'material-ui/List/ListItem'
+import ListItem from 'material-ui/List/ListItem';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import _ from 'lodash'
+import _ from 'lodash';
+import { withStyles } from '@material-ui/core/styles';
 
 import PropTypes from 'prop-types';
-import Category from './Category/Category.jsx';
+import Category from '../Category/Category.jsx';
 
-export default class CategoryList extends React.Component {
+const styles = {
+    root: {
+        borderRadius: 3,
+    }
+};
+
+class CategoryList extends React.Component {
     constructor(props) {
         super(props);
 
@@ -38,6 +45,9 @@ export default class CategoryList extends React.Component {
                         nestedItems={nestedItems}
                         initiallyOpen={true}
                         onClick={() => this.props.chooseCategoryHandler(element.id)}
+                        classes={{
+                            root: this.props.classes
+                        }}
                     >
 
                         <Category title={element.title}
@@ -80,5 +90,8 @@ CategoryList.propTypes = {
     openNestedAddWindow: PropTypes.func.isRequired,
     openCategoryEditWindow: PropTypes.func.isRequired,
     openConfirmDeleteWindow: PropTypes.func.isRequired,
+    classes: PropTypes.object.isRequired,
 }
+
+export default withStyles(styles)(CategoryList)
 

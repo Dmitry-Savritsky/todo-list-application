@@ -6,9 +6,18 @@ import TextField from '@material-ui/core/TextField';
 import Checkbox from '@material-ui/core/Checkbox';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import { withStyles } from '@material-ui/core/styles';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
-export default class HeaderForm extends React.Component {
+const styles = theme => ({
+    textField: {
+        marginLeft: theme.spacing.unit,
+        marginRight: theme.spacing.unit,
+        width: 200,
+    },
+});
+
+class HeaderForm extends React.Component {
     constructor(props) {
         super(props);
 
@@ -58,6 +67,7 @@ export default class HeaderForm extends React.Component {
                         margin="normal"
                         value={this.state.searchValue}
                         onChange={this.handleSearchChange}
+                        className={styles.textField}
                     />
                 </Grid>
 
@@ -75,5 +85,9 @@ HeaderForm.propTypes = {
     searchFilterHandler: PropTypes.func.isRequired,
     changeDoneHandler: PropTypes.func.isRequired,
     progressValue: PropTypes.number.isRequired,
+    undoHandler: PropTypes.func.isRequired,
+    redoHandler: PropTypes.func.isRequired,
 }
+
+export default withStyles(styles)(HeaderForm)
 

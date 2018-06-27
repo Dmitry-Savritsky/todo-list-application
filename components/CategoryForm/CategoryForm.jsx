@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CategoryAdder from '../CategoryAdder.jsx';
-import CategoryList from '../CategoryList.jsx';
+import CategoryList from '../CategoryList/CategoryList.jsx';
 
 export default class CategoryForm extends React.Component {
     constructor(props) {
@@ -33,7 +33,7 @@ CategoryForm.propTypes = {
     openCategoryEditWindow: PropTypes.func.isRequired,
     openNestedAddWindow: PropTypes.func.isRequired,
     openConfirmDeleteWindow: PropTypes.func.isRequired,
-    
+
     categories: PropTypes.arrayOf(PropTypes.shape({
         title: PropTypes.string.isRequired,
         id: PropTypes.string.isRequired,

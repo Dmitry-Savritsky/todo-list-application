@@ -3,7 +3,7 @@ import * as ACTIONS from '../constants/index';
 //state
 export function doAddCategory(id, parentId, title) {
     return {
-        type: ACTIONS.ADD_CATEGORY,
+        type: ACTIONS.CATEGORY_ADD,
         id,
         parentId,
         title
@@ -12,14 +12,14 @@ export function doAddCategory(id, parentId, title) {
 
 export function doDeleteCategory(id) {
     return {
-        type: ACTIONS.DELETE_CATEGORY,
+        type: ACTIONS.CATEGORY_DELETE,
         id
     };
 }
 
 export function doEditCategory(id, title) {
     return {
-        type: ACTIONS.EDIT_CATEGORY,
+        type: ACTIONS.CATEGORY_EDIT,
         id,
         title
     }
@@ -27,7 +27,7 @@ export function doEditCategory(id, title) {
 
 export function doAddTask(id, parentId, name, description, checked) {
     return {
-        type: ACTIONS.ADD_TASK,
+        type: ACTIONS.TASK_ADD,
         id,
         parentId,
         name,
@@ -38,7 +38,7 @@ export function doAddTask(id, parentId, name, description, checked) {
 
 export function doEditTask(id, parentId, name, checked, description) {
     return {
-        type: ACTIONS.EDIT_TASK,
+        type: ACTIONS.TASK_EDIT,
         id,
         parentId,
         name,
@@ -49,7 +49,7 @@ export function doEditTask(id, parentId, name, checked, description) {
 
 export function doChangeCheckedTask(id, checked) {
     return {
-        type: ACTIONS.CHANGE_CHECKED_TASK,
+        type: ACTIONS.TASK_CHANGE_CHECKED,
         id,
         checked
     }
@@ -59,14 +59,14 @@ export function doChangeCheckedTask(id, checked) {
 
 export function doOpenNestedAddWindow(parentId) {
     return {
-        type: ACTIONS.OPEN_NESTED_ADD_WINDOW,
+        type: ACTIONS.NESTED_ADD_WINDOW_OPEN,
         parentId,
     }
 }
 
 export function doCloseNestedAddWindow() {
     return {
-        type: ACTIONS.CLOSE_NESTED_ADD_WINDOW
+        type: ACTIONS.NESTED_ADD_WINDOW_CLOSE
     }
 }
 
@@ -74,7 +74,7 @@ export function doCloseNestedAddWindow() {
 
 export function doOpenCategoryEditWindow(editId, title) {
     return {
-        type: ACTIONS.OPEN_CATEGORY_EDIT_WINDOW,
+        type: ACTIONS.CATEGORY_EDIT_WINDOW_OPEN,
         editId,
         title,
     }
@@ -82,13 +82,13 @@ export function doOpenCategoryEditWindow(editId, title) {
 
 export function doCloseCategoryEditWindow() {
     return {
-        type: ACTIONS.CLOSE_CATEGORY_EDIT_WINDOW,
+        type: ACTIONS.CATEGORY_EDIT_WINDOW_CLOSE,
     }
 }
 
 export function doOpenConfirmDeleteWindow(deleteId, deleteCategoryTitle) {
     return {
-        type: ACTIONS.OPEN_CONFIRM_DELETE_WINDOW,
+        type: ACTIONS.CONFIRM_DELETE_WINDOW_OPEN,
         deleteCategoryTitle,
         deleteId,
     }
@@ -96,28 +96,28 @@ export function doOpenConfirmDeleteWindow(deleteId, deleteCategoryTitle) {
 
 export function doCloseConfirmDeleteWindow() {
     return {
-        type: ACTIONS.CLOSE_CONFIRM_DELETE_WINDOW,
+        type: ACTIONS.CONFIRM_DELETE_WINDOW_CLOSE,
     }
 }
 
 
 export function doChooseCategory(id) {
     return {
-        type: ACTIONS.CHOOSE_CATEGORY,
+        type: ACTIONS.CATEGORY_CHOOSE,
         id,
     }
 }
 
 export function doChangeSearchFilter(filter) {
     return {
-        type: ACTIONS.CHANGE_SEARCH_FILTER,
+        type: ACTIONS.SEARCH_FILTER_CHANGE,
         filter,
     }
 }
 
 export function doChangeShowDoneFilter(value) {
     return {
-        type: ACTIONS.CHANGE_SHOW_DONE_FILTER,
+        type: ACTIONS.SHOW_DONE_FILTER_CHANGE,
         value,
     }
 }
