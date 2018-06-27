@@ -55,9 +55,9 @@ export default class Task extends React.Component {
                     <Link to={'/task/' + this.props.id}>
                         < ImageEdit />
                     </Link>
-                </Grid>
+                </Grid >
 
-            </Grid>
+            </Grid >
 
         );
     }

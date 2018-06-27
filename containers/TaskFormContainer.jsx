@@ -3,9 +3,9 @@ import * as ACTIONS from '../actions';
 import TaskForm from '../components/TaskForm/TaskForm.jsx';
 
 const mapStateToProps = state => ({
-    tasks: state.main.tasks,
-    gui: state.gui,
-    chosenCategoryId: state.main.chosenCategoryId,
+    tasks: state.root.main.present.tasks,
+    gui: state.root.gui,
+    chosenCategoryId: state.root.main.present.chosenCategoryId,
 });
 
 const mapDispatchToProps = dispatch => ({

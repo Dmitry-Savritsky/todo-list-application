@@ -3,8 +3,8 @@ import * as ACTIONS from '../actions';
 import CategoryForm from '../components/CategoryForm/CategoryForm.jsx';
 
 const mapStateToProps = state => ({
-    categories: state.main.categories,
-    chosenCategoryId: state.main.chosenCategoryId,
+    categories: state.root.main.present.categories,
+    chosenCategoryId: state.root.main.present.chosenCategoryId,
 });
 
 const mapDispatchToProps = dispatch => ({

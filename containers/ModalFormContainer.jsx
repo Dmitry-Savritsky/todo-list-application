@@ -3,7 +3,7 @@ import * as ACTIONS from '../actions';
 import ModalForm from '../components/ModalForm/ModalForm.jsx'
 
 const mapStateToProps = state => ({
-    gui: state.gui,
+    gui: state.root.gui,
 });
 
 const mapDispatchToProps = dispatch => ({
