@@ -75,7 +75,7 @@ const initialState = {
 export default function main(state = initialState, action) {
     switch (action.type) {
 
-        case ACTIONS.CHOOSE_CATEGORY: {
+        case ACTIONS.CATEGORY_CHOOSE: {
             return {
                 ...state,
                 chosenCategoryId: action.id,
@@ -83,7 +83,7 @@ export default function main(state = initialState, action) {
             }
         }
 
-        case ACTIONS.ADD_CATEGORY:
+        case ACTIONS.CATEGORY_ADD:
             return {
                 ...state,
                 categories: [
@@ -92,7 +92,7 @@ export default function main(state = initialState, action) {
                 chosenCategoryProgress: recalcCategoryProgress(state.tasks, state.chosenCategoryId),
             }
 
-        case ACTIONS.DELETE_CATEGORY: {
+        case ACTIONS.CATEGORY_DELETE: {
             let category = findCategoryById(state.categories, action.id);
             let idArray = findNestedCategoriesId(category);
             let tasks = deleteTasks(state.tasks, idArray);
@@ -109,7 +109,7 @@ export default function main(state = initialState, action) {
             };
         }
 
-        case ACTIONS.EDIT_CATEGORY: {
+        case ACTIONS.CATEGORY_EDIT: {
             return {
                 ...state,
                 categories: [
@@ -119,7 +119,7 @@ export default function main(state = initialState, action) {
             };
         }
 
-        case ACTIONS.ADD_TASK: {
+        case ACTIONS.TASK_ADD: {
 
             let tempTasks = applyAddTask(state.tasks, action.id, action.parentId, action.name, action.description, action.checked);
             let tempProgress = recalcCategoryProgress(tempTasks, state.chosenCategoryId);
@@ -133,7 +133,7 @@ export default function main(state = initialState, action) {
             };
         }
 
-        case ACTIONS.EDIT_TASK: {
+        case ACTIONS.TASK_EDIT: {
             return {
                 ...state,
                 tasks: [
@@ -143,7 +143,7 @@ export default function main(state = initialState, action) {
             };
         }
 
-        case ACTIONS.CHANGE_CHECKED_TASK: {
+        case ACTIONS.TASK_CHANGE_CHECKED: {
             return {
                 ...state,
                 tasks: [

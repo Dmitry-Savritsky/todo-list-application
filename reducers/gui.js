@@ -16,14 +16,14 @@ const initialState = {
 export default function gui(state = initialState, action) {
     switch (action.type) {
         //add window
-        case ACTIONS.OPEN_NESTED_ADD_WINDOW: {
+        case ACTIONS.NESTED_ADD_WINDOW_OPEN: {
             return {
                 ...state,
                 isNestedAddOpened: true,
                 nestedParentId: action.parentId,
             }
         }
-        case ACTIONS.CLOSE_NESTED_ADD_WINDOW: {
+        case ACTIONS.NESTED_ADD_WINDOW_CLOSE: {
             return {
                 ...state,
                 isNestedAddOpened: false
@@ -31,7 +31,7 @@ export default function gui(state = initialState, action) {
         }
 
         //edit window
-        case ACTIONS.OPEN_CATEGORY_EDIT_WINDOW: {
+        case ACTIONS.CATEGORY_EDIT_WINDOW_OPEN: {
             return {
                 ...state,
                 isEditCategoryOpened: true,
@@ -40,14 +40,14 @@ export default function gui(state = initialState, action) {
             }
         }
 
-        case ACTIONS.CLOSE_CATEGORY_EDIT_WINDOW: {
+        case ACTIONS.CATEGORY_EDIT_WINDOW_CLOSE: {
             return {
                 ...state,
                 isEditCategoryOpened: false,
             }
         }
 
-        case ACTIONS.OPEN_CONFIRM_DELETE_WINDOW: {
+        case ACTIONS.CONFIRM_DELETE_WINDOW_OPEN: {
             return {
                 ...state,
                 isConfirmDeleteOpened: true,
@@ -56,21 +56,21 @@ export default function gui(state = initialState, action) {
             }
         }
 
-        case ACTIONS.CLOSE_CONFIRM_DELETE_WINDOW: {
+        case ACTIONS.CONFIRM_DELETE_WINDOW_CLOSE: {
             return {
                 ...state,
                 isConfirmDeleteOpened: false,
             }
         }
 
-        case ACTIONS.CHANGE_SHOW_DONE_FILTER: {
+        case ACTIONS.SHOW_DONE_FILTER_CHANGE: {
             return {
                 ...state,
                 showDone: action.value,
             }
         }
 
-        case ACTIONS.CHANGE_SEARCH_FILTER: {
+        case ACTIONS.SEARCH_FILTER_CHANGE: {
             return {
                 ...state,
                 searchFilter: action.filter,
