@@ -2,10 +2,10 @@ import { connect } from 'react-redux';
 import * as ACTIONS from '../actions';
 import TaskForm from '../components/TaskForm/TaskForm.jsx';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, ownProps) => ({
     tasks: state.root.main.present.tasks,
     gui: state.root.gui,
-    chosenCategoryId: state.root.main.present.chosenCategoryId,
+    chosenCategoryId: ownProps.chosenCategoryId,
 });
 
 const mapDispatchToProps = dispatch => ({

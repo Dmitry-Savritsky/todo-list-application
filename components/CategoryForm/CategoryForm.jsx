@@ -16,7 +16,6 @@ export default class CategoryForm extends React.Component {
 
                 <CategoryList
                     categories={this.props.categories}
-                    chooseCategoryHandler={this.props.chooseCategoryHandler}
                     chosenCategoryId={this.props.chosenCategoryId}
                     openNestedAddWindow={this.props.openNestedAddWindow}
                     openCategoryEditWindow={this.props.openCategoryEditWindow}
@@ -28,8 +27,7 @@ export default class CategoryForm extends React.Component {
 
 CategoryForm.propTypes = {
     addCategoryHandler: PropTypes.func.isRequired,
-    chooseCategoryHandler: PropTypes.func.isRequired,
-    chosenCategoryId: PropTypes.string.isRequired,
+    chosenCategoryId: PropTypes.string,
     openCategoryEditWindow: PropTypes.func.isRequired,
     openNestedAddWindow: PropTypes.func.isRequired,
     openConfirmDeleteWindow: PropTypes.func.isRequired,

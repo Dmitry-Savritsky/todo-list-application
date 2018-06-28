@@ -29,7 +29,7 @@ export default class TaskForm extends React.Component {
 TaskForm.propTypes = {
     addTaskHandler: PropTypes.func.isRequired,
     changeCheckedTaskHandler: PropTypes.func.isRequired,
-    chosenCategoryId: PropTypes.string.isRequired,
+    chosenCategoryId: PropTypes.string,
 
     gui: PropTypes.shape({
         isNestedAddOpened: PropTypes.bool.isRequired,

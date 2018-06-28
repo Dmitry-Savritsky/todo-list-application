@@ -2,9 +2,9 @@ import { connect } from 'react-redux';
 import * as ACTIONS from '../actions';
 import CategoryForm from '../components/CategoryForm/CategoryForm.jsx';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, ownProps) => ({
     categories: state.root.main.present.categories,
-    chosenCategoryId: state.root.main.present.chosenCategoryId,
+    chosenCategoryId: ownProps.chosenCategoryId,
 });
 
 const mapDispatchToProps = dispatch => ({

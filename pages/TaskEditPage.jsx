@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Typography from '@material-ui/core/Typography';
@@ -9,6 +9,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import TextField from '@material-ui/core/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import history from '../history/history';
 import * as ACTIONS from '../actions';
 import TaskMoveCategoryList from '../components/TaskMoveCategoryList.jsx';
 
@@ -27,6 +28,7 @@ class TaskEditPage extends React.Component {
         this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
         this.moveToCategoryHandler = this.moveToCategoryHandler.bind(this);
         this.saveChangesHandler = this.saveChangesHandler.bind(this);
+        this.cancelHandler = this.cancelHandler.bind(this);
     }
 
     handleCheckboxChange(event) {
@@ -50,10 +52,11 @@ class TaskEditPage extends React.Component {
     saveChangesHandler() {
         this.props.saveChangesHandler(this.props.task.id, this.state.parentId,
             this.state.name, this.state.isChecked, this.state.description);
+        history.push('/categories/' + this.state.parentId);
     }
 
     cancelHandler() {
-
+        history.push('/categories/' + this.props.task.parentId);
     }
 
     moveToCategoryHandler(id) {
@@ -128,15 +131,8 @@ class TaskEditPage extends React.Component {
                                 />
                             </Grid>
                         </Grid>
-
                     </Grid>
-
                 </Grid>
-
-                <Link to={'/'} >
-                    Back to main
-                </Link>
-
             </Grid >
         )
 
@@ -144,15 +140,15 @@ class TaskEditPage extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-    task: state.main.tasks.find(task => task.id === ownProps.match.params.id),
-    categories: state.main.categories,
+    task: state.root.main.present.tasks.find(task => task.id === ownProps.match.params.id),
+    categories: state.root.main.present.categories,
 });
 
 const mapDispatchToProps = dispatch => ({
     saveChangesHandler: (id, parentId, name, isChecked, description) => dispatch(ACTIONS.doEditTask(id, parentId, name, isChecked, description)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TaskEditPage);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TaskEditPage));
 
 TaskEditPage.propTypes = {
     task: PropTypes.shape({

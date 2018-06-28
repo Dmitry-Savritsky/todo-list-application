@@ -49,5 +49,5 @@ export default class TaskAdder extends React.Component {
 
 TaskAdder.propTypes = {
     addTaskHandler: PropTypes.func.isRequired,
-    parentId: PropTypes.string.isRequired,
+    parentId: PropTypes.string,
 }

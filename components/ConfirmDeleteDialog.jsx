@@ -1,8 +1,9 @@
 import React from 'react';
-import Dialog from 'material-ui/Dialog'
-import RaisedButton from 'material-ui/RaisedButton'
+import Dialog from 'material-ui/Dialog';
+import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import PropTypes from 'prop-types';
+import history from '../history/history';
 
 export default class ConfirmDeleteDialog extends React.Component {
     constructor(props) {
@@ -16,6 +17,7 @@ export default class ConfirmDeleteDialog extends React.Component {
         event.preventDefault();
         this.props.actionHandler(this.props.deleteId);
         this.props.closeWindow();
+        history.push('/');
     }
 
     //on closing

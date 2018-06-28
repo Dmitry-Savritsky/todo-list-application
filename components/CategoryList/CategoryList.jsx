@@ -4,8 +4,9 @@ import ListItem from 'material-ui/List/ListItem';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import _ from 'lodash';
 import { withStyles } from '@material-ui/core/styles';
-
 import PropTypes from 'prop-types';
+
+import history from '../../history/history';
 import Category from '../Category/Category.jsx';
 
 const styles = {
@@ -19,10 +20,15 @@ class CategoryList extends React.Component {
         super(props);
 
         this.createCategoryList = this.createCategoryList.bind(this);
+        this.categoryClickHandler = this.categoryClickHandler.bind(this);
+    }
+
+    categoryClickHandler(id) {
+        history.push('/categories/' + id);
     }
 
     createCategoryList(category) {
-        if (category == null) return [];
+        if (_.isNil(category)) return [];
 
         const list = category.map(
 
@@ -44,7 +50,7 @@ class CategoryList extends React.Component {
                         key={element.id}
                         nestedItems={nestedItems}
                         initiallyOpen={true}
-                        onClick={() => this.props.chooseCategoryHandler(element.id)}
+                        onClick={() => this.categoryClickHandler(element.id)}
                         classes={{
                             root: this.props.classes
                         }}
@@ -85,8 +91,7 @@ CategoryList.propTypes = {
         id: PropTypes.string.isRequired,
         nestedCategories: PropTypes.array,
     })),
-    chosenCategoryId: PropTypes.string.isRequired,
-    chooseCategoryHandler: PropTypes.func.isRequired,
+    chosenCategoryId: PropTypes.string,
     openNestedAddWindow: PropTypes.func.isRequired,
     openCategoryEditWindow: PropTypes.func.isRequired,
     openConfirmDeleteWindow: PropTypes.func.isRequired,

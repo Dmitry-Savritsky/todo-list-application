@@ -53,7 +53,7 @@ export default class TaskList extends React.Component {
 
 TaskList.propTypes = {
 
-    categoryId: PropTypes.string.isRequired,
+    categoryId: PropTypes.string,
     tasks: PropTypes.arrayOf(PropTypes.shape({
         parentId: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
