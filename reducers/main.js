@@ -67,8 +67,7 @@ const initialState = {
         description: "description 4"
     },
     ],
-
-    chosenCategoryId: " ",
+    chosenCategoryId: "",
     chosenCategoryProgress: 0,
 };
 
@@ -79,7 +78,7 @@ export default function main(state = initialState, action) {
             return {
                 ...state,
                 chosenCategoryId: action.id,
-                chosenCategoryProgress: recalcCategoryProgress(state.tasks, action.id),
+               //chosenCategoryProgress: recalcCategoryProgress(state.tasks, action.id),
             }
         }
 
@@ -89,7 +88,7 @@ export default function main(state = initialState, action) {
                 categories: [
                     ...applyAddCategory(state.categories, action.id, action.parentId, action.title)
                 ],
-                chosenCategoryProgress: recalcCategoryProgress(state.tasks, state.chosenCategoryId),
+               // chosenCategoryProgress: recalcCategoryProgress(state.tasks, state.chosenCategoryId),
             }
 
         case ACTIONS.CATEGORY_DELETE: {
@@ -105,7 +104,7 @@ export default function main(state = initialState, action) {
                 tasks: [
                     ...tasks,
                 ],
-                chosenCategoryProgress: recalcCategoryProgress(state.tasks, state.chosenCategoryId),
+              //  chosenCategoryProgress: recalcCategoryProgress(state.tasks, state.chosenCategoryId),
             };
         }
 
@@ -115,21 +114,21 @@ export default function main(state = initialState, action) {
                 categories: [
                     ...applyEditCategory(state.categories, action.id, action.title)
                 ],
-                chosenCategoryProgress: recalcCategoryProgress(state.tasks, state.chosenCategoryId),
+               // chosenCategoryProgress: recalcCategoryProgress(state.tasks, state.chosenCategoryId),
             };
         }
 
         case ACTIONS.TASK_ADD: {
 
             let tempTasks = applyAddTask(state.tasks, action.id, action.parentId, action.name, action.description, action.checked);
-            let tempProgress = recalcCategoryProgress(tempTasks, state.chosenCategoryId);
-            
+           // let tempProgress = recalcCategoryProgress(tempTasks, state.chosenCategoryId);
+
             return {
                 ...state,
                 tasks: [
                     ...tempTasks,
                 ],
-                chosenCategoryProgress: tempProgress,
+               // chosenCategoryProgress: tempProgress,
             };
         }
 
@@ -139,7 +138,7 @@ export default function main(state = initialState, action) {
                 tasks: [
                     ...applyEditTask(state.tasks, action.id, action.parentId, action.name, action.checked, action.description)
                 ],
-                chosenCategoryProgress: recalcCategoryProgress(state.tasks, state.chosenCategoryId),
+               // chosenCategoryProgress: recalcCategoryProgress(state.tasks, state.chosenCategoryId),
             };
         }
 
@@ -149,7 +148,7 @@ export default function main(state = initialState, action) {
                 tasks: [
                     ...applyChangeCheckedTask(state.tasks, action.id, action.checked)
                 ],
-                chosenCategoryProgress: recalcCategoryProgress(state.tasks, state.chosenCategoryId),
+                //chosenCategoryProgress: recalcCategoryProgress(state.tasks, state.chosenCategoryId),
             };
         }
 
@@ -327,7 +326,7 @@ function deleteTasks(tasks, idArray) {
         return true;
     });
 }
-
+/*
 function recalcCategoryProgress(tasks, id) {
 
     let overallCount = 0;
@@ -342,4 +341,4 @@ function recalcCategoryProgress(tasks, id) {
 
     if (overallCount > 0) return (completedCount / overallCount) * 100;
     else return 100;
-}
+}*/
