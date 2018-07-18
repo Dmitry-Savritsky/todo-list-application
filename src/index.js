@@ -10,6 +10,8 @@ import TaskEditPage from '../pages/TaskEditPage.jsx';
 import MainPage from '../pages/MainPage.jsx';
 import history from '../history/history';
 
+require('typeface-roboto');
+
 const middleware = routerMiddleware(history);
 
 const store = createStore(
