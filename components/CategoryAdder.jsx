@@ -1,7 +1,7 @@
 import React from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { Form, FormControl } from 'react-bootstrap';
-import RaisedButton from 'material-ui/RaisedButton'
+import Button from '@material-ui/core/Button';
+import { Grid } from '@material-ui/core';
 import PropTypes from 'prop-types';
 
 export default class CategoryAdder extends React.Component {
@@ -33,11 +33,26 @@ export default class CategoryAdder extends React.Component {
 
         return (
             <Form>
-                <FormControl type="text" value={this.state.title} placeholder="Enter category title" onChange={this.handleNameChange} />
+                <Grid container justify="flex-start" alignItems="center" spacing={8}>
+                    <Grid item>
+                        <FormControl
+                            type="text"
+                            value={this.state.title}
+                            placeholder="Enter category title"
+                            onChange={this.handleNameChange}
+                        />
+                    </Grid>
 
-                <MuiThemeProvider>
-                    <RaisedButton label="Add" primary={true} onClick={this.addCategoryHandler} />
-                </MuiThemeProvider>
+                    <Grid item>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            size="large"
+                            onClick={this.addCategoryHandler}>
+                            Add
+                        </Button>
+                    </Grid>
+                </Grid>
             </Form>
         );
     }

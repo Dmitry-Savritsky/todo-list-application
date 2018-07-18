@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
-import ImageEdit from 'material-ui/svg-icons/image/edit';
-import ContentAddCircleOutline from 'material-ui/svg-icons/content/add-circle-outline';
-import ActionDelete from 'material-ui/svg-icons/action/delete';
-import styles from './Category.css';
+import IconButton from '@material-ui/core/IconButton';
+import EditIcon from '@material-ui/icons/Edit';
+import AddIcon from '@material-ui/icons/AddCircleOutline';
+import DeleteIcon from '@material-ui/icons/Delete';
+import Typography from '@material-ui/core/Typography';
 
 export default class Category extends React.Component {
     constructor(props) {
@@ -19,7 +20,7 @@ export default class Category extends React.Component {
     }
 
     deleteCategory() {
-        this.props.openConfirmDeleteWindow(this.props.id,this.props.title);
+        this.props.openConfirmDeleteWindow(this.props.id, this.props.title);
     }
 
     openWindow() {
@@ -28,20 +29,40 @@ export default class Category extends React.Component {
 
     render() {
 
-        let style;
-        if (this.props.isSelected) style = styles.selected;
-        else style = styles.notSelected;
-
         return (
-            <Grid container alignItems="center">
+            <Grid container alignItems="center" justify="space-between">
+                <Grid item>
 
-                <h4 className={style}>
-                    {this.props.title}
-                </h4>
-                <ImageEdit onClick={this.editCategory} />
+                    <Grid container justify="flex-start" alignItems="center">
+                        <Grid item>
+                            <Typography variant={"display1"}> {this.props.title}</Typography>
+                        </Grid>
+                        <Grid item>
+                            <IconButton onClick={this.editCategory}>
+                                <EditIcon />
+                            </IconButton>
+                        </Grid>
+                    </Grid>
 
-                <ActionDelete onClick={this.deleteCategory} />
-                <ContentAddCircleOutline onClick={this.openWindow} />
+                </Grid>
+
+                <Grid item>
+
+                    <Grid container justify="flex-end">
+                        <Grid item>
+                            <IconButton onClick={this.deleteCategory} color="secondary">
+                                <DeleteIcon />
+                            </IconButton>
+                        </Grid>
+                        <Grid item>
+                            <IconButton onClick={this.openWindow} color="primary">
+                                <AddIcon />
+                            </IconButton>
+                        </Grid>
+                    </Grid>
+
+                </Grid>
+
             </Grid>
         );
     }

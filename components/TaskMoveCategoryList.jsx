@@ -1,14 +1,34 @@
 import React from 'react';
+//import List from '@material-ui/core/List'
+//import ListItem from '@material-ui/core/ListItem';
+//import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import List from 'material-ui/List/List'
 import ListItem from 'material-ui/List/ListItem'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import _ from 'lodash'
+import _ from 'lodash';
+import { withStyles } from '@material-ui/core/styles';
 
 import PropTypes from 'prop-types';
 
-import CategoryMover from './CategoryMover/CategoryMover.jsx'
+import CategoryMover from './CategoryMover/CategoryMover.jsx';
 
-export default class TaskMoveCategoryList extends React.Component {
+const styles = {
+    categoryList: {
+        height: '500px',
+        overflow: 'auto',
+    },
+};
+
+const chosenItemStyle = {
+    backgroundColor: '#5168ff',
+    paddingTop: '0px',
+};
+
+const itemStyle = {
+    backgroundColor: '#f1ff8a',
+}
+
+class TaskMoveCategoryList extends React.Component {
     constructor(props) {
         super(props);
 
@@ -31,6 +51,7 @@ export default class TaskMoveCategoryList extends React.Component {
                 let nestedItems = this.createCategoryList(nested);
 
                 let isSelected = _.isEqual(element.id, this.props.parentCategoryId);
+                let style = isSelected ? chosenItemStyle : itemStyle;
 
                 return (
 
@@ -38,6 +59,7 @@ export default class TaskMoveCategoryList extends React.Component {
                         key={element.id}
                         nestedItems={nestedItems}
                         initiallyOpen={true}
+                        style={style}
                     >
                         <CategoryMover
                             title={element.title}
@@ -66,6 +88,8 @@ export default class TaskMoveCategoryList extends React.Component {
         );
     }
 }
+
+export default withStyles(styles)(TaskMoveCategoryList)
 
 TaskMoveCategoryList.propTypes = {
     categories: PropTypes.arrayOf(PropTypes.shape({

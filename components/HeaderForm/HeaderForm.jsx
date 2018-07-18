@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import LinearProgress from 'material-ui/LinearProgress';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import TextField from '@material-ui/core/TextField';
 import Checkbox from '@material-ui/core/Checkbox';
 import Typography from '@material-ui/core/Typography';
@@ -9,6 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import history from '../../history/history';
+import UndoRedo from '../UndoRedo/UndoRedo.jsx';
 
 const styles = theme => ({
     textField: {
@@ -54,37 +54,47 @@ class HeaderForm extends React.Component {
 
     render() {
         return (
-            <Grid container justify='space-around' alignItems='flex-start'>
+            <Grid container justify='space-around' alignItems='flex-end'>
                 <Grid item xs={6}>
                     <Typography variant={"display4"}> To-Do List</Typography>
                 </Grid>
                 <Grid item xs={6}>
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                checked={this.state.isChecked}
-                                value="checkedA"
-                                onChange={this.handleCheckboxChange}
+                    <Grid container justify='space-around' alignItems='flex-start'>
+                        <Grid item>
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        checked={this.state.isChecked}
+                                        value="checkedA"
+                                        onChange={this.handleCheckboxChange}
+                                    />
+                                }
+                                label="Show done"
                             />
-                        }
-                        label="Show done"
-                    />
-                    <TextField
-                        id="search"
-                        label="Search"
-                        type="search"
-                        margin="normal"
-                        value={this.state.searchValue}
-                        onChange={this.handleSearchChange}
-                        className={styles.textField}
-                    />
+                        </Grid>
+                        <Grid item>
+                            <TextField
+                                label="Search"
+                                type="search"
+                                value={this.state.searchValue}
+                                onChange={this.handleSearchChange}
+                                className={this.props.classes.textField}
+                            />
+                        </Grid>
+                        <Grid item>
+                            <UndoRedo
+                                undoHandler={this.props.undoHandler}
+                                redoHandler={this.props.redoHandler}
+                                canRedo={this.props.canRedo}
+                                canUndo={this.props.canUndo}
+                            />
+                        </Grid>
+                    </Grid>
                 </Grid>
 
                 <Grid item xs={12}>
-                    <MuiThemeProvider>
-                        <LinearProgress mode="determinate"
-                            value={getProgressValue(this.props.tasks, this.props.chosenCategoryId)} />
-                    </MuiThemeProvider>
+                    <LinearProgress variant="determinate"
+                        value={getProgressValue(this.props.tasks, this.props.chosenCategoryId)} />
                 </Grid>
             </Grid>
         )
@@ -119,8 +129,11 @@ HeaderForm.propTypes = {
 
     searchFilterHandler: PropTypes.func.isRequired,
     changeDoneHandler: PropTypes.func.isRequired,
+    canUndo: PropTypes.bool.isRequired,
+    canRedo: PropTypes.bool.isRequired,
     undoHandler: PropTypes.func.isRequired,
     redoHandler: PropTypes.func.isRequired,
+    classes: PropTypes.object.isRequired,
 }
 
 export default withStyles(styles)(HeaderForm)

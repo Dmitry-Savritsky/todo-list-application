@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ImageEdit from 'material-ui/svg-icons/image/edit';
+import IconButton from '@material-ui/core/IconButton';
+import EditIcon from '@material-ui/icons/Edit';
+import Typography from '@material-ui/core/Typography';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { Grid } from '@material-ui/core';
@@ -10,36 +12,27 @@ export default class Task extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            isChecked: this.props.isChecked,
-        }
-
-        this.onCheck = this.onCheck.bind(this);
         this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
     }
 
-    onCheck() {
-        this.props.onCheckHandler(this.props.id, this.state.isChecked);
-    }
-
-    handleCheckboxChange(event) {
-        this.setState({
-            isChecked: event.target.checked,
-        });
-
-        this.onCheck();
+    handleCheckboxChange() {
+        this.props.onCheckHandler(this.props.id, this.props.isChecked);
     }
 
     render() {
 
         return (
-            <Grid container alignItems="center" direction="row" justify="flex-start">
+            <Grid container
+                alignItems="center"
+                direction="row"
+                justify="flex-start"
+                spacing={8}>
 
                 <Grid item>
                     <FormControlLabel
                         control={
                             <Checkbox
-                                checked={this.state.isChecked}
+                                checked={this.props.isChecked}
                                 value="checkedA"
                                 onChange={this.handleCheckboxChange}
                             />
@@ -48,12 +41,14 @@ export default class Task extends React.Component {
                 </Grid>
 
                 <Grid item >
-                    <h3>{this.props.title}</h3>
+                    <Typography variant={"display1"}> {this.props.title}</Typography>
                 </Grid>
 
                 <Grid item >
                     <Link to={'/task/' + this.props.id}>
-                        < ImageEdit />
+                        <IconButton >
+                            <EditIcon />
+                        </IconButton>
                     </Link>
                 </Grid >
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Grid from '@material-ui/core/Grid';
 import CategoryAdder from '../CategoryAdder.jsx';
 import CategoryList from '../CategoryList/CategoryList.jsx';
 
@@ -11,16 +12,19 @@ export default class CategoryForm extends React.Component {
     render() {
 
         return (
-            <div>
-                <CategoryAdder addCategoryHandler={this.props.addCategoryHandler} />
-
-                <CategoryList
-                    categories={this.props.categories}
-                    chosenCategoryId={this.props.chosenCategoryId}
-                    openNestedAddWindow={this.props.openNestedAddWindow}
-                    openCategoryEditWindow={this.props.openCategoryEditWindow}
-                    openConfirmDeleteWindow={this.props.openConfirmDeleteWindow} />
-            </div>
+            <Grid container direction="column">
+                <Grid item>
+                    <CategoryAdder addCategoryHandler={this.props.addCategoryHandler} />
+                </Grid>
+                <Grid item>
+                    <CategoryList
+                        categories={this.props.categories}
+                        chosenCategoryId={this.props.chosenCategoryId}
+                        openNestedAddWindow={this.props.openNestedAddWindow}
+                        openCategoryEditWindow={this.props.openCategoryEditWindow}
+                        openConfirmDeleteWindow={this.props.openConfirmDeleteWindow} />
+                </Grid>
+            </Grid>
         );
     }
 }

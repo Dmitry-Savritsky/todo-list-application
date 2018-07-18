@@ -1,4 +1,7 @@
 import React from 'react';
+//import List from '@material-ui/core/List'
+//import ListItem from '@material-ui/core/ListItem';
+//import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import List from 'material-ui/List/List'
 import ListItem from 'material-ui/List/ListItem';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -9,11 +12,24 @@ import PropTypes from 'prop-types';
 import history from '../../history/history';
 import Category from '../Category/Category.jsx';
 
+import './CategoryList.css';
+
 const styles = {
-    root: {
-        borderRadius: 3,
-    }
+
+    categoryList: {
+        height: '500px',
+        overflow: 'auto',
+    },
 };
+
+const chosenItemStyle = {
+    backgroundColor: '#5168ff',
+    paddingTop: '0px',
+};
+
+const itemStyle = {
+    backgroundColor: '#f1ff8a',
+}
 
 class CategoryList extends React.Component {
     constructor(props) {
@@ -41,8 +57,8 @@ class CategoryList extends React.Component {
                 else nested = null;
 
                 let nestedItems = this.createCategoryList(nested);
-
                 let isSelected = _.isEqual(element.id, this.props.chosenCategoryId);
+                let style = isSelected ? chosenItemStyle : itemStyle;
 
                 return (
 
@@ -51,11 +67,8 @@ class CategoryList extends React.Component {
                         nestedItems={nestedItems}
                         initiallyOpen={true}
                         onClick={() => this.categoryClickHandler(element.id)}
-                        classes={{
-                            root: this.props.classes
-                        }}
+                        style={style}
                     >
-
                         <Category title={element.title}
                             id={element.id}
                             openNestedAddWindow={this.props.openNestedAddWindow}
@@ -77,7 +90,7 @@ class CategoryList extends React.Component {
         return (
 
             <MuiThemeProvider>
-                <List>
+                <List className={this.props.classes.categoryList}>
                     {categoriesList}
                 </List>
             </MuiThemeProvider>

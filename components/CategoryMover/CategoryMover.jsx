@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
-import Reply from 'material-ui/svg-icons/content/reply'
-import styles from './CategoryMover.css';
+import Reply from '@material-ui/icons/Reply';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
 
 export default class CategoryMover extends React.Component {
     constructor(props) {
@@ -16,19 +17,18 @@ export default class CategoryMover extends React.Component {
 
     render() {
 
-        let style;
-        if (this.props.isSelected) style = styles.selected;
-        else style = styles.notSelected;
-
         return (
-            <Grid container alignItems="center">
-
-                <h4 className={style}>
-                    {this.props.title}
-                </h4>
-
-                {!this.props.isSelected && <Reply onClick={this.moveToCategory} />}
-
+            <Grid container alignItems="center" justify="space-between">
+                <Grid item>
+                    <Typography variant={"headline"}> {this.props.title}</Typography>
+                </Grid>
+                <Grid item>
+                    {!this.props.isSelected &&
+                        <IconButton onClick={this.moveToCategory}>
+                            <Reply />
+                        </IconButton>
+                    }
+                </Grid>
             </Grid>
         );
     }

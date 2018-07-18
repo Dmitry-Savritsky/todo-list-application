@@ -1,13 +1,25 @@
 import React from 'react';
+
+//import List from '@material-ui/core/List'
+//import ListItem from '@material-ui/core/ListItem';
+//import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import List from 'material-ui/List/List'
 import ListItem from 'material-ui/List/ListItem'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import _ from 'lodash';
 
+import _ from 'lodash';
+import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import Task from './Task.jsx';
 
-export default class TaskList extends React.Component {
+const styles = {
+    taskList: {
+        height: 500,
+        overflow: 'auto',
+    },
+};
+
+class TaskList extends React.Component {
     constructor(props) {
         super(props);
         this.createTaskList = this.createTaskList.bind(this);
@@ -19,7 +31,7 @@ export default class TaskList extends React.Component {
             (element) => {
                 if (_.isEqual(this.props.categoryId, element.parentId))
                     if (!this.props.showDone || (this.props.showDone && element.checked))
-                        if (element.name.startsWith(this.props.searchFilter) || this.props.searchFilter=="")
+                        if (element.name.startsWith(this.props.searchFilter) || this.props.searchFilter == "")
                             return (
                                 <ListItem
                                     key={element.id}>
@@ -43,7 +55,7 @@ export default class TaskList extends React.Component {
 
         return (
             <MuiThemeProvider>
-                <List>
+                <List className={this.props.classes.taskList}>
                     {taskList}
                 </List>
             </MuiThemeProvider>
@@ -64,4 +76,7 @@ TaskList.propTypes = {
     onCheckHandler: PropTypes.func.isRequired,
     searchFilter: PropTypes.string.isRequired,
     showDone: PropTypes.bool.isRequired,
+    classes: PropTypes.object.isRequired,
 }
+
+export default withStyles(styles)(TaskList);

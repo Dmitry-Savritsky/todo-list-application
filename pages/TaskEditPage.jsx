@@ -2,13 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import TextField from '@material-ui/core/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from '@material-ui/core/Button';
 import history from '../history/history';
 import * as ACTIONS from '../actions';
 import TaskMoveCategoryList from '../components/TaskMoveCategoryList.jsx';
@@ -51,7 +50,7 @@ class TaskEditPage extends React.Component {
 
     saveChangesHandler() {
         this.props.saveChangesHandler(this.props.task.id, this.state.parentId,
-            this.state.name, this.state.isChecked, this.state.description);
+            this.state.name, !this.state.isChecked, this.state.description);
         history.push('/categories/' + this.state.parentId);
     }
 
@@ -74,7 +73,7 @@ class TaskEditPage extends React.Component {
                     </Grid>
                 </Grid>
 
-                <Grid container>
+                <Grid container spacing={8}>
                     <Grid item xs={3}>
                         <TaskMoveCategoryList
                             categories={this.props.categories}
@@ -84,22 +83,32 @@ class TaskEditPage extends React.Component {
 
                     <Grid item xs={9}>
                         <Grid container justify="flex-end" spacing={16}>
+
                             <Grid item>
-                                <MuiThemeProvider>
-                                    <RaisedButton label="Save changes" primary={true} onClick={this.saveChangesHandler} />
-                                </MuiThemeProvider>
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    onClick={this.saveChangesHandler}
+                                    size="large">
+                                    Save changes
+                                </Button>
                             </Grid>
+
                             <Grid item>
-                                <MuiThemeProvider>
-                                    <RaisedButton label="Cancel" primary={true} onClick={this.cancelHandler} />
-                                </MuiThemeProvider>
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    onClick={this.cancelHandler}
+                                    size="large">
+                                    Cancel
+                                </Button>
                             </Grid>
 
                         </Grid>
 
                         <Grid container justify="flex-start" direction="column" spacing={16}>
-                            <Grid item xs={9} >
 
+                            <Grid item xs={9} >
                                 <TextField
                                     id="name"
                                     margin="normal"
@@ -130,6 +139,7 @@ class TaskEditPage extends React.Component {
                                     multiline={true}
                                 />
                             </Grid>
+                            
                         </Grid>
                     </Grid>
                 </Grid>

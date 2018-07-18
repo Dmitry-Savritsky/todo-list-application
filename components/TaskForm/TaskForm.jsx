@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Grid from '@material-ui/core/Grid';
 import TaskAdder from '../TaskAdder.jsx';
 import TaskList from '../TaskList.jsx';
 
@@ -12,15 +13,20 @@ export default class TaskForm extends React.Component {
 
         return (
             <div>
-                <TaskAdder addTaskHandler={this.props.addTaskHandler}
-                    parentId={this.props.chosenCategoryId} />
-
-                <TaskList categoryId={this.props.chosenCategoryId}
-                    tasks={this.props.tasks}
-                    onCheckHandler={this.props.changeCheckedTaskHandler}
-                    searchFilter={this.props.gui.searchFilter}
-                    showDone={this.props.gui.showDone}
-                />
+                <Grid container direction="column">
+                    <Grid item>
+                        <TaskAdder addTaskHandler={this.props.addTaskHandler}
+                            parentId={this.props.chosenCategoryId} />
+                    </Grid>
+                    <Grid item>
+                        <TaskList categoryId={this.props.chosenCategoryId}
+                            tasks={this.props.tasks}
+                            onCheckHandler={this.props.changeCheckedTaskHandler}
+                            searchFilter={this.props.gui.searchFilter}
+                            showDone={this.props.gui.showDone}
+                        />
+                    </Grid>
+                </Grid>
             </div>
         );
     }

@@ -1,10 +1,12 @@
 import React from 'react';
 import { Form, FormGroup, FormControl } from 'react-bootstrap';
-import Dialog from 'material-ui/Dialog'
-import RaisedButton from 'material-ui/RaisedButton'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import PropTypes from 'prop-types';
 import _ from 'lodash'
+import { DialogContent } from '@material-ui/core';
 
 export default class ModalDialog extends React.Component {
     constructor(props) {
@@ -70,26 +72,38 @@ export default class ModalDialog extends React.Component {
             buttonLabel = "Add";
         }
 
-        const actions = [
-            <RaisedButton key="1" label={buttonLabel} primary={true} onClick={this.actionHandler} />,
-            <RaisedButton key="2" label="Cancel" primary={true} onClick={this.onClose} />
-        ];
-
         return (
-            <MuiThemeProvider>
-                <Dialog
-                    title={windowTitle}
-                    actions={actions}
-                    modal={true}
-                    open={this.props.showWindow}>
+
+            <Dialog
+                open={this.props.showWindow}
+                onClose={this.onClose}
+                aria-labelledby="form-dialog-title"
+            >
+                <DialogTitle id="form-dialog-title">
+                    {windowTitle}
+                </DialogTitle>
+
+                <DialogContent>
 
                     <Form inline onSubmit={this.addCategoryHandler}>
                         <FormGroup>
                             <FormControl type="text" value={this.state.title} placeholder="Enter category title" onChange={this.handleNameChange} />
                         </FormGroup>
                     </Form>
-                </Dialog>
-            </MuiThemeProvider>
+
+                </DialogContent>
+
+                <DialogActions>
+                    <Button onClick={this.actionHandler} color="primary">
+                        {buttonLabel}
+                    </Button>
+                    <Button onClick={this.onClose} color="primary">
+                        Cancel
+                    </Button>
+                </DialogActions>
+
+            </Dialog>
+
         );
     }
 }
