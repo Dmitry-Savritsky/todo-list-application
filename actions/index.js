@@ -100,14 +100,6 @@ export function doCloseConfirmDeleteWindow() {
     }
 }
 
-
-export function doChooseCategory(id) {
-    return {
-        type: ACTIONS.CATEGORY_CHOOSE,
-        id,
-    }
-}
-
 export function doChangeSearchFilter(filter) {
     return {
         type: ACTIONS.SEARCH_FILTER_CHANGE,
@@ -119,6 +111,12 @@ export function doChangeShowDoneFilter(value) {
     return {
         type: ACTIONS.SHOW_DONE_FILTER_CHANGE,
         value,
+    }
+}
+
+export function doUpdateQuery() {
+    return {
+        type: ACTIONS.QUERY_UPDATE,
     }
 }
 
