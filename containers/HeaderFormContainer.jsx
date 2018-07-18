@@ -5,7 +5,9 @@ import HeaderForm from '../components/HeaderForm/HeaderForm.jsx';
 
 const mapStateToProps = (state, ownProps) => ({
     tasks: state.root.main.present.tasks,
-    chosenCategoryId: ownProps.chosenCategoryId
+    chosenCategoryId: ownProps.chosenCategoryId,
+    canUndo: state.root.main.past.length > 0,
+    canRedo: state.root.main.future.length > 0,
 });
 
 const mapDispatchToProps = dispatch => ({

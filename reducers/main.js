@@ -78,7 +78,6 @@ export default function main(state = initialState, action) {
             return {
                 ...state,
                 chosenCategoryId: action.id,
-               //chosenCategoryProgress: recalcCategoryProgress(state.tasks, action.id),
             }
         }
 
@@ -86,9 +85,8 @@ export default function main(state = initialState, action) {
             return {
                 ...state,
                 categories: [
-                    ...applyAddCategory(state.categories, action.id, action.parentId, action.title)
+                    ...applyAddCategory(state.categories, action.id, action.parentId, action.title),
                 ],
-               // chosenCategoryProgress: recalcCategoryProgress(state.tasks, state.chosenCategoryId),
             }
 
         case ACTIONS.CATEGORY_DELETE: {
@@ -104,7 +102,6 @@ export default function main(state = initialState, action) {
                 tasks: [
                     ...tasks,
                 ],
-              //  chosenCategoryProgress: recalcCategoryProgress(state.tasks, state.chosenCategoryId),
             };
         }
 
@@ -112,23 +109,17 @@ export default function main(state = initialState, action) {
             return {
                 ...state,
                 categories: [
-                    ...applyEditCategory(state.categories, action.id, action.title)
+                    ...applyEditCategory(state.categories, action.id, action.title),
                 ],
-               // chosenCategoryProgress: recalcCategoryProgress(state.tasks, state.chosenCategoryId),
             };
         }
 
         case ACTIONS.TASK_ADD: {
-
-            let tempTasks = applyAddTask(state.tasks, action.id, action.parentId, action.name, action.description, action.checked);
-           // let tempProgress = recalcCategoryProgress(tempTasks, state.chosenCategoryId);
-
             return {
                 ...state,
                 tasks: [
-                    ...tempTasks,
+                    ...applyAddTask(state.tasks, action.id, action.parentId, action.name, action.checked, action.description),
                 ],
-               // chosenCategoryProgress: tempProgress,
             };
         }
 
@@ -136,9 +127,8 @@ export default function main(state = initialState, action) {
             return {
                 ...state,
                 tasks: [
-                    ...applyEditTask(state.tasks, action.id, action.parentId, action.name, action.checked, action.description)
+                    ...applyEditTask(state.tasks, action.id, action.parentId, action.name, action.checked, action.description),
                 ],
-               // chosenCategoryProgress: recalcCategoryProgress(state.tasks, state.chosenCategoryId),
             };
         }
 
@@ -146,9 +136,8 @@ export default function main(state = initialState, action) {
             return {
                 ...state,
                 tasks: [
-                    ...applyChangeCheckedTask(state.tasks, action.id, action.checked)
+                    ...applyChangeCheckedTask(state.tasks, action.id, action.checked),
                 ],
-                //chosenCategoryProgress: recalcCategoryProgress(state.tasks, state.chosenCategoryId),
             };
         }
 
@@ -158,12 +147,22 @@ export default function main(state = initialState, action) {
 }
 
 function applyEditTask(tasks, id, parentId, name, checked, description) {
+    let item = {
+        id: "",
+        parentId: "",
+        name: "",
+        checked: false,
+        description: "",
+    };
+
     let result = tasks.map(task => {
         if (task.id == id) {
-            task.parentId = parentId;
-            task.name = name;
-            task.checked = checked;
-            task.description = description;
+            item.parentId = parentId;
+            item.id = task.id;
+            item.name = name;
+            item.checked = !checked;
+            item.description = description;
+            return item;
         }
         return task;
     });
@@ -171,16 +170,31 @@ function applyEditTask(tasks, id, parentId, name, checked, description) {
 }
 
 function applyChangeCheckedTask(tasks, id, checked) {
+
+    let item = {
+        id: "",
+        parentId: "",
+        name: "",
+        checked: false,
+        description: "",
+    };
+
     let result = tasks.map(task => {
         if (task.id == id) {
-            task.checked = !checked;
+            item.parentId = task.parentId;
+            item.id = id;
+            item.name = task.name;
+            item.checked = !checked;
+            item.description = task.description;
+            return item;
         }
         return task;
     });
     return result;
+
 }
 
-function applyAddTask(tasks, id, parentId, name, description, checked) {
+function applyAddTask(tasks, id, parentId, name, checked, description) {
     let item = {
         parentId,
         id,
@@ -201,10 +215,21 @@ function applyEditCategory(categories, id, title) {
     let result;
     let completed = false;
 
+    let item = {
+        title: "",
+        id: "",
+        nestedCategories: [],
+    };
+
     let mapped = categories.map(element => {
+
         if (element.id == id) {
-            element.title = title;
+            item.title = title;
+            item.id = id;
+            item.nestedCategories = element.nestedCategories.slice();
             completed = true;
+
+            return item;
         }
         return element;
     });
@@ -213,8 +238,15 @@ function applyEditCategory(categories, id, title) {
 
     else {
         result = mapped.map(element => {
-            element.nestedCategories = applyEditCategory(element.nestedCategories, id, title);
-            return element;
+
+            let mapItem = {
+                title: element.title,
+                id: element.id,
+                nestedCategories: [],
+            };
+
+            mapItem.nestedCategories = applyEditCategory(element.nestedCategories, id, title);
+            return mapItem;
         });
 
         return result;
@@ -230,7 +262,6 @@ function applyAddCategory(categories, id, parentId, title) {
     let item = {
         title: title,
         id: id,
-        tasks: [],
         nestedCategories: [],
     };
 
@@ -245,12 +276,23 @@ function applyAddCategory(categories, id, parentId, title) {
     }
 
     let mapped = categories.map(element => {
+
         if (element.id == parentId) {
-            element.nestedCategories = [
+
+            let itemNested = [
                 item,
-                ...element.nestedCategories
+                ...element.nestedCategories,
             ]
+
+            let resItem = {
+                title: element.title,
+                id: element.id,
+                nestedCategories: itemNested,
+            }
+
             completed = true;
+            return resItem;
+
         }
         return element;
     });
@@ -259,8 +301,15 @@ function applyAddCategory(categories, id, parentId, title) {
 
     else {
         result = mapped.map(element => {
-            element.nestedCategories = applyAddCategory(element.nestedCategories, id, parentId, title);
-            return element;
+
+            let mapItem = {
+                title: element.title,
+                id: element.id,
+                nestedCategories: [],
+            };
+
+            mapItem.nestedCategories = applyAddCategory(element.nestedCategories, id, parentId, title);
+            return mapItem;
         });
 
         return result;
@@ -285,8 +334,14 @@ function applyDeleteCategory(category, id) {
 
     if (!completed) {
         result = filtered.map(element => {
-            element.nestedCategories = applyDeleteCategory(element.nestedCategories, id);
-            return element;
+            let mapItem = {
+                title: element.title,
+                id: element.id,
+                nestedCategories: [],
+            };
+
+            mapItem.nestedCategories = applyDeleteCategory(element.nestedCategories, id);
+            return mapItem;
         });
     }
 
@@ -326,19 +381,3 @@ function deleteTasks(tasks, idArray) {
         return true;
     });
 }
-/*
-function recalcCategoryProgress(tasks, id) {
-
-    let overallCount = 0;
-    let completedCount = 0;
-
-    tasks.forEach(element => {
-        if (element.parentId == id) {
-            overallCount += 1;
-            if (element.checked) completedCount += 1;
-        }
-    });
-
-    if (overallCount > 0) return (completedCount / overallCount) * 100;
-    else return 100;
-}*/
