@@ -11,6 +11,7 @@ import Button from '@material-ui/core/Button';
 import history from '../history/history';
 import * as ACTIONS from '../actions';
 import TaskMoveCategoryList from '../components/TaskMoveCategoryList.jsx';
+import getNameValidationState from '../utils/index';
 
 class TaskEditPage extends React.Component {
     constructor(props) {
@@ -20,6 +21,7 @@ class TaskEditPage extends React.Component {
             name: this.props.task.name,
             isChecked: this.props.task.checked,
             description: this.props.task.description,
+            valid: getNameValidationState(this.props.task.name),
         }
 
         this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
@@ -39,6 +41,7 @@ class TaskEditPage extends React.Component {
     handleNameChange(event) {
         this.setState({
             name: event.target.value,
+            valid: getNameValidationState(event.target.value),
         })
     }
 
@@ -89,7 +92,8 @@ class TaskEditPage extends React.Component {
                                     variant="contained"
                                     color="primary"
                                     onClick={this.saveChangesHandler}
-                                    size="large">
+                                    size="large"
+                                    disabled={!this.state.valid}>
                                     Save changes
                                 </Button>
                             </Grid>

@@ -3,6 +3,7 @@ import { Form, FormControl } from 'react-bootstrap';
 import Button from '@material-ui/core/Button';
 import { Grid } from '@material-ui/core';
 import PropTypes from 'prop-types';
+import getNameValidationState from '../utils/index';
 
 export default class TaskAdder extends React.Component {
     constructor(props) {
@@ -10,6 +11,7 @@ export default class TaskAdder extends React.Component {
 
         this.state = {
             title: "",
+            valid: false,
         };
 
         this.handleNameChange = this.handleNameChange.bind(this);
@@ -26,11 +28,15 @@ export default class TaskAdder extends React.Component {
 
         this.props.addTaskHandler(id, this.props.parentId, this.state.title, desc, checked);
 
-        this.setState({ title: "" });
+        this.setState({
+            title: "",
+            valid: false,
+        });
     }
 
     handleNameChange(event) {
         this.setState({ title: event.target.value });
+        this.setState({ valid: getNameValidationState(event.target.value) })
     }
 
     render() {
@@ -51,11 +57,12 @@ export default class TaskAdder extends React.Component {
                             variant="contained"
                             color="primary"
                             size="large"
-                            onClick={this.addTaskHandler}>
+                            onClick={this.addTaskHandler}
+                            disabled={!this.state.valid}>
                             Add
                         </Button>
                     </Grid>
-                    
+
                 </Grid>
             </Form>
         );

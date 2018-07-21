@@ -5,15 +5,29 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --config ./webpack.config.js --mode development --colors",
-    "test": "echo \"No test specified\" && exit 0"
+    "test": "jest",
+    "test:watch": "npm test -- --watch"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/reactTests/__mocks__/fileMock.js",
+      "\\.(css|less)$": "<rootDir>/client/src/stylesheets/"
+    },
+    "testPathIgnorePatterns": [
+      "<rootDir>/node_modules/",
+      "<rootDir>/legacy_notes_and_workbook/",
+      "<rootDir>/client/src/stylesheets/"
+    ]
   },
   "private": true,
   "keywords": [],
   "author": "Dmitry Savritsky",
   "license": "MIT",
   "devDependencies": {
+    "@babel/preset-env": "^7.0.0-beta.54",
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.6",
+    "babel-jest": "^23.4.0",
     "babel-loader": "^7.1.5",
     "babel-plugin-lodash": "^3.3.4",
     "babel-preset-env": "^1.7.0",
@@ -21,6 +35,7 @@
     "babel-preset-stage-2": "^6.22.0",
     "babel-preset-stage-3": "^6.24.1",
     "css-loader": "^0.28.11",
+    "enzyme": "^3.3.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-loader": "^2.0.0",
@@ -29,6 +44,8 @@
     "eslint-plugin-react": "^7.10.0",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "file-loader": "^1.1.11",
+    "gulp-babel": "^7.0.1",
+    "jest": "^23.4.1",
     "lodash-webpack-plugin": "^0.11.5",
     "react-hot-loader": "^3.1.3",
     "style-loader": "^0.20.3",

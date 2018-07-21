@@ -7,6 +7,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import PropTypes from 'prop-types';
 import _ from 'lodash'
 import { DialogContent } from '@material-ui/core';
+import getNameValidationState from '../utils/index';
 
 export default class ModalDialog extends React.Component {
     constructor(props) {
@@ -14,6 +15,7 @@ export default class ModalDialog extends React.Component {
 
         this.state = {
             title: "",
+            valid: false,
         };
 
         this.handleNameChange = this.handleNameChange.bind(this);
@@ -35,7 +37,10 @@ export default class ModalDialog extends React.Component {
             this.props.actionHandler(id, this.props.nestedParentId, this.state.title);
         }
 
-        this.setState({ title: " " });
+        this.setState({
+            title: " ",
+            valid: false,
+        });
         this.props.closeWindow();
     }
 
@@ -45,6 +50,7 @@ export default class ModalDialog extends React.Component {
 
             this.setState({
                 title: newProps.editTitle,
+                valid: getNameValidationState(newProps.editTitle),
             });
         }
     }
@@ -57,6 +63,7 @@ export default class ModalDialog extends React.Component {
 
     handleNameChange(event) {
         this.setState({ title: event.target.value });
+        this.setState({ valid: getNameValidationState(event.target.value) });
     }
 
     render() {
@@ -94,10 +101,15 @@ export default class ModalDialog extends React.Component {
                 </DialogContent>
 
                 <DialogActions>
-                    <Button onClick={this.actionHandler} color="primary">
+                    <Button
+                        onClick={this.actionHandler}
+                        color="primary"
+                        disabled={!this.state.valid}>
                         {buttonLabel}
                     </Button>
-                    <Button onClick={this.onClose} color="primary">
+                    <Button
+                        onClick={this.onClose}
+                        color="primary">
                         Cancel
                     </Button>
                 </DialogActions>

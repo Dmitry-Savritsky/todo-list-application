@@ -3,6 +3,7 @@ import { Form, FormControl } from 'react-bootstrap';
 import Button from '@material-ui/core/Button';
 import { Grid } from '@material-ui/core';
 import PropTypes from 'prop-types';
+import getNameValidationState from '../utils/index';
 
 export default class CategoryAdder extends React.Component {
     constructor(props) {
@@ -10,6 +11,7 @@ export default class CategoryAdder extends React.Component {
 
         this.state = {
             title: "",
+            valid: false,
         };
 
         this.handleNameChange = this.handleNameChange.bind(this);
@@ -22,11 +24,15 @@ export default class CategoryAdder extends React.Component {
         const id = uuidv1();
 
         this.props.addCategoryHandler(id, null, this.state.title);
-        this.setState({ title: "" });
+        this.setState({
+            title: "",
+            valid: false,
+        });
     }
 
     handleNameChange(event) {
         this.setState({ title: event.target.value });
+        this.setState({ valid: getNameValidationState(event.target.value) })
     }
 
     render() {
@@ -48,7 +54,8 @@ export default class CategoryAdder extends React.Component {
                             variant="contained"
                             color="primary"
                             size="large"
-                            onClick={this.addCategoryHandler}>
+                            onClick={this.addCategoryHandler}
+                            disabled={!this.state.valid}>
                             Add
                         </Button>
                     </Grid>
