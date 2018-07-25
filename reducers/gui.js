@@ -1,6 +1,6 @@
 import * as ACTIONS from '../constants/index';
 
-const initialState = {
+export const initialState = {
     isNestedAddOpened: false,
     isEditCategoryOpened: false,
     isConfirmDeleteOpened: false,
@@ -47,6 +47,7 @@ export default function gui(state = initialState, action) {
             }
         }
 
+        //confirm delete window
         case ACTIONS.CONFIRM_DELETE_WINDOW_OPEN: {
             return {
                 ...state,
@@ -63,13 +64,14 @@ export default function gui(state = initialState, action) {
             }
         }
 
+        //show done checkbox
         case ACTIONS.SHOW_DONE_FILTER_CHANGE: {
             return {
                 ...state,
                 showDone: action.value,
             }
         }
-
+        //search filter
         case ACTIONS.SEARCH_FILTER_CHANGE: {
             return {
                 ...state,
