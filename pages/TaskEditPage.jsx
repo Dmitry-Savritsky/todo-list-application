@@ -53,7 +53,7 @@ class TaskEditPage extends React.Component {
 
     saveChangesHandler() {
         this.props.saveChangesHandler(this.props.task.id, this.state.parentId,
-            this.state.name, !this.state.isChecked, this.state.description);
+            this.state.name, this.state.description, this.state.isChecked);
         history.push('/categories/' + this.state.parentId);
     }
 
@@ -143,7 +143,7 @@ class TaskEditPage extends React.Component {
                                     multiline={true}
                                 />
                             </Grid>
-                            
+
                         </Grid>
                     </Grid>
                 </Grid>
@@ -159,7 +159,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    saveChangesHandler: (id, parentId, name, isChecked, description) => dispatch(ACTIONS.doEditTask(id, parentId, name, isChecked, description)),
+    saveChangesHandler: (id, parentId, name, description, isChecked) => dispatch(ACTIONS.doEditTask(id, parentId, name, description, isChecked)),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TaskEditPage));

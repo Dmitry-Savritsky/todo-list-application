@@ -1,6 +1,6 @@
 import * as ACTIONS from '../constants/index';
 
-//state
+//Categories
 export function doAddCategory(id, parentId, title) {
     return {
         type: ACTIONS.CATEGORY_ADD,
@@ -25,6 +25,8 @@ export function doEditCategory(id, title) {
     }
 }
 
+//Tasks
+
 export function doAddTask(id, parentId, name, description, checked) {
     return {
         type: ACTIONS.TASK_ADD,
@@ -36,14 +38,14 @@ export function doAddTask(id, parentId, name, description, checked) {
     }
 }
 
-export function doEditTask(id, parentId, name, checked, description) {
+export function doEditTask(id, parentId, name, description, checked) {
     return {
         type: ACTIONS.TASK_EDIT,
         id,
         parentId,
         name,
-        checked,
         description,
+        checked,
     }
 }
 
@@ -55,8 +57,9 @@ export function doChangeCheckedTask(id, checked) {
     }
 }
 
-//NestedCategoryAdder
+//GUI
 
+//Nested add window (for adding nested categories)
 export function doOpenNestedAddWindow(parentId) {
     return {
         type: ACTIONS.NESTED_ADD_WINDOW_OPEN,
@@ -70,7 +73,7 @@ export function doCloseNestedAddWindow() {
     }
 }
 
-//CategoryEditor
+//Category edit window (to edit name of category)
 
 export function doOpenCategoryEditWindow(editId, title) {
     return {
@@ -86,6 +89,7 @@ export function doCloseCategoryEditWindow() {
     }
 }
 
+//Confirm delete window
 export function doOpenConfirmDeleteWindow(deleteId, deleteCategoryTitle) {
     return {
         type: ACTIONS.CONFIRM_DELETE_WINDOW_OPEN,
@@ -100,6 +104,7 @@ export function doCloseConfirmDeleteWindow() {
     }
 }
 
+//Filters
 export function doChangeSearchFilter(filter) {
     return {
         type: ACTIONS.SEARCH_FILTER_CHANGE,
@@ -119,7 +124,3 @@ export function doUpdateQuery() {
         type: ACTIONS.QUERY_UPDATE,
     }
 }
-
-//Tasks
-
-//export function doChangeTaskList

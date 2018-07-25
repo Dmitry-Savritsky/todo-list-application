@@ -15,8 +15,8 @@ export default class Task extends React.Component {
         this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
     }
 
-    handleCheckboxChange() {
-        this.props.onCheckHandler(this.props.id, this.props.isChecked);
+    handleCheckboxChange(event) {
+        this.props.onCheckHandler(this.props.id, event.target.checked);
     }
 
     render() {

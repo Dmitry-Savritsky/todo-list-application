@@ -1,6 +1,6 @@
 import * as ACTIONS from '../constants/index';
 
-const initialState = {
+export const initialState = {
     categories: [
         {
             title: "Category 1",
@@ -9,20 +9,9 @@ const initialState = {
                 {
                     title: "Category 1_1",
                     id: "catID1_1",
-                    nestedCategories: []
+                    nestedCategories: [],
                 },
-                {
-                    title: "Category 1_2",
-                    id: "catID1_2",
-                    nestedCategories: [
-                        {
-                            title: "Category 3_1",
-                            id: "catID3_1",
-                            nestedCategories: []
-                        },
-                    ]
-                }
-            ]
+            ],
         },
         {
             title: "Category 2",
@@ -67,19 +56,10 @@ const initialState = {
         description: "description 4"
     },
     ],
-    chosenCategoryId: "",
-    chosenCategoryProgress: 0,
 };
 
 export default function main(state = initialState, action) {
     switch (action.type) {
-
-        case ACTIONS.CATEGORY_CHOOSE: {
-            return {
-                ...state,
-                chosenCategoryId: action.id,
-            }
-        }
 
         case ACTIONS.CATEGORY_ADD:
             return {
@@ -160,7 +140,7 @@ function applyEditTask(tasks, id, parentId, name, checked, description) {
             item.parentId = parentId;
             item.id = task.id;
             item.name = name;
-            item.checked = !checked;
+            item.checked = checked;
             item.description = description;
             return item;
         }
@@ -184,7 +164,7 @@ function applyChangeCheckedTask(tasks, id, checked) {
             item.parentId = task.parentId;
             item.id = id;
             item.name = task.name;
-            item.checked = !checked;
+            item.checked = checked;
             item.description = task.description;
             return item;
         }
