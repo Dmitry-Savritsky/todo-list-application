@@ -5,7 +5,6 @@ import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import AddIcon from '@material-ui/icons/AddCircleOutline';
 import DeleteIcon from '@material-ui/icons/Delete';
-import Typography from '@material-ui/core/Typography';
 
 export default class Category extends React.Component {
     constructor(props) {
@@ -30,39 +29,22 @@ export default class Category extends React.Component {
     render() {
 
         return (
-            <Grid container alignItems="center" justify="space-between">
+            <Grid container justify='flex-end'>
                 <Grid item>
-
-                    <Grid container justify="flex-start" alignItems="center">
-                        <Grid item>
-                            <Typography variant={"display1"}> {this.props.title}</Typography>
-                        </Grid>
-                        <Grid item>
-                            <IconButton onClick={this.editCategory}>
-                                <EditIcon />
-                            </IconButton>
-                        </Grid>
-                    </Grid>
-
+                    <IconButton onClick={this.editCategory}>
+                        <EditIcon />
+                    </IconButton>
                 </Grid>
-
                 <Grid item>
-
-                    <Grid container justify="flex-end">
-                        <Grid item>
-                            <IconButton onClick={this.deleteCategory} color="secondary">
-                                <DeleteIcon />
-                            </IconButton>
-                        </Grid>
-                        <Grid item>
-                            <IconButton onClick={this.openWindow} color="primary">
-                                <AddIcon />
-                            </IconButton>
-                        </Grid>
-                    </Grid>
-
+                    <IconButton onClick={this.deleteCategory} color='secondary'>
+                        <DeleteIcon />
+                    </IconButton>
                 </Grid>
-
+                <Grid item>
+                    <IconButton onClick={this.openWindow} color='primary'>
+                        <AddIcon />
+                    </IconButton>
+                </Grid>
             </Grid>
         );
     }

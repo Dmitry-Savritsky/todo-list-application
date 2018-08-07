@@ -1,37 +1,37 @@
 import React from 'react';
-import List from 'material-ui/List/List'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
+import List from '@material-ui/core/List';
+import Paper from '@material-ui/core/Paper';
 import _ from 'lodash';
 import { withStyles } from '@material-ui/core/styles';
+
 import PropTypes from 'prop-types';
 
-import history from '../../history/history';
-import Category from '../Category/Category.jsx';
+import TaskMove from '../TaskMove/TaskMove.jsx';
 import NestedListItem from '../NestedListItem/NestedListItem.jsx';
 
 const styles = {
-
     categoryList: {
-        height: '470px',
+        height: '560px',
         overflow: 'auto',
+        paddingTop: '10px',
+        paddingBottom: '10px',
+        paddingLeft: '10px',
+        paddingRight: '10px',
     },
 };
 
-class CategoryList extends React.Component {
+class Test extends React.Component {
     constructor(props) {
         super(props);
 
         this.createCategoryList = this.createCategoryList.bind(this);
-        this.categoryClickHandler = this.categoryClickHandler.bind(this);
-    }
-
-    categoryClickHandler(id) {
-        history.push('/categories/' + id);
-        this.props.updateQuery();
     }
 
     createCategoryList(category, level) {
-        if (_.isNil(category)) return null;
+
+        if (category == null) return null;
 
         const list = category.map(
 
@@ -44,30 +44,27 @@ class CategoryList extends React.Component {
                 else nested = null;
 
                 let nestedItems = this.createCategoryList(nested, level + 1);
-                let isSelected = _.isEqual(element.id, this.props.chosenCategoryId);
+
+                let isSelected = _.isEqual(element.id, this.props.parentCategoryId);
 
                 const child = (
-                    <Category
+                    <TaskMove
                         title={element.title}
                         id={element.id}
-                        openNestedAddWindow={this.props.openNestedAddWindow}
-                        openCategoryEditWindow={this.props.openCategoryEditWindow}
-                        openConfirmDeleteWindow={this.props.openConfirmDeleteWindow}
+                        moveToCategoryHandler={this.props.moveToCategoryHandler}
                         isSelected={isSelected} />
                 );
 
                 return (
-                    <div key={element.id}
-                    >
+                    <div key={element.id}>
                         <NestedListItem
                             nested={nestedItems}
                             child={child}
                             isSelected={isSelected}
                             nestedLevel={level}
                             title={element.title}
-                            onClickHandler={() => this.categoryClickHandler(element.id)}
                         />
-                    </div >
+                    </div>
                 );
             }
         );
@@ -82,27 +79,25 @@ class CategoryList extends React.Component {
         return (
 
             <MuiThemeProvider>
-                <List className={this.props.classes.categoryList}>
-                    {categoriesList}
-                </List>
+                <Paper elevation = {5}>
+                    <List className={this.props.classes.categoryList} disablePadding>
+                        {categoriesList}
+                    </List>
+                </Paper>
             </MuiThemeProvider>
         );
     }
 }
 
-CategoryList.propTypes = {
+export default withStyles(styles)(Test)
+
+Test.propTypes = {
     categories: PropTypes.arrayOf(PropTypes.shape({
         title: PropTypes.string.isRequired,
         id: PropTypes.string.isRequired,
         nestedCategories: PropTypes.array,
     })),
-    chosenCategoryId: PropTypes.string,
-    openNestedAddWindow: PropTypes.func.isRequired,
-    openCategoryEditWindow: PropTypes.func.isRequired,
-    openConfirmDeleteWindow: PropTypes.func.isRequired,
-    updateQuery: PropTypes.func.isRequired,
+    parentCategoryId: PropTypes.string.isRequired,
+    moveToCategoryHandler: PropTypes.func.isRequired,
     classes: PropTypes.object.isRequired,
 }
-
-export default withStyles(styles)(CategoryList)
-

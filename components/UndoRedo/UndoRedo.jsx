@@ -15,22 +15,22 @@ export default class UndoRedo extends React.Component {
             <Grid container spacing={8}>
                 <Grid item>
                     <Button
-                        variant="contained"
-                        color="primary"
+                        variant='contained'
+                        color='primary'
                         onClick={this.props.undoHandler}
                         disabled={!this.props.canUndo}
-                        size="large">
+                        size='large'>
                         Undo
                     <Undo />
                     </Button>
                 </Grid>
                 <Grid item>
                     <Button
-                        variant="contained"
-                        color="secondary"
+                        variant='contained'
+                        color='secondary'
                         onClick={this.props.redoHandler}
                         disabled={!this.props.canRedo}
-                        size="large">
+                        size='large'>
                         Redo
                     <Redo />
                     </Button>

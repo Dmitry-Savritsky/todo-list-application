@@ -14,6 +14,7 @@ const mapDispatchToProps = dispatch => ({
     openCategoryEditWindow: (editId, title) => dispatch(ACTIONS.doOpenCategoryEditWindow(editId, title)),
     openConfirmDeleteWindow: (deleteId, deleteTitle) => dispatch(ACTIONS.doOpenConfirmDeleteWindow(deleteId, deleteTitle)),
     editCategory: (id, title) => dispatch(ACTIONS.doEditCategory(id, title)),
+    updateQuery: () => dispatch(ACTIONS.doUpdateQuery()),
 });
 
 export default connect(

@@ -4,13 +4,12 @@ import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import Checkbox from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import history from '../history/history';
 import * as ACTIONS from '../actions';
-import TaskMoveCategoryList from '../components/TaskMoveCategoryList.jsx';
+import TaskMoveList from '../components/TaskMoveList/TaskMoveList.jsx';
+import TaskEditForm from '../components/TaskEditForm/TaskEditForm.jsx';
+import TaskEditControl from '../components/TaskEditControl/TaskEditControl.jsx';
 import getNameValidationState from '../utils/index';
 
 class TaskEditPage extends React.Component {
@@ -69,79 +68,39 @@ class TaskEditPage extends React.Component {
 
     render() {
         return (
-            <Grid container>
-                <Grid container>
-                    <Grid item xs={12}>
-                        <Typography variant={"display4"}> {this.props.task.name}</Typography>
+            <Grid container justify='center' spacing={8}>
+                <CssBaseline />
+                <Grid container justify='center'>
+                    <Grid item >
+                        <Typography variant={'display3'}> {this.props.task.name}</Typography>
                     </Grid>
                 </Grid>
 
-                <Grid container spacing={8}>
-                    <Grid item xs={3}>
-                        <TaskMoveCategoryList
-                            categories={this.props.categories}
+                <Grid container spacing={8} justify='center'>
+                    <Grid item xs={5}>
+                        <TaskMoveList categories={this.props.categories}
                             parentCategoryId={this.state.parentId}
                             moveToCategoryHandler={this.moveToCategoryHandler} />
                     </Grid>
 
-                    <Grid item xs={9}>
-                        <Grid container justify="flex-end" spacing={16}>
+                    <Grid item xs={5}>
+                        <Grid container spacing={8} justify='center' direction='column'>
 
                             <Grid item>
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    onClick={this.saveChangesHandler}
-                                    size="large"
-                                    disabled={!this.state.valid}>
-                                    Save changes
-                                </Button>
+                                <TaskEditForm
+                                    nameChangeHandler={this.handleNameChange}
+                                    name={this.state.name}
+                                    checkboxChangeHandler={this.handleCheckboxChange}
+                                    checkbox={this.state.isChecked}
+                                    descriptionChangeHandler={this.handleDescriptionChange}
+                                    description={this.state.description} />
                             </Grid>
 
                             <Grid item>
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    onClick={this.cancelHandler}
-                                    size="large">
-                                    Cancel
-                                </Button>
-                            </Grid>
-
-                        </Grid>
-
-                        <Grid container justify="flex-start" direction="column" spacing={16}>
-
-                            <Grid item xs={9} >
-                                <TextField
-                                    id="name"
-                                    margin="normal"
-                                    value={this.state.name}
-                                    onChange={this.handleNameChange}
-                                />
-                            </Grid>
-
-                            <Grid item xs={9}>
-                                <FormControlLabel
-                                    control={
-                                        <Checkbox
-                                            checked={this.state.isChecked}
-                                            value="checkedA"
-                                            onChange={this.handleCheckboxChange}
-                                        />
-                                    }
-                                    label="Done"
-                                />
-                            </Grid>
-
-                            <Grid item xs={9}>
-                                <TextField
-                                    id="description"
-                                    margin="normal"
-                                    value={this.state.description}
-                                    onChange={this.handleDescriptionChange}
-                                    multiline={true}
-                                />
+                                <TaskEditControl
+                                    isDisabled={!this.state.valid}
+                                    saveChangesHandler={this.saveChangesHandler}
+                                    cancelHandler={this.cancelHandler} />
                             </Grid>
 
                         </Grid>

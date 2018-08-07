@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ModalDialog from '../ModalDialog.jsx';
-import ConfirmDeleteDialog from '../ConfirmDeleteDialog.jsx';
+import ModalDialog from '../ModalDialog/ModalDialog.jsx';
+import ConfirmDeleteDialog from '../ConfirmDeleteDialog/ConfirmDeleteDialog.jsx';
 
 export default class ModalForm extends React.Component {
     constructor(props) {

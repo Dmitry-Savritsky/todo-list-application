@@ -7,7 +7,10 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import _ from 'lodash';
+import qs from 'qs';
 import history from '../../history/history';
+
 import UndoRedo from '../UndoRedo/UndoRedo.jsx';
 
 const styles = theme => ({
@@ -22,9 +25,20 @@ class HeaderForm extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            isChecked: false,
-            searchValue: "",
+        if (!_.isNil(this.props.location.search.show_done)
+            && !_.isNil(this.props.location.search.search)) {
+
+            this.state = {
+                isChecked: this.props.location.search.show_done,
+                searchValue: this.props.location.search.search,
+            }
+        }
+
+        else {
+            this.state = {
+                isChecked: false,
+                searchValue: '',
+            }
         }
         this.handleSearchChange = this.handleSearchChange.bind(this);
         this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
@@ -37,7 +51,7 @@ class HeaderForm extends React.Component {
         this.props.changeDoneHandler(event.target.checked);
 
         const location = history.location;
-        location.search = 'show_done=' + event.target.checked + '&&search=' + this.state.searchValue;
+        location.search = 'show_done=' + event.target.checked + '&search=' + this.state.searchValue;
         history.push(location);
     }
 
@@ -48,34 +62,68 @@ class HeaderForm extends React.Component {
         this.props.searchFilterHandler(event.target.value);
 
         const location = history.location;
-        location.search = 'show_done=' + this.state.isChecked + '&&search=' + event.target.value;
+        location.search = 'show_done=' + this.state.isChecked + '&search=' + event.target.value;
         history.push(location);
     }
 
+    UNSAFE_componentWillMount() {
+
+        let params = qs.parse(this.props.location.search, { ignoreQueryPrefix: true });
+
+        if (!_.isNil(params.show_done)
+            && !_.isNil(params.search)) {
+
+            this.setState({
+                isChecked: params.show_done === 'true',
+                searchValue: params.search,
+            });
+            this.checkQueryParams(params.search, params.show_done);
+        }
+
+        else {
+            const location = history.location;
+            location.search = 'show_done=' + this.state.isChecked + '&search=' + this.state.searchValue;
+            history.push(location);
+        }
+    }
+
+    checkQueryParams(search, showDone) {
+
+        const location = Object.assign({}, this.props.location);
+
+        this.props.changeDoneHandler(showDone);
+        this.props.searchFilterHandler(search);
+
+        Object.assign(location.search, { show_done: showDone }, { search: search });
+
+        history.push(location);
+    }
+
+
     render() {
         return (
-            <Grid container justify='space-around' alignItems='flex-end'>
-                <Grid item xs={6}>
-                    <Typography variant={"display4"}> To-Do List</Typography>
+            <Grid container justify='center' alignItems='center' spacing={8}>
+                <Grid item xs={4}>
+                    <Typography variant={'display3'}>To-Do List</Typography>
                 </Grid>
-                <Grid item xs={6}>
-                    <Grid container justify='space-around' alignItems='flex-start'>
+                <Grid item xs={8}>
+                    <Grid container justify='space-around' alignItems='baseline'>
                         <Grid item>
                             <FormControlLabel
                                 control={
                                     <Checkbox
                                         checked={this.state.isChecked}
-                                        value="checkedA"
+                                        value='checkedA'
                                         onChange={this.handleCheckboxChange}
                                     />
                                 }
-                                label="Show done"
+                                label='Show done'
                             />
                         </Grid>
                         <Grid item>
                             <TextField
-                                label="Search"
-                                type="search"
+                                label='Search'
+                                type='search'
                                 value={this.state.searchValue}
                                 onChange={this.handleSearchChange}
                                 className={this.props.classes.textField}
@@ -93,7 +141,8 @@ class HeaderForm extends React.Component {
                 </Grid>
 
                 <Grid item xs={12}>
-                    <LinearProgress variant="determinate"
+                    <LinearProgress
+                        variant='determinate'
                         value={getProgressValue(this.props.tasks, this.props.chosenCategoryId)} />
                 </Grid>
             </Grid>
@@ -129,6 +178,9 @@ HeaderForm.propTypes = {
 
     searchFilterHandler: PropTypes.func.isRequired,
     changeDoneHandler: PropTypes.func.isRequired,
+
+    location: PropTypes.object,
+
     canUndo: PropTypes.bool.isRequired,
     canRedo: PropTypes.bool.isRequired,
     undoHandler: PropTypes.func.isRequired,

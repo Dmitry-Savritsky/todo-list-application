@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
-import CategoryAdder from '../CategoryAdder.jsx';
+import CategoryAdder from '../CategoryAdder/CategoryAdder.jsx';
 import CategoryList from '../CategoryList/CategoryList.jsx';
 
 export default class CategoryForm extends React.Component {
@@ -12,7 +12,7 @@ export default class CategoryForm extends React.Component {
     render() {
 
         return (
-            <Grid container direction="column">
+            <Grid container direction='column'>
                 <Grid item>
                     <CategoryAdder addCategoryHandler={this.props.addCategoryHandler} />
                 </Grid>
@@ -22,7 +22,8 @@ export default class CategoryForm extends React.Component {
                         chosenCategoryId={this.props.chosenCategoryId}
                         openNestedAddWindow={this.props.openNestedAddWindow}
                         openCategoryEditWindow={this.props.openCategoryEditWindow}
-                        openConfirmDeleteWindow={this.props.openConfirmDeleteWindow} />
+                        openConfirmDeleteWindow={this.props.openConfirmDeleteWindow}
+                        updateQuery={this.props.updateQuery} />
                 </Grid>
             </Grid>
         );
@@ -35,6 +36,7 @@ CategoryForm.propTypes = {
     openCategoryEditWindow: PropTypes.func.isRequired,
     openNestedAddWindow: PropTypes.func.isRequired,
     openConfirmDeleteWindow: PropTypes.func.isRequired,
+    updateQuery: PropTypes.func.isRequired,
 
     categories: PropTypes.arrayOf(PropTypes.shape({
         title: PropTypes.string.isRequired,
