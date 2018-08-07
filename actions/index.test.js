@@ -2,13 +2,12 @@
 import * as actions from './index';
 import * as constants from '../constants/index';
 
-
 //Category testing
 describe('CATEGORY_ADD_ACTION', () => {
     it('Should create an action to add category', () => {
-        const id = "testID";
-        const parentId = "parID";
-        const title = "TEST";
+        const id = 'testID';
+        const parentId = 'parID';
+        const title = 'TEST';
 
         const expectedResult = {
             type: constants.CATEGORY_ADD,
@@ -22,7 +21,7 @@ describe('CATEGORY_ADD_ACTION', () => {
 
 describe('CATEGORY_DELETE_ACTION', () => {
     it('Should create an action to delete category', () => {
-        const id = "testID";
+        const id = 'testID';
 
         const expectedResult = {
             type: constants.CATEGORY_DELETE,
@@ -34,8 +33,8 @@ describe('CATEGORY_DELETE_ACTION', () => {
 
 describe('CATEGORY_EDIT_ACTION', () => {
     it('Should create an action to edit category', () => {
-        const id = "testID";
-        const title = "newTitle";
+        const id = 'testID';
+        const title = 'newTitle';
 
         const expectedResult = {
             type: constants.CATEGORY_EDIT,
@@ -50,10 +49,10 @@ describe('CATEGORY_EDIT_ACTION', () => {
 
 describe('TASK_ADD_ACTION', () => {
     it('Should create an action to add task', () => {
-        const id = "testID";
-        const parentId = "parentID";
-        const name = "newName";
-        const description = "test description";
+        const id = 'testID';
+        const parentId = 'parentID';
+        const name = 'newName';
+        const description = 'test description';
         const checked = false;
 
         const expectedResult = {
@@ -70,10 +69,10 @@ describe('TASK_ADD_ACTION', () => {
 
 describe('TASK_EDIT_ACTION', () => {
     it('Should create an action to edit task', () => {
-        const id = "testID";
-        const parentId = "parentID";
-        const name = "newName";
-        const description = "test description";
+        const id = 'testID';
+        const parentId = 'parentID';
+        const name = 'newName';
+        const description = 'test description';
         const checked = false;
 
         const expectedResult = {
@@ -90,7 +89,7 @@ describe('TASK_EDIT_ACTION', () => {
 
 describe('TASK_CHANGE_CHECKED_ACTION', () => {
     it('Should create an action to change checked value in task', () => {
-        const id = "testID";
+        const id = 'testID';
         const checked = false;
 
         const expectedResult = {
@@ -107,7 +106,7 @@ describe('TASK_CHANGE_CHECKED_ACTION', () => {
 //Nested add window (for adding nested categories)
 describe('NESTED_ADD_WINDOW_OPEN_ACTION', () => {
     it('Should create an action to open nested add window', () => {
-        const parentId = "test"
+        const parentId = 'test';
 
         const expectedResult = {
             type: constants.NESTED_ADD_WINDOW_OPEN,
@@ -131,8 +130,8 @@ describe('NESTED_ADD_WINDOW_CLOSE_ACTION', () => {
 
 describe('CATEGORY_EDIT_WINDOW_OPEN_ACTION', () => {
     it('Should create an action to open category edit window', () => {
-        const editId = "test";
-        const title = "testTitle";
+        const editId = 'test';
+        const title = 'testTitle';
 
         const expectedResult = {
             type: constants.CATEGORY_EDIT_WINDOW_OPEN,
@@ -157,8 +156,8 @@ describe('CATEGORY_EDIT_WINDOW_CLOSE_ACTION', () => {
 
 describe('CONFIRM_DELETE_WINDOW_OPEN_ACTION', () => {
     it('Should create an action to open confirm delete window', () => {
-        const deleteId = "test";
-        const deleteCategoryTitle = "testTitle";
+        const deleteId = 'test';
+        const deleteCategoryTitle = 'testTitle';
 
         const expectedResult = {
             type: constants.CONFIRM_DELETE_WINDOW_OPEN,
@@ -184,7 +183,7 @@ describe('CONFIRM_DELETE_WINDOW_CLOSE_ACTION', () => {
 describe('SEARCH_FILTER_CHANGE_ACTION', () => {
     it('Should create an action to change search filter', () => {
 
-        const filter = "searchValue";
+        const filter = 'searchValue';
 
         const expectedResult = {
             type: constants.SEARCH_FILTER_CHANGE,

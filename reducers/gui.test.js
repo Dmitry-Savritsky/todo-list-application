@@ -12,7 +12,7 @@ describe('gui reducer', () => {
 
     //nested add window
     it('should change state of isNestedAddOpened for NESTED_ADD_WINDOW_OPEN action', () => {
-        const testParentId = "testID";
+        const testParentId = 'testID';
 
         const expected = {
             ...initialState,
@@ -44,8 +44,8 @@ describe('gui reducer', () => {
 
     //edit window
     it('should change state of isEditCategoryOpened for CATEGORY_EDIT_WINDOW_OPEN action', () => {
-        const testId = "testID";
-        const testTitle = "testTitle";
+        const testId = 'testID';
+        const testTitle = 'testTitle';
 
         const expected = {
             ...initialState,
@@ -79,8 +79,8 @@ describe('gui reducer', () => {
 
     //confirm delete window
     it('should change state of isConfirmDeleteOpened for CONFIRM_DELETE_WINDOW_OPEN action', () => {
-        const testId = "testID";
-        const testTitle = "testTitle";
+        const testId = 'testID';
+        const testTitle = 'testTitle';
 
         const expected = {
             ...initialState,
@@ -130,7 +130,7 @@ describe('gui reducer', () => {
     });
 
     it('should change state of searchFilter for SEARCH_FILTER_CHANGE action', () => {
-        const filterValue = "filterExample";
+        const filterValue = 'filterExample';
 
         const expected = {
             ...initialState,

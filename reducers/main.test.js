@@ -18,7 +18,7 @@ describe('main reducer', () => {
                 tasks: [],
             }, {
                     type: ACTIONS.CATEGORY_ADD,
-                    id: "testID",
+                    id: 'testID',
                     parentId: null,
                     title: 'Added category',
                 })
@@ -26,7 +26,7 @@ describe('main reducer', () => {
             categories: [
                 {
                     title: 'Added category',
-                    id: "testID",
+                    id: 'testID',
                     nestedCategories: [],
                 },
             ],
@@ -39,19 +39,19 @@ describe('main reducer', () => {
         const init = {
             categories: [
                 {
-                    title: "Category 1",
-                    id: "catID1",
+                    title: 'Category 1',
+                    id: 'catID1',
                     nestedCategories: [
                         {
-                            title: "Category 1_1",
-                            id: "catID1_1",
+                            title: 'Category 1_1',
+                            id: 'catID1_1',
                             nestedCategories: [],
                         },
                     ],
                 },
                 {
-                    title: "Category 2",
-                    id: "catID2",
+                    title: 'Category 2',
+                    id: 'catID2',
                     nestedCategories: [],
                 },
             ],
@@ -61,23 +61,23 @@ describe('main reducer', () => {
         expect(
             main(init, {
                 type: ACTIONS.CATEGORY_ADD,
-                id: "testID",
-                parentId: "catID1_1",
-                title: "New category",
+                id: 'testID',
+                parentId: 'catID1_1',
+                title: 'New category',
             })
         ).toEqual({
             categories: [
                 {
-                    title: "Category 1",
-                    id: "catID1",
+                    title: 'Category 1',
+                    id: 'catID1',
                     nestedCategories: [
                         {
-                            title: "Category 1_1",
-                            id: "catID1_1",
+                            title: 'Category 1_1',
+                            id: 'catID1_1',
                             nestedCategories: [
                                 {
-                                    title: "New category",
-                                    id: "testID",
+                                    title: 'New category',
+                                    id: 'testID',
                                     nestedCategories: [],
                                 }
                             ],
@@ -85,8 +85,8 @@ describe('main reducer', () => {
                     ],
                 },
                 {
-                    title: "Category 2",
-                    id: "catID2",
+                    title: 'Category 2',
+                    id: 'catID2',
                     nestedCategories: [],
                 },
             ],
@@ -99,19 +99,19 @@ describe('main reducer', () => {
         const init = {
             categories: [
                 {
-                    title: "Category 1",
-                    id: "catID1",
+                    title: 'Category 1',
+                    id: 'catID1',
                     nestedCategories: [
                         {
-                            title: "Category 1_1",
-                            id: "catID1_1",
+                            title: 'Category 1_1',
+                            id: 'catID1_1',
                             nestedCategories: [],
                         },
                     ],
                 },
                 {
-                    title: "Category 2",
-                    id: "catID2",
+                    title: 'Category 2',
+                    id: 'catID2',
                     nestedCategories: [],
                 },
             ],
@@ -122,19 +122,19 @@ describe('main reducer', () => {
 
             categories: [
                 {
-                    title: "Changed category",
-                    id: "catID1",
+                    title: 'Changed category',
+                    id: 'catID1',
                     nestedCategories: [
                         {
-                            title: "Category 1_1",
-                            id: "catID1_1",
+                            title: 'Category 1_1',
+                            id: 'catID1_1',
                             nestedCategories: [],
                         },
                     ],
                 },
                 {
-                    title: "Category 2",
-                    id: "catID2",
+                    title: 'Category 2',
+                    id: 'catID2',
                     nestedCategories: [],
                 },
             ],
@@ -144,8 +144,8 @@ describe('main reducer', () => {
         expect(
             main(init, {
                 type: ACTIONS.CATEGORY_EDIT,
-                id: "catID1",
-                title: "Changed category",
+                id: 'catID1',
+                title: 'Changed category',
             })
         ).toEqual(expected);
     });
@@ -156,13 +156,13 @@ describe('main reducer', () => {
         const init = {
             categories: [
                 {
-                    title: "Category 1",
-                    id: "catID1",
+                    title: 'Category 1',
+                    id: 'catID1',
                     nestedCategories: [],
                 },
                 {
-                    title: "Category 2",
-                    id: "catID2",
+                    title: 'Category 2',
+                    id: 'catID2',
                     nestedCategories: [],
                 },
             ],
@@ -172,32 +172,32 @@ describe('main reducer', () => {
         const expected = {
             categories: [
                 {
-                    title: "Category 1",
-                    id: "catID1",
+                    title: 'Category 1',
+                    id: 'catID1',
                     nestedCategories: [],
                 },
                 {
-                    title: "Category 2",
-                    id: "catID2",
+                    title: 'Category 2',
+                    id: 'catID2',
                     nestedCategories: [],
                 },
             ],
             tasks: [{
-                parentId: "catID2",
-                id: "TestID",
-                name: "Task example name",
+                parentId: 'catID2',
+                id: 'TestID',
+                name: 'Task example name',
                 checked: false,
-                description: "Description",
+                description: 'Description',
             }],
         }
 
         expect(
             main(init, {
                 type: ACTIONS.TASK_ADD,
-                id: "TestID",
-                parentId: "catID2",
-                name: "Task example name",
-                description: "Description",
+                id: 'TestID',
+                parentId: 'catID2',
+                name: 'Task example name',
+                description: 'Description',
                 checked: false,
             })
         ).toEqual(expected);
@@ -209,24 +209,24 @@ describe('main reducer', () => {
         const init = {
             categories: [
                 {
-                    title: "Category 1",
-                    id: "catID1",
+                    title: 'Category 1',
+                    id: 'catID1',
                     nestedCategories: [],
                 },
             ],
             tasks: [{
-                parentId: "catID1",
-                id: "TestID",
-                name: "Task example name",
+                parentId: 'catID1',
+                id: 'TestID',
+                name: 'Task example name',
                 checked: false,
-                description: "Description",
+                description: 'Description',
             },
             {
-                parentId: "catID1",
-                id: "TestID2",
-                name: "Another example",
+                parentId: 'catID1',
+                id: 'TestID2',
+                name: 'Another example',
                 checked: false,
-                description: "Description",
+                description: 'Description',
             }
             ],
         }
@@ -234,24 +234,24 @@ describe('main reducer', () => {
         const expected = {
             categories: [
                 {
-                    title: "Category 1",
-                    id: "catID1",
+                    title: 'Category 1',
+                    id: 'catID1',
                     nestedCategories: [],
                 },
             ],
             tasks: [{
-                parentId: "catID1",
-                id: "TestID",
-                name: "Task example name",
+                parentId: 'catID1',
+                id: 'TestID',
+                name: 'Task example name',
                 checked: false,
-                description: "Description",
+                description: 'Description',
             },
             {
-                parentId: "catID1",
-                id: "TestID2",
-                name: "Changed name",
+                parentId: 'catID1',
+                id: 'TestID2',
+                name: 'Changed name',
                 checked: false,
-                description: "Description",
+                description: 'Description',
             }
             ],
         }
@@ -259,10 +259,10 @@ describe('main reducer', () => {
         expect(
             main(init, {
                 type: ACTIONS.TASK_EDIT,
-                id: "TestID2",
-                parentId: "catID1",
-                name: "Changed name",
-                description: "Description",
+                id: 'TestID2',
+                parentId: 'catID1',
+                name: 'Changed name',
+                description: 'Description',
                 checked: false,
             })
         ).toEqual(expected);
@@ -274,24 +274,24 @@ describe('main reducer', () => {
         const init = {
             categories: [
                 {
-                    title: "Category 1",
-                    id: "catID1",
+                    title: 'Category 1',
+                    id: 'catID1',
                     nestedCategories: [],
                 },
             ],
             tasks: [{
-                parentId: "catID1",
-                id: "TestID",
-                name: "Task example name",
+                parentId: 'catID1',
+                id: 'TestID',
+                name: 'Task example name',
                 checked: false,
-                description: "Description",
+                description: 'Description',
             },
             {
-                parentId: "catID1",
-                id: "TestID2",
-                name: "Another example",
+                parentId: 'catID1',
+                id: 'TestID2',
+                name: 'Another example',
                 checked: false,
-                description: "Description",
+                description: 'Description',
             }
             ],
         }
@@ -299,24 +299,24 @@ describe('main reducer', () => {
         const expected = {
             categories: [
                 {
-                    title: "Category 1",
-                    id: "catID1",
+                    title: 'Category 1',
+                    id: 'catID1',
                     nestedCategories: [],
                 },
             ],
             tasks: [{
-                parentId: "catID1",
-                id: "TestID",
-                name: "Task example name",
+                parentId: 'catID1',
+                id: 'TestID',
+                name: 'Task example name',
                 checked: false,
-                description: "Description",
+                description: 'Description',
             },
             {
-                parentId: "catID1",
-                id: "TestID2",
-                name: "Another example",
+                parentId: 'catID1',
+                id: 'TestID2',
+                name: 'Another example',
                 checked: true,
-                description: "Description",
+                description: 'Description',
             }
             ],
         }
@@ -324,7 +324,7 @@ describe('main reducer', () => {
         expect(
             main(init, {
                 type: ACTIONS.TASK_CHANGE_CHECKED,
-                id: "TestID2",
+                id: 'TestID2',
                 checked: true,
             })
         ).toEqual(expected);
@@ -337,36 +337,36 @@ describe('main reducer', () => {
         const init = {
             categories: [
                 {
-                    title: "Category 1",
-                    id: "catID1",
+                    title: 'Category 1',
+                    id: 'catID1',
                     nestedCategories: [],
                 },
                 {
-                    title: "Category 2",
-                    id: "catID2",
+                    title: 'Category 2',
+                    id: 'catID2',
                     nestedCategories: [],
                 },
             ],
             tasks: [{
-                parentId: "catID1",
-                id: "TestID",
-                name: "Task example name",
+                parentId: 'catID1',
+                id: 'TestID',
+                name: 'Task example name',
                 checked: false,
-                description: "Description",
+                description: 'Description',
             },
             {
-                parentId: "catID2",
-                id: "TestID2",
-                name: "Another example",
+                parentId: 'catID2',
+                id: 'TestID2',
+                name: 'Another example',
                 checked: false,
-                description: "Description",
+                description: 'Description',
             },
             {
-                parentId: "catID2",
-                id: "TestID3",
-                name: "Another example 2" ,
+                parentId: 'catID2',
+                id: 'TestID3',
+                name: 'Another example 2' ,
                 checked: true,
-                description: "Description 2",
+                description: 'Description 2',
             }
             ],
         }
@@ -374,17 +374,17 @@ describe('main reducer', () => {
         const expected = {
             categories: [
                 {
-                    title: "Category 1",
-                    id: "catID1",
+                    title: 'Category 1',
+                    id: 'catID1',
                     nestedCategories: [],
                 },
             ],
             tasks: [{
-                parentId: "catID1",
-                id: "TestID",
-                name: "Task example name",
+                parentId: 'catID1',
+                id: 'TestID',
+                name: 'Task example name',
                 checked: false,
-                description: "Description",
+                description: 'Description',
             },
             ],
         }
@@ -392,7 +392,7 @@ describe('main reducer', () => {
         expect(
             main(init, {
                 type: ACTIONS.CATEGORY_DELETE,
-                id: "catID2",
+                id: 'catID2',
             })
         ).toEqual(expected);
     });
