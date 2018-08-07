@@ -71,6 +71,7 @@ module.exports = {
     new LodashModuleReplacementPlugin
   ],
   devServer: {
+    historyApiFallback: true,
     contentBase: './dist',
     hot: true
   }
