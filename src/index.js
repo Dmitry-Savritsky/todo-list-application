@@ -1,5 +1,4 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.css'
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
@@ -28,9 +27,9 @@ render(
     <Provider store={store}>
         <ConnectedRouter history={history}>
             <Switch>
-                <Route exact path="/categories/:id" component={MainPage} />
-                <Route exact path="/task/:id" component={TaskEditPage} />
-                <Route exact path="/" component={MainPage} />
+                <Route exact path='/categories/:id' component={MainPage} />
+                <Route exact path='/task/:id' component={TaskEditPage} />
+                <Route exact path='/' component={MainPage} />
             </Switch>
         </ConnectedRouter>
     </Provider>,

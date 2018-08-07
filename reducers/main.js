@@ -3,61 +3,68 @@ import * as ACTIONS from '../constants/index';
 export const initialState = {
     categories: [
         {
-            title: "Category 1",
-            id: "catID1",
+            title: 'Category 1',
+            id: 'catID1',
             nestedCategories: [
                 {
-                    title: "Category 1_1",
-                    id: "catID1_1",
+                    title: 'Category 1_1',
+                    id: 'catID1_1',
                     nestedCategories: [],
                 },
             ],
         },
         {
-            title: "Category 2",
-            id: "catID2",
+            title: 'Category 2',
+            id: 'catID2',
             nestedCategories: [],
         },
     ],
 
     tasks: [{
-        parentId: "catID1",
-        id: "id1",
-        name: "task 1",
+        parentId: 'catID1',
+        id: 'id1',
+        name: 'task 1',
         checked: false,
-        description: "description 1"
+        description: 'description 1'
     },
     {
-        parentId: "catID1_1",
-        id: "id2",
-        name: "task 2",
+        parentId: 'catID1_1',
+        id: 'id2',
+        name: 'task 2',
         checked: true,
-        description: "description 2"
+        description: 'description 2'
     },
     {
-        parentId: "catID1_1",
-        id: "id3",
-        name: "task 4",
+        parentId: 'catID1_1',
+        id: 'id3',
+        name: 'task 4',
         checked: false,
-        description: "description 2"
+        description: 'description 2'
     },
     {
-        parentId: "catID2",
-        id: "id5",
-        name: "task 3",
+        parentId: 'catID2',
+        id: 'id5',
+        name: 'task 3',
         checked: false,
-        description: "description 3"
+        description: 'description 3'
     },
     {
-        parentId: "catID2",
-        id: "id4",
-        name: "task 5",
+        parentId: 'catID2',
+        id: 'id4',
+        name: 'task 5',
         checked: true,
-        description: "description 4"
+        description: 'description 4'
     },
     ],
 };
 
+/**
+ * Reducer function. Specify how the application's state changes in response to actions sent to the store.
+ * 
+ * @param {Object} state Initial state of application.
+ * @param {Object} action Action sent to the store.
+ * @returns {Object} New state of application.
+ */
 export default function main(state = initialState, action) {
     switch (action.type) {
 
@@ -126,13 +133,24 @@ export default function main(state = initialState, action) {
     }
 }
 
+/**
+ * Edits task with given arguments.
+ * 
+ * @param {Array} tasks Array of tasks objects.
+ * @param {String} id Task id.
+ * @param {String} parentId Id of parent category for the task.
+ * @param {String} name New task name.
+ * @param {Boolean} checked True if the task should be checked.
+ * @param {String} description New description of task.
+ * @returns {Array} New state of tasks array.
+ */
 function applyEditTask(tasks, id, parentId, name, checked, description) {
     let item = {
-        id: "",
-        parentId: "",
-        name: "",
+        id: '',
+        parentId: '',
+        name: '',
         checked: false,
-        description: "",
+        description: '',
     };
 
     let result = tasks.map(task => {
@@ -149,14 +167,22 @@ function applyEditTask(tasks, id, parentId, name, checked, description) {
     return result;
 }
 
+/**
+ * Edits checked value of task.
+ * 
+ * @param {Array} tasks Array of tasks objects.
+ * @param {String} id Task id.
+ * @param {Boolean} checked True if the task should be checked.
+ * @returns {Array} New state of tasks array.
+ */
 function applyChangeCheckedTask(tasks, id, checked) {
 
     let item = {
-        id: "",
-        parentId: "",
-        name: "",
+        id: '',
+        parentId: '',
+        name: '',
         checked: false,
-        description: "",
+        description: '',
     };
 
     let result = tasks.map(task => {
@@ -174,6 +200,17 @@ function applyChangeCheckedTask(tasks, id, checked) {
 
 }
 
+/**
+ * Add new task to the array of tasks.
+ * 
+ * @param {Array} tasks Array of tasks objects.
+ * @param {String} id Task id.
+ * @param {String} parentId Id of parent category for the task.
+ * @param {String} name Task name.
+ * @param {Boolean} checked True if the task should be checked.
+ * @param {String} description Description of task.
+ * @returns {Array} New state of tasks array.
+ */
 function applyAddTask(tasks, id, parentId, name, checked, description) {
     let item = {
         parentId,
@@ -191,13 +228,21 @@ function applyAddTask(tasks, id, parentId, name, checked, description) {
     return result;
 }
 
+/**
+ * Edits title value of category.
+ * 
+ * @param {Array} categories Array of categories objects.
+ * @param {String} id Id of edited category.
+ * @param {String} title New title of edited category.
+ * @returns {Array} New state of categories array.
+ */
 function applyEditCategory(categories, id, title) {
     let result;
     let completed = false;
 
     let item = {
-        title: "",
-        id: "",
+        title: '',
+        id: '',
         nestedCategories: [],
     };
 
@@ -234,6 +279,16 @@ function applyEditCategory(categories, id, title) {
 
 }
 
+
+/**
+ * Adds category as a child of category pointed by parentId.
+ * 
+ * @param {Array} categories Array of categories objects.
+ * @param {String} id Id of new category.
+ * @param {String} parentId Id of parent category (null - root).
+ * @param {String} title Title of new category.
+ * @returns {Array} New state of categories array.
+ */
 function applyAddCategory(categories, id, parentId, title) {
 
     let result;
@@ -297,13 +352,20 @@ function applyAddCategory(categories, id, parentId, title) {
 
 }
 
-function applyDeleteCategory(category, id) {
+/**
+ * Deletes category from the array of categories.
+ * 
+ * @param {Array} categories Array of categories objects.
+ * @param {String} id Id of deleting category.
+ * @returns {Array} New state of categories array.
+ */
+function applyDeleteCategory(categories, id) {
 
     let completed = false;
     let filtered;
     let result;
 
-    filtered = category.filter(element => {
+    filtered = categories.filter(element => {
         if (element.id == id) {
             completed = true;
         }
@@ -328,14 +390,21 @@ function applyDeleteCategory(category, id) {
     return result;
 }
 
-function findCategoryById(category, id) {
+/**
+ * Founds category by it's id.
+ * 
+ * @param {Array} categories Array of categories objects.
+ * @param {String} id Id of finding category.
+ * @returns {Object} Founded category.
+ */
+function findCategoryById(categories, id) {
     let result = null;
-    category.forEach(element => {
+    categories.forEach(element => {
         if (element.id == id) result = element;
     });
 
     if (result == null) {
-        category.forEach(element => {
+        categories.forEach(element => {
             let stepResult = findCategoryById(element.nestedCategories, id);
             if (stepResult != null) result = stepResult;
         })
@@ -344,6 +413,12 @@ function findCategoryById(category, id) {
     return result;
 }
 
+/**
+ * Founds id's of nested categories for the 'category' parameter.
+ * 
+ * @param {Object} category Source category.
+ * @returns {Array} Array of the id's of nested categories.
+ */
 function findNestedCategoriesId(category) {
     let result = [];
     result.push(category.id);
@@ -353,6 +428,13 @@ function findNestedCategoriesId(category) {
     return result;
 }
 
+/**
+ * Deletes tasks from array of tasks which belongs to the categories.
+ * 
+ * @param {Array} tasks Array of tasks objects.
+ * @param {Array} idArray Array of the id's of categories.
+ * @returns {Array} New state of tasks array.
+ */
 function deleteTasks(tasks, idArray) {
     return tasks.filter(element => {
         for (let i = 0; i < idArray.length; i++) {

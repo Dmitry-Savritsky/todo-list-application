@@ -1,18 +1,26 @@
 import * as ACTIONS from '../constants/index';
+import history from '../history/history';
 
 export const initialState = {
     isNestedAddOpened: false,
     isEditCategoryOpened: false,
     isConfirmDeleteOpened: false,
-    editId: " ",
-    editTitle: " ",
-    nestedParentId: " ",
-    deleteId: " ",
-    deleteCategoryTitle: " ",
-    searchFilter: "",
+    editId: ' ',
+    editTitle: ' ',
+    nestedParentId: ' ',
+    deleteId: ' ',
+    deleteCategoryTitle: ' ',
+    searchFilter: '',
     showDone: false,
 }
 
+/**
+ * Reducer function. Specify how the application's state changes in response to actions sent to the store.
+ * 
+ * @param {Object} state Initial state of application.
+ * @param {Object} action Action sent to the store.
+ * @returns {Object} New state of application.
+ */
 export default function gui(state = initialState, action) {
     switch (action.type) {
         //add window
@@ -77,6 +85,14 @@ export default function gui(state = initialState, action) {
                 ...state,
                 searchFilter: action.filter,
             }
+        }
+
+        case ACTIONS.QUERY_UPDATE: {
+            const location = history.location;
+            location.search = 'show_done=' + state.showDone + '&search=' + state.searchFilter;
+            history.push(location);
+
+            return state;
         }
 
         default: return state;
