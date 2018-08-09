@@ -23,7 +23,7 @@ export default class CategoryForm extends React.Component {
                         openNestedAddWindow={this.props.openNestedAddWindow}
                         openCategoryEditWindow={this.props.openCategoryEditWindow}
                         openConfirmDeleteWindow={this.props.openConfirmDeleteWindow}
-                        updateQuery={this.props.updateQuery} />
+                        gui={this.props.gui} />
                 </Grid>
             </Grid>
         );
@@ -36,11 +36,12 @@ CategoryForm.propTypes = {
     openCategoryEditWindow: PropTypes.func.isRequired,
     openNestedAddWindow: PropTypes.func.isRequired,
     openConfirmDeleteWindow: PropTypes.func.isRequired,
-    updateQuery: PropTypes.func.isRequired,
 
     categories: PropTypes.arrayOf(PropTypes.shape({
         title: PropTypes.string.isRequired,
         id: PropTypes.string.isRequired,
         nestedCategories: PropTypes.array,
     })),
+
+    gui: PropTypes.object,
 }

@@ -29,7 +29,7 @@ class HeaderForm extends React.Component {
             && !_.isNil(this.props.location.search.search)) {
 
             this.state = {
-                isChecked: this.props.location.search.show_done,
+                isChecked: this.props.location.search.show_done === 'true',
                 searchValue: this.props.location.search.search,
             }
         }
@@ -85,16 +85,17 @@ class HeaderForm extends React.Component {
             location.search = 'show_done=' + this.state.isChecked + '&search=' + this.state.searchValue;
             history.push(location);
         }
+
     }
 
     checkQueryParams(search, showDone) {
 
         const location = Object.assign({}, this.props.location);
 
-        this.props.changeDoneHandler(showDone);
+        this.props.changeDoneHandler(showDone==='true');
         this.props.searchFilterHandler(search);
 
-        Object.assign(location.search, { show_done: showDone }, { search: search });
+        Object.assign(location.search, { show_done: showDone==='true' }, { search: search });
 
         history.push(location);
     }

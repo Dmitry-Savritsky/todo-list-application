@@ -118,9 +118,3 @@ export function doChangeShowDoneFilter(value) {
         value,
     }
 }
-
-export function doUpdateQuery() {
-    return {
-        type: ACTIONS.QUERY_UPDATE,
-    }
-}

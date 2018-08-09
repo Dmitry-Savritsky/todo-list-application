@@ -1,5 +1,4 @@
 import * as ACTIONS from '../constants/index';
-import history from '../history/history';
 
 export const initialState = {
     isNestedAddOpened: false,
@@ -85,14 +84,6 @@ export default function gui(state = initialState, action) {
                 ...state,
                 searchFilter: action.filter,
             }
-        }
-
-        case ACTIONS.QUERY_UPDATE: {
-            const location = history.location;
-            location.search = 'show_done=' + state.showDone + '&search=' + state.searchFilter;
-            history.push(location);
-
-            return state;
         }
 
         default: return state;

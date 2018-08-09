@@ -27,7 +27,10 @@ class CategoryList extends React.Component {
 
     categoryClickHandler(id) {
         history.push('/categories/' + id);
-        this.props.updateQuery();
+        
+        const location = history.location;
+        location.search = 'show_done=' + this.props.gui.showDone + '&search=' + this.props.gui.searchFilter;
+        history.push(location);
     }
 
     createCategoryList(category, level) {
@@ -96,11 +99,13 @@ CategoryList.propTypes = {
         id: PropTypes.string.isRequired,
         nestedCategories: PropTypes.array,
     })),
+
+    gui: PropTypes.object,
+
     chosenCategoryId: PropTypes.string,
     openNestedAddWindow: PropTypes.func.isRequired,
     openCategoryEditWindow: PropTypes.func.isRequired,
     openConfirmDeleteWindow: PropTypes.func.isRequired,
-    updateQuery: PropTypes.func.isRequired,
     classes: PropTypes.object.isRequired,
 }
 
