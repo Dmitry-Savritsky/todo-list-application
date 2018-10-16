@@ -2,7 +2,7 @@ import React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import List from '@material-ui/core/List';
-import Paper from '@material-ui/core/Paper';
+//import Paper from '@material-ui/core/Paper';
 import _ from 'lodash';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -79,11 +79,9 @@ class Test extends React.Component {
         return (
 
             <MuiThemeProvider>
-                <Paper elevation = {5}>
-                    <List className={this.props.classes.categoryList} disablePadding>
-                        {categoriesList}
-                    </List>
-                </Paper>
+                <List className={this.props.classes.categoryList} disablePadding>
+                    {categoriesList}
+                </List>
             </MuiThemeProvider>
         );
     }

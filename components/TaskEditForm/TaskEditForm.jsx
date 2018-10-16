@@ -3,7 +3,6 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -23,7 +22,6 @@ class TaskEditForm extends React.Component {
 
     render() {
         return (
-            <Paper elevation={5} style={styles.paper}>
 
                 <Grid container justify='flex-start' direction='column' spacing={16}>
                     <Grid item xs={8} >
@@ -59,7 +57,6 @@ class TaskEditForm extends React.Component {
                     </Grid>
                 </Grid>
                 
-            </Paper>
         );
     }
 }

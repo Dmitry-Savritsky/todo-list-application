@@ -1,7 +1,7 @@
 import React from 'react';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem'
-import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider'
+//import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider'
 import Paper from '@material-ui/core/Paper';
 
 import _ from 'lodash';
@@ -35,7 +35,7 @@ class TaskList extends React.Component {
                     if (!this.props.showDone || (this.props.showDone && element.checked))
                         if (element.name.startsWith(this.props.searchFilter) || this.props.searchFilter == '')
                             return (
-                                <Paper elevation={5} style={styles.itemCommonStyle}>
+                                <Paper elevation={5} style={styles.itemCommonStyle} key={element.id}>
                                     <ListItem
                                         key={element.id}>
 
@@ -58,11 +58,10 @@ class TaskList extends React.Component {
         const taskList = this.createTaskList();
 
         return (
-            <MuiThemeProvider>
+
                 <List className={this.props.classes.taskList}>
                     {taskList}
                 </List>
-            </MuiThemeProvider>
         );
     }
 }
