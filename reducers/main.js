@@ -1,3 +1,4 @@
+import axios from 'axios';
 import * as ACTIONS from '../constants/index';
 
 export const initialState = {
@@ -66,22 +67,28 @@ export const initialState = {
  * @returns {Object} New state of application.
  */
 export default function main(state = initialState, action) {
+    let result;
+    // if(action.type!= ACTIONS.DB_LOAD_STATE) applySaveState(state);
+
     switch (action.type) {
 
         case ACTIONS.CATEGORY_ADD:
-            return {
+            result = {
                 ...state,
                 categories: [
                     ...applyAddCategory(state.categories, action.id, action.parentId, action.title),
                 ],
             }
 
+            applySaveState(result);
+            return result;
+
         case ACTIONS.CATEGORY_DELETE: {
             let category = findCategoryById(state.categories, action.id);
             let idArray = findNestedCategoriesId(category);
             let tasks = deleteTasks(state.tasks, idArray);
 
-            return {
+            result = {
                 ...state,
                 categories: [
                     ...applyDeleteCategory(state.categories, action.id),
@@ -90,47 +97,85 @@ export default function main(state = initialState, action) {
                     ...tasks,
                 ],
             };
+
+            applySaveState(result);
+            return result;
         }
 
         case ACTIONS.CATEGORY_EDIT: {
-            return {
+            result = {
                 ...state,
                 categories: [
                     ...applyEditCategory(state.categories, action.id, action.title),
                 ],
             };
+
+            applySaveState(result);
+            return result;
         }
 
         case ACTIONS.TASK_ADD: {
-            return {
+            result = {
                 ...state,
                 tasks: [
                     ...applyAddTask(state.tasks, action.id, action.parentId, action.name, action.checked, action.description),
                 ],
             };
+
+            applySaveState(result);
+            return result;
         }
 
         case ACTIONS.TASK_EDIT: {
-            return {
+            result = {
                 ...state,
                 tasks: [
                     ...applyEditTask(state.tasks, action.id, action.parentId, action.name, action.checked, action.description),
                 ],
             };
+
+            applySaveState(result);
+            return result;
         }
 
         case ACTIONS.TASK_CHANGE_CHECKED: {
-            return {
+            result = {
                 ...state,
                 tasks: [
                     ...applyChangeCheckedTask(state.tasks, action.id, action.checked),
                 ],
             };
+
+            applySaveState(result);
+            return result;
+        }
+
+        case ACTIONS.DB_SET_LOADED_STATE: {
+
+            result = {
+                ...applyLoadedState(action.state),
+            }
+
+            return result;
         }
 
         default:
             return state;
     }
+
+}
+
+function applyLoadedState(state){
+    return state;
+}
+
+/**
+ * Saves state to db.
+ * 
+ * @param {Object} state Current state.
+ */
+function applySaveState(state) {
+    axios.post("http://localhost:4000/state/save", { state });
 }
 
 /**
