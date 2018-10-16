@@ -11,6 +11,7 @@ export const initialState = {
     deleteCategoryTitle: ' ',
     searchFilter: '',
     showDone: false,
+    showLoading: false,
 }
 
 /**
@@ -83,6 +84,20 @@ export default function gui(state = initialState, action) {
             return {
                 ...state,
                 searchFilter: action.filter,
+            }
+        }
+
+        case ACTIONS.DB_START_LOAD_STATE: {
+            return {
+                ...state,
+                showLoading: true,
+            }
+        }
+
+        case ACTIONS.DB_SET_LOADED_STATE:{
+            return {
+                ...state,
+                showLoading: false,
             }
         }
 
