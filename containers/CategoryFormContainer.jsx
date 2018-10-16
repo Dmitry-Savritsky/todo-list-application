@@ -5,6 +5,7 @@ import CategoryForm from '../components/CategoryForm/CategoryForm.jsx';
 const mapStateToProps = (state, ownProps) => ({
     categories: state.root.main.present.categories,
     chosenCategoryId: ownProps.chosenCategoryId,
+    gui: state.root.gui,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -14,7 +15,6 @@ const mapDispatchToProps = dispatch => ({
     openCategoryEditWindow: (editId, title) => dispatch(ACTIONS.doOpenCategoryEditWindow(editId, title)),
     openConfirmDeleteWindow: (deleteId, deleteTitle) => dispatch(ACTIONS.doOpenConfirmDeleteWindow(deleteId, deleteTitle)),
     editCategory: (id, title) => dispatch(ACTIONS.doEditCategory(id, title)),
-    updateQuery: () => dispatch(ACTIONS.doUpdateQuery()),
 });
 
 export default connect(
