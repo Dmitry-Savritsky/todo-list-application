@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import history from '../history/history';
 import * as ACTIONS from '../actions';
 import TaskMoveList from '../components/TaskMoveList/TaskMoveList.jsx';
@@ -15,12 +16,13 @@ import getNameValidationState from '../utils/index';
 class TaskEditPage extends React.Component {
     constructor(props) {
         super(props);
+
         this.state = {
-            parentId: this.props.task.parentId,
-            name: this.props.task.name,
-            isChecked: this.props.task.checked,
-            description: this.props.task.description,
-            valid: getNameValidationState(this.props.task.name),
+            parentId: "",
+            name: "",
+            isChecked: false,
+            description: "",
+            valid: false,
         }
 
         this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
@@ -29,6 +31,21 @@ class TaskEditPage extends React.Component {
         this.moveToCategoryHandler = this.moveToCategoryHandler.bind(this);
         this.saveChangesHandler = this.saveChangesHandler.bind(this);
         this.cancelHandler = this.cancelHandler.bind(this);
+    }
+
+    componentDidMount() {
+        this.props.loadStateFromDB();
+    }
+
+    UNSAFE_componentWillReceiveProps(newProps) {
+        if (this.props.task !== newProps.task)
+            this.setState({
+                parentId: newProps.task.parentId,
+                name: newProps.task.name,
+                isChecked: newProps.task.checked,
+                description: newProps.task.description,
+                valid: getNameValidationState(newProps.task.name),
+            });
     }
 
     handleCheckboxChange(event) {
@@ -67,46 +84,53 @@ class TaskEditPage extends React.Component {
     }
 
     render() {
-        return (
-            <Grid container justify='center' spacing={8}>
-                <CssBaseline />
-                <Grid container justify='center'>
-                    <Grid item >
-                        <Typography variant={'display3'}> {this.props.task.name}</Typography>
-                    </Grid>
+
+        let progress = this.props.isLoading && <CircularProgress size={100} />
+        let main = !this.props.isLoading && <Grid container justify='center' spacing={8}>
+            <CssBaseline />
+            <Grid container justify='center'>
+                <Grid item >
+                    <Typography variant={'display3'}> {this.state.name}</Typography>
+                </Grid>
+            </Grid>
+
+            <Grid container spacing={8} justify='center'>
+                <Grid item xs={5}>
+                    <TaskMoveList categories={this.props.categories}
+                        parentCategoryId={this.state.parentId}
+                        moveToCategoryHandler={this.moveToCategoryHandler} />
                 </Grid>
 
-                <Grid container spacing={8} justify='center'>
-                    <Grid item xs={5}>
-                        <TaskMoveList categories={this.props.categories}
-                            parentCategoryId={this.state.parentId}
-                            moveToCategoryHandler={this.moveToCategoryHandler} />
-                    </Grid>
+                <Grid item xs={5}>
+                    <Grid container spacing={8} justify='center' direction='column'>
 
-                    <Grid item xs={5}>
-                        <Grid container spacing={8} justify='center' direction='column'>
-
-                            <Grid item>
-                                <TaskEditForm
-                                    nameChangeHandler={this.handleNameChange}
-                                    name={this.state.name}
-                                    checkboxChangeHandler={this.handleCheckboxChange}
-                                    checkbox={this.state.isChecked}
-                                    descriptionChangeHandler={this.handleDescriptionChange}
-                                    description={this.state.description} />
-                            </Grid>
-
-                            <Grid item>
-                                <TaskEditControl
-                                    isDisabled={!this.state.valid}
-                                    saveChangesHandler={this.saveChangesHandler}
-                                    cancelHandler={this.cancelHandler} />
-                            </Grid>
-
+                        <Grid item>
+                            <TaskEditForm
+                                nameChangeHandler={this.handleNameChange}
+                                name={this.state.name}
+                                checkboxChangeHandler={this.handleCheckboxChange}
+                                checkbox={this.state.isChecked}
+                                descriptionChangeHandler={this.handleDescriptionChange}
+                                description={this.state.description} />
                         </Grid>
+
+                        <Grid item>
+                            <TaskEditControl
+                                isDisabled={!this.state.valid}
+                                saveChangesHandler={this.saveChangesHandler}
+                                cancelHandler={this.cancelHandler} />
+                        </Grid>
+
                     </Grid>
                 </Grid>
-            </Grid >
+            </Grid>
+        </Grid >
+
+        return (
+            <div>
+                {progress}
+                {main}
+            </div>
         )
 
     }
@@ -115,10 +139,12 @@ class TaskEditPage extends React.Component {
 const mapStateToProps = (state, ownProps) => ({
     task: state.root.main.present.tasks.find(task => task.id === ownProps.match.params.id),
     categories: state.root.main.present.categories,
+    isLoading: state.root.gui.showLoading,
 });
 
 const mapDispatchToProps = dispatch => ({
     saveChangesHandler: (id, parentId, name, description, isChecked) => dispatch(ACTIONS.doEditTask(id, parentId, name, description, isChecked)),
+    loadStateFromDB: () => dispatch(ACTIONS.doGetState()),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TaskEditPage));
@@ -138,4 +164,6 @@ TaskEditPage.propTypes = {
     })),
     match: PropTypes.any,
     saveChangesHandler: PropTypes.func.isRequired,
+    loadStateFromDB: PropTypes.func,
+    isLoading: PropTypes.bool.isRequired,
 }
