@@ -15,4 +15,5 @@ export const SHOW_DONE_FILTER_CHANGE = 'SHOW_DONE_FILTER/CHANGE';
 export const STEP_UNDO = 'STEP/UNDO';
 export const STEP_REDO = 'STEP/REDO';
 export const LOCATION_CHANGE = '@@router/LOCATION_CHANGE';
-export const QUERY_UPDATE = 'QUERY/UPDATE';
+export const DB_START_LOAD_STATE = 'DB/START_LOAD_STATE';
+export const DB_SET_LOADED_STATE = 'DB/SET_LOADED_STATE';
